@@ -4,7 +4,7 @@
   /* ─── Paleta (estricta del manual) ─── */
   --color-ink: #08090a;
   --color-paper: #ffffff;
-  --color-paper-2: #f4f4f2;
+  --color-paper-2: #f5f5f5;
   --color-rule: #08090a;
   --color-mute: rgba(8, 9, 10, 0.55);
   --color-mute-2: rgba(8, 9, 10, 0.32);
@@ -13,21 +13,25 @@
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-instrument-serif), "Times New Roman", Georgia, serif;
 
-  /* ─── Escala tipográfica editorial ─── */
-  --text-display-xl: clamp(72px, 11vw, 200px);
-  --text-display-l: clamp(56px, 7vw, 120px);
-  --text-display-m: clamp(36px, 4vw, 64px);
-  --text-display-s: clamp(28px, 2.4vw, 40px);
+  /* ─── Escala tipográfica (Fase 1 refactor: ~60% del original)
+     Top end ≈ text-7xl / text-5xl / text-4xl según brief. */
+  --text-display-xl: clamp(40px, 6vw, 72px);   /* Hero headline, max text-7xl */
+  --text-display-l: clamp(32px, 4.5vw, 48px);  /* Section headings, max text-5xl */
+  --text-display-m: clamp(24px, 3vw, 36px);    /* Pull quotes, sub-headlines */
+  --text-display-s: clamp(20px, 2vw, 28px);    /* Card titles */
   --text-eyebrow: 11px;
-  --text-body-l: clamp(17px, 1.15vw, 20px);
+  --text-body-l: clamp(16px, 1.1vw, 18px);     /* Lead paragraphs, max text-lg */
   --text-body: 16px;
   --text-body-s: 14px;
   --text-caption: 12px;
 
-  /* ─── Espaciado ─── */
-  --section-pad-y: clamp(96px, 12vw, 200px);
-  --container-pad-x: clamp(24px, 4vw, 56px);
-  --container-max: 1440px;
+  /* ─── Espaciado: py-12 mobile → py-20 desktop según brief ─── */
+  --section-pad-y: clamp(48px, 8vw, 80px);
+  --container-pad-x: clamp(24px, 3vw, 48px);   /* px-6 lg:px-12 */
+  --container-max: 1280px;                      /* max-w-7xl */
+
+  /* ─── Header / scroll offset ─── */
+  --nav-height: 72px;
 }
 
 :root {
@@ -45,12 +49,22 @@ body {
   color: var(--color-ink);
 }
 
+html {
+  /* Anchors no quedan tapados por el navbar sticky */
+  scroll-padding-top: calc(var(--nav-height) + 8px);
+}
+
 body {
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: 1.5;
   font-feature-settings: "ss01", "cv11";
   overflow-x: hidden;
+}
+
+/* Cualquier ancla [id] respeta también scroll-margin-top */
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 8px);
 }
 
 /* ─── Selección ─── */
@@ -92,36 +106,36 @@ hr {
 
 .display-xl {
   font-size: var(--text-display-xl);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  line-height: 1;
+  letter-spacing: -0.035em;
   font-weight: 500;
 }
 
 .display-l {
   font-size: var(--text-display-l);
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   font-weight: 500;
 }
 
 .display-m {
   font-size: var(--text-display-m);
-  line-height: 1.04;
-  letter-spacing: -0.025em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   font-weight: 500;
 }
 
 .display-s {
   font-size: var(--text-display-s);
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   font-weight: 500;
 }
 
 .body-l {
   font-size: var(--text-body-l);
-  line-height: 1.5;
-  letter-spacing: -0.005em;
+  line-height: 1.55;
+  letter-spacing: -0.003em;
   font-weight: 400;
 }
 

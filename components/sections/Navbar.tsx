@@ -68,7 +68,7 @@ export function Navbar() {
       style={{ color: isInverted ? paper : ink }}
     >
       <div className="w-full px-[var(--container-pad-x)]">
-        <div className="flex items-center justify-between h-[72px]">
+        <div className="flex items-center justify-between h-[var(--nav-height)]">
           <a href="#top" className="relative z-10" aria-label="Inicio">
             <Logo size="m" inverted={isInverted} />
           </a>
