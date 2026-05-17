@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { Triple } from "@/components/sections/Triple";
+import { ValueProps } from "@/components/sections/ValueProps";
 import { Manifiesto } from "@/components/sections/Manifiesto";
 import { Arquitectura } from "@/components/sections/Arquitectura";
 import { Especialidades } from "@/components/sections/Especialidades";
@@ -17,7 +17,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Triple />
+        <ValueProps />
         <Manifiesto />
         <Arquitectura />
         <Especialidades />

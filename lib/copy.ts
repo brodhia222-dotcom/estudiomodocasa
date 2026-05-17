@@ -32,23 +32,23 @@ export const copy = {
     },
   },
 
-  triple: [
+  // Value props compactos (Fase 3 del refactor). Reemplazan el bloque triple
+  // gigante anterior. Tres ideas distintas — no repetir "confianza" tres veces.
+  valueProps: [
     {
       number: "01",
-      title: "Arquitectura interior",
-      italic: "diseñada en torno al paciente.",
+      title: "Centrado en el paciente",
+      body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
     },
     {
       number: "02",
-      title: "Diseño que comunica",
-      italic: "precisión y confianza,",
-      footer: "y refleja excelencia médica.",
+      title: "Excelencia médica",
+      body: "Cada detalle comunica precisión y profesionalismo. Tu espacio refleja tu estándar.",
     },
     {
       number: "03",
-      title: "Espacios que generan",
-      italic: "una experiencia",
-      footer: "que transmite confianza desde el primer momento.",
+      title: "Confianza inmediata",
+      body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
     },
   ],
 
