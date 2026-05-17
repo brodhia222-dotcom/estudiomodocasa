@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
+@theme {
+  /* ─── Paleta (estricta del manual) ─── */
+  --color-ink: #08090a;
+  --color-paper: #ffffff;
+  --color-paper-2: #f4f4f2;
+  --color-rule: #08090a;
+  --color-mute: rgba(8, 9, 10, 0.55);
+  --color-mute-2: rgba(8, 9, 10, 0.32);
+
+  /* ─── Fuentes ─── */
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument-serif), "Times New Roman", Georgia, serif;
+
+  /* ─── Escala tipográfica editorial ─── */
+  --text-display-xl: clamp(72px, 11vw, 200px);
+  --text-display-l: clamp(56px, 7vw, 120px);
+  --text-display-m: clamp(36px, 4vw, 64px);
+  --text-display-s: clamp(28px, 2.4vw, 40px);
+  --text-eyebrow: 11px;
+  --text-body-l: clamp(17px, 1.15vw, 20px);
+  --text-body: 16px;
+  --text-body-s: 14px;
+  --text-caption: 12px;
+
+  /* ─── Espaciado ─── */
+  --section-pad-y: clamp(96px, 12vw, 200px);
+  --container-pad-x: clamp(24px, 4vw, 56px);
+  --container-max: 1440px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
+}
+
+/* ─── Selección ─── */
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ─── Focus rings accesibles ─── */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ─── Hairlines ─── */
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+  margin: 0;
+}
+
+/* ─── Tipografía base ─── */
+.font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.display-xl {
+  font-size: var(--text-display-xl);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.display-l {
+  font-size: var(--text-display-l);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+.display-m {
+  font-size: var(--text-display-m);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+.display-s {
+  font-size: var(--text-display-s);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+
+.body-l {
+  font-size: var(--text-body-l);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Util ─── */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none;
 }
