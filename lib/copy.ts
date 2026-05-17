@@ -18,12 +18,18 @@ export const copy = {
 
   hero: {
     eyebrow: "Estudio de arquitectura · Buenos Aires",
-    headlinePre: "Diseñamos",
-    headlineItalic: "consultorios",
-    headlinePost: "que elevan tu práctica.",
-    sub: "Trasladamos quince años de interiorismo de alta gama a entornos médicos. Espacios que comunican precisión, confianza y excelencia desde el primer momento.",
+    // El headline se renderiza en 3 segmentos. El segmento `italic` se setea
+    // en Times Now Italic (Instrument Serif como fallback) sin cambiar de tamaño.
+    headlinePre: "Diseñamos espacios médicos que",
+    headlineItalic: "elevan",
+    headlinePost: "tu práctica y la experiencia de tus pacientes.",
+    lead: "Quince años de interiorismo de alta gama, aplicados a consultorios y clínicas privadas en CABA.",
     primaryCta: "Coordinar reunión privada",
-    scrollHint: "Conocer el estudio",
+    microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
+    image: {
+      src: "/images/placeholders/hero-clinic.jpg",
+      alt: "Consultorio médico minimalista en blanco y negro, fotografía de Unsplash usada como placeholder.",
+    },
   },
 
   triple: [
