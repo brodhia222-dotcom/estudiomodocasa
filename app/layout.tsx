@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { interTight, instrumentSerif } from "@/lib/fonts";
 import { LenisProvider } from "@/components/LenisProvider";
+import { WhatsAppBubble } from "@/components/ui/whatsapp-bubble";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -81,6 +82,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <LenisProvider>{children}</LenisProvider>
+        <WhatsAppBubble />
       </body>
     </html>
   );
