@@ -25,7 +25,7 @@ export function Proyectos() {
           </div>
         </header>
 
-        <ExpandingProjectsCards items={[...copy.proyectos.items]} defaultActiveIndex={0} />
+        <ExpandingProjectsCards items={[...copy.proyectos.items]} />
       </Container>
     </Section>
   );

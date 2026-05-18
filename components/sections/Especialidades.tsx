@@ -50,7 +50,7 @@ export function Especialidades() {
           </div>
         </header>
 
-        <ExpandingCards items={items} defaultActiveIndex={0} desktopHeight={520} />
+        <ExpandingCards items={items} desktopHeight={520} />
       </Container>
     </Section>
   );

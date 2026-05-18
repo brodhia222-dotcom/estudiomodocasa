@@ -9,11 +9,10 @@ import { useState } from "react";
  * para alinear con la marca de ModoCasa:
  *   - placeholder editorial dentro de cada card (grilla 1px + label) en vez
  *     de imágenes externas
- *   - contenido tipográfico encima (overlay) cuando la card está expandida
- *   - paleta consume tokens (--color-ink / --color-paper)
- *   - sin bordes redondeados pesados (rounded-none, swiss editorial)
- *   - touch support: en mobile las cards se apilan verticalmente y se
- *     expanden vía click/tap
+ *   - sin activo por default — todas las cards arrancan con el mismo
+ *     grosor; al hover una se expande y al salir vuelven al estado parejo
+ *   - touch support: en mobile las cards se apilan verticalmente; tap
+ *     abre la card, otro tap (o sobre otra) la cierra
  */
 
 export type ExpandingProjectCard = {
@@ -26,16 +25,18 @@ export type ExpandingProjectCard = {
 
 type Props = {
   items: ExpandingProjectCard[];
-  defaultActiveIndex?: number;
 };
 
-export function ExpandingProjectsCards({ items, defaultActiveIndex = 0 }: Props) {
-  const [active, setActive] = useState(defaultActiveIndex);
+export function ExpandingProjectsCards({ items }: Props) {
+  const [active, setActive] = useState<number | null>(null);
 
   return (
     <div className="w-full overflow-hidden">
       {/* Desktop: fila horizontal con expansión sobre hover */}
-      <div className="hidden md:flex w-full gap-2 h-[480px]">
+      <div
+        className="hidden md:flex w-full gap-2 h-[480px]"
+        onMouseLeave={() => setActive(null)}
+      >
         {items.map((item, idx) => {
           const isActive = active === idx;
           return (
@@ -46,9 +47,12 @@ export function ExpandingProjectsCards({ items, defaultActiveIndex = 0 }: Props)
               data-active={isActive}
               onMouseEnter={() => setActive(idx)}
               onFocus={() => setActive(idx)}
+              onBlur={() => setActive(null)}
               className="relative cursor-pointer overflow-hidden transition-[flex-grow] duration-700 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ink)] focus-visible:ring-offset-2"
               style={{
-                flexGrow: isActive ? 6 : 1,
+                // Sin activo: todas iguales (flex-grow: 1).
+                // Con activo: la activa toma 6, las demás 1.
+                flexGrow: active === null ? 1 : isActive ? 6 : 1,
                 flexBasis: 0,
                 minWidth: "72px",
               }}
@@ -69,9 +73,9 @@ export function ExpandingProjectsCards({ items, defaultActiveIndex = 0 }: Props)
               role="button"
               tabIndex={0}
               data-active={isActive}
-              onClick={() => setActive(idx)}
+              onClick={() => setActive(isActive ? null : idx)}
               className="relative cursor-pointer overflow-hidden transition-[height] duration-700 ease-out outline-none"
-              style={{ height: isActive ? 380 : 88 }}
+              style={{ height: isActive ? 380 : 120 }}
             >
               <CardContent item={item} index={idx} isActive={isActive} />
             </div>

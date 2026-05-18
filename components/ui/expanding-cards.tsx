@@ -4,14 +4,12 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Grid de cards que se expanden al hover/click.
+ * Grid de cards que se expanden al hover/focus.
  *
- * Adaptación del componente de 21st.dev (Expanding Cards) para encajar con
- * la marca B&N de ModoCasa:
- *  - imágenes opcionales (cuando no hay `imgSrc` se renderiza placeholder
- *    editorial con grilla 1px, mismo lenguaje del MediaSlot)
- *  - grayscale permanente (B&N estricto, no se invierte al activar)
- *  - paleta y tipografía consumen los tokens del proyecto
+ * Adaptación del componente de 21st.dev para encajar con la marca B&N de
+ * ModoCasa. Sin estado "activo" por default — todas las cards arrancan
+ * con el mismo grosor. Al pasar el cursor sobre alguna, esa se expande y
+ * el resto colapsa. Al salir del área completa, vuelven al estado parejo.
  */
 
 export type ExpandingCardItem = {
@@ -26,17 +24,13 @@ export type ExpandingCardItem = {
 
 type ExpandingCardsProps = React.HTMLAttributes<HTMLUListElement> & {
   items: ExpandingCardItem[];
-  defaultActiveIndex?: number;
   /** Altura del grid (px) en desktop. Mobile usa el alto natural en stack. */
   desktopHeight?: number;
 };
 
 export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsProps>(
-  (
-    { className, items, defaultActiveIndex = 0, desktopHeight = 520, ...props },
-    ref,
-  ) => {
-    const [activeIndex, setActiveIndex] = React.useState<number>(defaultActiveIndex);
+  ({ className, items, desktopHeight = 520, ...props }, ref) => {
+    const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
     const [isDesktop, setIsDesktop] = React.useState(false);
 
     React.useEffect(() => {
@@ -47,8 +41,12 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
     }, []);
 
     const gridStyle = React.useMemo<React.CSSProperties>(() => {
+      // Sin activo: todas las cards iguales (1fr cada una).
+      // Con activo: la activa toma 5fr, las demás 1fr.
       const tracks = items
-        .map((_, i) => (i === activeIndex ? "5fr" : "1fr"))
+        .map((_, i) =>
+          activeIndex === null ? "1fr" : i === activeIndex ? "5fr" : "1fr",
+        )
         .join(" ");
       return isDesktop
         ? { gridTemplateColumns: tracks, gridTemplateRows: "1fr" }
@@ -58,8 +56,10 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
     return (
       <ul
         ref={ref}
+        // Al salir el cursor del área completa volvemos a "ninguno activo"
+        onMouseLeave={() => setActiveIndex(null)}
         className={cn(
-          "grid w-full gap-2 transition-[grid-template-columns,grid-template-rows] duration-500 ease-out",
+          "grid w-full gap-2 transition-[grid-template-columns,grid-template-rows] duration-700 ease-out",
           className,
         )}
         style={{
@@ -78,6 +78,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
               tabIndex={0}
               onMouseEnter={() => setActiveIndex(i)}
               onFocus={() => setActiveIndex(i)}
+              onBlur={() => setActiveIndex(null)}
               onClick={() => setActiveIndex(i)}
               className={cn(
                 "group relative cursor-pointer overflow-hidden",
@@ -93,7 +94,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                 <img
                   src={item.imgSrc}
                   alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.05] scale-105 transition-transform duration-500 ease-out group-data-[active=true]:scale-100"
+                  className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.05] scale-105 transition-transform duration-700 ease-out group-data-[active=true]:scale-100"
                 />
               ) : (
                 <PlaceholderBg label={item.placeholderLabel ?? item.title.toUpperCase()} />

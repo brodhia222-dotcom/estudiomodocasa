@@ -40,11 +40,10 @@ export function Footer() {
 
         <Hairline className="my-10" static />
 
-        <div className="flex flex-col md:flex-row md:justify-between gap-3 text-[12px] opacity-55">
+        <div className="text-[12px] opacity-55">
           <p>
             © {year} {copy.brand.name} estudio. {copy.footer.rights}
           </p>
-          <p>{copy.footer.credit}</p>
         </div>
       </Container>
     </footer>
