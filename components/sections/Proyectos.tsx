@@ -1,133 +1,95 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
+import { MediaSlot } from "@/components/primitives/MediaSlot";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
-// Layout asimétrico editorial: filas con anchos variables
-const layout = [
-  // Row 1: large left, small right
-  [{ span: 7, align: "left" }, { span: 5, align: "right" }],
-  // Row 2: small left, large right
-  [{ span: 5, align: "left" }, { span: 7, align: "right" }],
-  // Row 3: balanced
-  [{ span: 6, align: "left" }, { span: 6, align: "right" }],
-] as const;
+const grid: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const card: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeEditorial } },
+};
 
 export function Proyectos() {
+  const [hero, ...rest] = copy.proyectos.items;
+
   return (
     <Section id="proyectos" bg="paper">
       <Container>
-        <header className="grid grid-cols-12 gap-x-6 gap-y-10 mb-[clamp(64px,9vw,144px)]">
+        {/* Header compacto */}
+        <header className="grid grid-cols-12 gap-x-6 gap-y-6 mb-[clamp(48px,7vw,96px)]">
           <div className="col-span-12 md:col-span-3">
             <Eyebrow number="—">{copy.proyectos.eyebrow}</Eyebrow>
           </div>
-          <div className="col-span-12 md:col-span-9 flex flex-col gap-8">
-            <Reveal as="h2" className="display-l">
+          <div className="col-span-12 md:col-span-9 flex flex-col gap-5">
+            <Reveal as="h2" className="display-l max-w-[18ch]">
               {copy.proyectos.headline}
             </Reveal>
-            <Reveal as="p" className="body-l opacity-75 max-w-[640px]" delay={0.1}>
+            <Reveal as="p" className="body-l text-[var(--color-ink)]/70 max-w-[56ch]" delay={0.1}>
               {copy.proyectos.sub}
             </Reveal>
           </div>
         </header>
 
-        <div className="flex flex-col gap-[clamp(40px,5vw,80px)]">
-          {layout.map((row, rowIndex) => {
-            const items = copy.proyectos.items.slice(rowIndex * 2, rowIndex * 2 + 2);
-            return (
-              <div key={rowIndex} className="grid grid-cols-12 gap-[clamp(20px,3vw,48px)]">
-                {items.map((p, i) => {
-                  const cfg = row[i];
-                  return (
-                    <ProjectTile
-                      key={p.num}
-                      project={p}
-                      span={cfg.span}
-                      index={rowIndex * 2 + i}
-                    />
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
+        {/* Grid asimétrico 1 arriba + 2 abajo */}
+        <motion.div
+          variants={grid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="flex flex-col gap-8"
+        >
+          {/* Row 1: 1 proyecto full-width (el más reciente, criterio editorial) */}
+          <motion.div variants={card}>
+            <ProjectCard project={hero} />
+          </motion.div>
 
-        <p className="mt-16 text-[12px] opacity-50 max-w-[480px]">{copy.proyectos.note}</p>
+          {/* Row 2: 2 proyectos lado a lado */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {rest.map((p) => (
+              <motion.div key={p.name} variants={card}>
+                <ProjectCard project={p} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </Container>
     </Section>
   );
 }
 
-function ProjectTile({
-  project,
-  span,
-  index,
-}: {
-  project: (typeof copy.proyectos.items)[number];
-  span: number;
-  index: number;
-}) {
-  const spanClass: Record<number, string> = {
-    5: "col-span-12 md:col-span-5",
-    6: "col-span-12 md:col-span-6",
-    7: "col-span-12 md:col-span-7",
-  };
+function ProjectCard({ project }: { project: (typeof copy.proyectos.items)[number] }) {
   return (
-    <motion.figure
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={viewportOnce}
-      transition={{ duration: 0.9, ease: easeEditorial, delay: (index % 2) * 0.1 }}
-      className={`${spanClass[span] ?? "col-span-12"} group flex flex-col gap-6`}
-    >
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: project.aspect.replace("/", " / ") }}
-      >
-        {/* Placeholder editorial — fondo ink con grid sutil y caption */}
-        <div className="absolute inset-0 bg-[var(--color-ink)] overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage:
-                "linear-gradient(var(--color-paper) 1px, transparent 1px), linear-gradient(90deg, var(--color-paper) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-          <motion.div
-            initial={{ scale: 1.04 }}
-            whileInView={{ scale: 1 }}
-            viewport={viewportOnce}
-            transition={{ duration: 1.2, ease: easeEditorial }}
-            className="absolute inset-0 flex items-end justify-between p-6 md:p-10"
-          >
-            <span className="eyebrow text-[var(--color-paper)] opacity-65">{project.num}</span>
-            <span className="eyebrow text-[var(--color-paper)] opacity-65">
-              Imagen pendiente
-            </span>
-          </motion.div>
-        </div>
-
-        {/* Reveal overlay que se retira de izquierda a derecha */}
-        <motion.div
-          initial={{ scaleX: 1 }}
-          whileInView={{ scaleX: 0 }}
-          viewport={viewportOnce}
-          transition={{ duration: 1.2, ease: easeEditorial, delay: 0.1 }}
-          style={{ transformOrigin: "right" }}
-          className="absolute inset-0 bg-[var(--color-paper)]"
+    <figure className="group flex flex-col">
+      <div className="relative overflow-hidden">
+        <MediaSlot
+          src={project.image}
+          alt={project.alt}
+          aspect="4/3"
+          className="transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+        />
+        {/* Overlay sutil al hover. pointer-events-none para no romper foco. */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover:bg-[var(--color-ink)]/5 transition-colors duration-300 pointer-events-none"
         />
       </div>
 
-      <figcaption className="flex items-baseline justify-between gap-6">
-        <h3 className="display-s font-medium leading-tight max-w-[480px]">{project.name}</h3>
-        <p className="text-[13px] opacity-60 whitespace-nowrap">{project.spec}</p>
+      <figcaption className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h3 className="display-s font-semibold">{project.name}</h3>
+        <span className="text-[13px] md:text-[14px] text-[var(--color-ink)]/55 whitespace-nowrap">
+          {project.spec}
+        </span>
       </figcaption>
-    </motion.figure>
+    </figure>
   );
 }

@@ -7,6 +7,11 @@ type MediaSlotProps = {
   alt: string;
   aspect: string; // ej. "3/4", "4/3", "16/10"
   number?: string;
+  /**
+   * Label opcional superpuesto al placeholder (esquina superior derecha).
+   * Por default no se muestra — el placeholder limpio es suficiente.
+   */
+  placeholderLabel?: string;
   className?: string;
   /** En grayscale por defecto: la estética B&N del manual nunca pide color. */
   color?: boolean;
@@ -26,6 +31,7 @@ export function MediaSlot({
   alt,
   aspect,
   number,
+  placeholderLabel,
   className = "",
   color = false,
 }: MediaSlotProps) {
@@ -49,14 +55,18 @@ export function MediaSlot({
             backgroundSize: "32px 32px",
           }}
         />
-        <div className="absolute inset-0 flex items-start justify-between p-5">
-          {number && (
-            <span className="eyebrow text-[var(--color-ink)]/55">{number}</span>
-          )}
-          <span className="ml-auto eyebrow text-[var(--color-ink)]/35">
-            Imagen pendiente
-          </span>
-        </div>
+        {(number || placeholderLabel) && (
+          <div className="absolute inset-0 flex items-start justify-between p-5 pointer-events-none">
+            {number && (
+              <span className="eyebrow text-[var(--color-ink)]/55">{number}</span>
+            )}
+            {placeholderLabel && (
+              <span className="ml-auto eyebrow text-[var(--color-ink)]/35">
+                {placeholderLabel}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Imagen real. Arranca con visibility: hidden hasta onLoad para

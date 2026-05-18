@@ -87,15 +87,28 @@ export const copy = {
     eyebrow: "Obras seleccionadas",
     headline: "Proyectos destacados.",
     sub: "Una selección curada de espacios donde la arquitectura sostiene la práctica médica.",
+    // 3 proyectos en grid asimétrico 1+2 (Fase 4 del refactor). El primero
+    // ocupa la fila completa (el más reciente, 2024). Aspect uniforme 4:3 según brief.
     items: [
-      { num: "01", name: "Centro de Estética Almagro", spec: "Estética · CABA, 2024", aspect: "16/10" },
-      { num: "02", name: "Consultorio Odontológico Recoleta", spec: "Odontología · CABA, 2023", aspect: "4/5" },
-      { num: "03", name: "Clínica Ginecológica Palermo", spec: "Ginecología · CABA, 2023", aspect: "3/2" },
-      { num: "04", name: "Centro Oftalmológico Belgrano", spec: "Oftalmología · CABA, 2022", aspect: "1/1" },
-      { num: "05", name: "Espacio Terapéutico Nordelta", spec: "Salud mental · Tigre, 2022", aspect: "16/10" },
-      { num: "06", name: "Pediatría Vicente López", spec: "Pediatría · Vicente López, 2021", aspect: "4/5" },
+      {
+        name: "Centro de Estética Almagro",
+        spec: "Estética · CABA · 2024",
+        image: "/images/placeholders/project-aesthetic-almagro.jpg",
+        alt: "Centro de Estética Almagro, fotografía Unsplash usada como placeholder hasta entregar obra real.",
+      },
+      {
+        name: "Consultorio Odontológico Recoleta",
+        spec: "Odontología · CABA · 2023",
+        image: "/images/placeholders/project-dental-recoleta.jpg",
+        alt: "Consultorio Odontológico Recoleta, fotografía Unsplash usada como placeholder.",
+      },
+      {
+        name: "Clínica Ginecológica Palermo",
+        spec: "Ginecología · CABA · 2023",
+        image: "/images/placeholders/project-ginecology-palermo.jpg",
+        alt: "Clínica Ginecológica Palermo, fotografía Unsplash usada como placeholder.",
+      },
     ],
-    note: "Las imágenes mostradas corresponden a renders de presentación. Carpeta completa de obra disponible bajo reunión.",
   },
 
   metodologia: {
