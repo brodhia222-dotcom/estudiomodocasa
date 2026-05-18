@@ -28,7 +28,9 @@ export const copy = {
     microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
     image: {
       src: "/images/placeholders/hero-clinic.jpg",
-      alt: "Consultorio médico minimalista en blanco y negro, fotografía de Unsplash usada como placeholder.",
+      alt: "Consultorio médico minimalista en blanco y negro, fotografía o video que va detrás del shader.",
+      // Label superpuesto al placeholder mientras no haya media real.
+      placeholderLabel: "VIDEO O FOTOGRAFÍA · ATMÓSFERA",
     },
   },
 
@@ -71,15 +73,38 @@ export const copy = {
     eyebrow: "Para quién diseñamos",
     headline: "Especialidades atendidas.",
     sub: "Trabajamos con profesionales y clínicas privadas que entienden que el espacio es parte del tratamiento.",
+    // 4 cards curadas para ExpandingCards. Cada una representa una dimensión
+    // distinta del trabajo del estudio (técnico / premium / sensible / escala).
+    // Las 8 especialidades anteriores quedan implícitas dentro de estos grupos.
     items: [
-      { num: "01", name: "Odontología", caption: "Quirófano, RX, recepción y áreas estériles." },
-      { num: "02", name: "Estética & dermatología", caption: "Cabinas, salas de procedimientos, lounge." },
-      { num: "03", name: "Ginecología", caption: "Consultorio, ecografía, área de espera privada." },
-      { num: "04", name: "Oftalmología", caption: "Salas de diagnóstico, refracción y quirófano menor." },
-      { num: "05", name: "Salud mental", caption: "Consultorio acústicamente aislado y privacidad." },
-      { num: "06", name: "Pediatría", caption: "Espacios cálidos para niños y padres, área de juego." },
-      { num: "07", name: "Kinesiología", caption: "Salas amplias, gimnasio terapéutico, vestuarios." },
-      { num: "08", name: "Clínicas multidisciplinarias", caption: "Recorridos, áreas comunes y core técnico." },
+      {
+        id: "odontologia",
+        title: "Odontología",
+        description:
+          "Quirófano, RX, recepción y áreas estériles. Resolvemos la complejidad técnica del consultorio odontológico sin perder la calidez del espacio.",
+        placeholderLabel: "01 · ODONTOLOGÍA",
+      },
+      {
+        id: "estetica",
+        title: "Estética & Dermatología",
+        description:
+          "Cabinas, salas de procedimientos y lounge. Diseñamos espacios premium donde el paciente vive una experiencia de cuidado integral.",
+        placeholderLabel: "02 · ESTÉTICA & DERMATOLOGÍA",
+      },
+      {
+        id: "salud-mental",
+        title: "Salud mental",
+        description:
+          "Consultorio acústicamente aislado, privacidad visual y atmósfera que reduce la ansiedad. Cada decisión proyectual sostiene el vínculo terapéutico.",
+        placeholderLabel: "03 · SALUD MENTAL",
+      },
+      {
+        id: "clinicas",
+        title: "Clínicas multidisciplinarias",
+        description:
+          "Ginecología, oftalmología, pediatría, kinesiología y más bajo un mismo techo. Resolvemos circulaciones, áreas comunes y core técnico a escala.",
+        placeholderLabel: "04 · CLÍNICAS MULTIDISCIPLINARIAS",
+      },
     ],
   },
 

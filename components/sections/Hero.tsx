@@ -1,103 +1,102 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { MagneticLink } from "@/components/primitives/MagneticLink";
 import { MediaSlot } from "@/components/primitives/MediaSlot";
+import { ShaderBackground } from "@/components/ui/shader-background";
 import { copy } from "@/lib/copy";
 
 const ease = [0.65, 0, 0.35, 1] as const;
 
 const textColumn: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
 };
 
 const wipeUp: Variants = {
   hidden: { y: "115%" },
-  visible: { y: "0%", transition: { duration: 0.85, ease } },
+  visible: { y: "0%", transition: { duration: 0.9, ease } },
 };
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  // Parallax muy sutil: texto un 8% más lento, imagen 4% más rápido.
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "4%"]);
-
   return (
     <section
-      ref={ref}
       id="top"
-      className="relative bg-[var(--color-paper)] text-[var(--color-ink)] min-h-[85vh] pt-[calc(var(--nav-height)+clamp(48px,8vw,96px))] pb-[clamp(48px,8vw,96px)] overflow-hidden"
+      className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)]"
     >
-      <Container>
-        <div className="grid grid-cols-12 gap-x-6 gap-y-12 items-center">
-          {/* ─── Columna izquierda 60% ─── */}
-          <motion.div
-            style={{ y: textY }}
-            variants={textColumn}
-            initial="hidden"
-            animate="visible"
-            className="col-span-12 lg:col-span-7 flex flex-col gap-8"
-          >
-            <span className="inline-flex overflow-hidden">
-              <motion.span variants={wipeUp} className="eyebrow text-[var(--color-ink)]/70">
-                {copy.hero.eyebrow}
-              </motion.span>
-            </span>
+      {/* ─── Capa 1: fotografía/video de fondo (placeholder) ─── */}
+      <MediaSlot
+        mode="placeholder"
+        placeholderLabel={copy.hero.image.placeholderLabel}
+        alt={copy.hero.image.alt}
+        className="z-0"
+      />
 
-            <h1 className="display-xl">
-              <Words text={copy.hero.headlinePre} />{" "}
-              <Word text={copy.hero.headlineItalic} italic />{" "}
-              <Words text={copy.hero.headlinePost} />
-            </h1>
+      {/* ─── Capa 2: shader animado B&N como overlay ───
+         mix-blend-mode: screen suma el shader claro sobre la imagen oscura
+         sin perder la atmósfera del placeholder. */}
+      <div className="absolute inset-0 z-10 mix-blend-screen opacity-80">
+        <ShaderBackground speed={0.9} />
+      </div>
 
-            <motion.p
-              variants={fadeUp}
-              className="body-l max-w-[520px] text-[var(--color-ink)]/75"
+      {/* ─── Capa 3: viñeta sutil para legibilidad del texto centrado ─── */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-20 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(8,9,10,0) 0%, rgba(8,9,10,0.35) 60%, rgba(8,9,10,0.6) 100%)",
+        }}
+      />
+
+      {/* ─── Capa 4: texto centrado ─── */}
+      <Container className="relative z-30 h-full flex">
+        <motion.div
+          variants={textColumn}
+          initial="hidden"
+          animate="visible"
+          className="m-auto w-full max-w-[920px] flex flex-col items-center text-center gap-8 py-[calc(var(--nav-height)+48px)]"
+        >
+          <span className="inline-flex overflow-hidden">
+            <motion.span
+              variants={wipeUp}
+              className="eyebrow text-[var(--color-paper)]/80"
             >
-              {copy.hero.lead}
-            </motion.p>
+              {copy.hero.eyebrow}
+            </motion.span>
+          </span>
 
-            <motion.div
-              variants={fadeUp}
-              className="flex flex-col items-start gap-3 pt-2"
-            >
-              <MagneticLink href="#contacto" variant="primary">
-                {copy.hero.primaryCta}
-              </MagneticLink>
-              <p className="text-[13px] text-[var(--color-ink)]/55 tracking-[0.01em]">
-                {copy.hero.microInfo}
-              </p>
-            </motion.div>
-          </motion.div>
+          <h1 className="display-xl">
+            <Words text={copy.hero.headlinePre} />{" "}
+            <Word text={copy.hero.headlineItalic} italic />{" "}
+            <Words text={copy.hero.headlinePost} />
+          </h1>
 
-          {/* ─── Columna derecha 40% ─── */}
-          <motion.div
-            style={{ y: imageY }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease, delay: 0.2 }}
-            className="col-span-12 lg:col-span-5"
+          <motion.p
+            variants={fadeUp}
+            className="body-l max-w-[560px] text-[var(--color-paper)]/80"
           >
-            <MediaSlot
-              mode="placeholder"
-              placeholderLabel="HERO · CONSULTORIO"
-              alt={copy.hero.image.alt}
-              aspect="3/4"
-            />
+            {copy.hero.lead}
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col items-center gap-3 pt-2"
+          >
+            <MagneticLink href="#contacto" variant="inverted">
+              {copy.hero.primaryCta}
+            </MagneticLink>
+            <p className="text-[13px] text-[var(--color-paper)]/60 tracking-[0.01em]">
+              {copy.hero.microInfo}
+            </p>
           </motion.div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
@@ -115,7 +114,7 @@ function Words({ text }: { text: string }) {
 
 function Word({ text, italic = false }: { text: string; italic?: boolean }) {
   return (
-    <span className="inline-flex overflow-hidden align-baseline mr-[0.2em]">
+    <span className="inline-flex overflow-hidden align-baseline mr-[0.18em]">
       <motion.span
         variants={wipeUp}
         className={`inline-block ${italic ? "font-serif-italic" : ""}`}

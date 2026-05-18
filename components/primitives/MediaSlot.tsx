@@ -5,7 +5,12 @@ import { useState } from "react";
 type MediaSlotProps = {
   src?: string;
   alt: string;
-  aspect: string; // ej. "3/4", "4/3", "16/10"
+  /**
+   * Aspect ratio del slot (ej. "3/4", "4/3", "16/10"). Si se omite, el
+   * MediaSlot se comporta como `position: absolute; inset: 0` y llena al
+   * contenedor padre — útil para usarlo como fondo full-bleed.
+   */
+  aspect?: string;
   number?: string;
   /**
    * Label superpuesto en la esquina superior derecha del placeholder.
@@ -60,10 +65,14 @@ export function MediaSlot({
 
   const hasOverlay = Boolean(number) || Boolean(labelText);
 
+  const fill = !aspect;
+
   return (
     <div
-      className={`relative w-full overflow-hidden bg-[var(--color-paper-2)] ${className}`}
-      style={{ aspectRatio: aspect.replace("/", " / ") }}
+      className={`overflow-hidden bg-[var(--color-paper-2)] ${
+        fill ? "absolute inset-0 w-full h-full" : "relative w-full"
+      } ${className}`}
+      style={fill ? undefined : { aspectRatio: aspect!.replace("/", " / ") }}
     >
       {/* Placeholder layer (siempre montado). En modo image queda visible si
          la imagen falla. En modo placeholder es el contenido principal. */}
