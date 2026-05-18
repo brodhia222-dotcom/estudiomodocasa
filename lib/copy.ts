@@ -201,6 +201,15 @@ export const copy = {
     ],
   },
 
+  // Bookend del Hero antes del form de Contacto. El brief lo pidió como
+  // "banner-transición" — calmo, centrado, mismo CTA del hero pero más aire.
+  ctaFinal: {
+    headline: "Tus espacios definen la percepción del paciente.",
+    sub: "Conversemos sobre tu proyecto.",
+    primaryCta: "Coordinar reunión privada",
+    microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
+  },
+
   contacto: {
     eyebrow: "Coordinar reunión",
     headline: "Tu espacio define la percepción del paciente.",

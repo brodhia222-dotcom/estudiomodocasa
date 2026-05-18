@@ -8,6 +8,7 @@ import { Proyectos } from "@/components/sections/Proyectos";
 import { Metodologia } from "@/components/sections/Metodologia";
 import { Testimonios } from "@/components/sections/Testimonios";
 import { FAQ } from "@/components/sections/FAQ";
+import { CTAFinal } from "@/components/sections/CTAFinal";
 import { Contacto } from "@/components/sections/Contacto";
 import { Footer } from "@/components/sections/Footer";
 
@@ -25,6 +26,7 @@ export default function Home() {
         <Metodologia />
         <Testimonios />
         <FAQ />
+        <CTAFinal />
         <Contacto />
       </main>
       <Footer />
