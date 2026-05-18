@@ -50,14 +50,14 @@ export function Proyectos() {
         >
           {/* Row 1: 1 proyecto full-width (el más reciente, criterio editorial) */}
           <motion.div variants={card}>
-            <ProjectCard project={hero} />
+            <ProjectCard project={hero} index={0} />
           </motion.div>
 
           {/* Row 2: 2 proyectos lado a lado */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {rest.map((p) => (
+            {rest.map((p, i) => (
               <motion.div key={p.name} variants={card}>
-                <ProjectCard project={p} />
+                <ProjectCard project={p} index={i + 1} />
               </motion.div>
             ))}
           </div>
@@ -67,12 +67,23 @@ export function Proyectos() {
   );
 }
 
-function ProjectCard({ project }: { project: (typeof copy.proyectos.items)[number] }) {
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof copy.proyectos.items)[number];
+  index: number;
+}) {
+  const number = String(index + 1).padStart(2, "0");
+  const label = `${number} · ${project.name.toUpperCase()}`;
+
   return (
     <figure className="group flex flex-col">
       <div className="relative overflow-hidden">
         <MediaSlot
-          src={project.image}
+          mode="placeholder"
+          number={number}
+          placeholderLabel={label}
           alt={project.alt}
           aspect="4/3"
           className="transition-transform duration-300 ease-out group-hover:scale-[1.02]"

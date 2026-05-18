@@ -91,7 +91,8 @@ export function Hero() {
             className="col-span-12 lg:col-span-5"
           >
             <MediaSlot
-              src={copy.hero.image.src}
+              mode="placeholder"
+              placeholderLabel="HERO · CONSULTORIO"
               alt={copy.hero.image.alt}
               aspect="3/4"
             />
