@@ -23,7 +23,7 @@ const rule: Variants = {
 
 export function ValueProps() {
   return (
-    <Section id="filosofia" bg="paper" py="default">
+    <Section bg="paper" py="default">
       <Container>
         <motion.ul
           variants={grid}

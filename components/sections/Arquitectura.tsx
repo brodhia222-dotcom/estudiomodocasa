@@ -11,7 +11,7 @@ import { copy } from "@/lib/copy";
 
 export function Arquitectura() {
   return (
-    <Section bg="paper">
+    <Section id="filosofia" bg="paper">
       <Container>
         <div className="grid grid-cols-12 gap-x-6 gap-y-12">
           <div className="col-span-12 md:col-span-4 lg:col-span-3">

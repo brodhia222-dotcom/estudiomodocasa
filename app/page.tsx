@@ -6,7 +6,9 @@ import { Arquitectura } from "@/components/sections/Arquitectura";
 import { Especialidades } from "@/components/sections/Especialidades";
 import { Proyectos } from "@/components/sections/Proyectos";
 import { Metodologia } from "@/components/sections/Metodologia";
-import { Testimonios } from "@/components/sections/Testimonios";
+// Testimonios oculto en la demo (sin testimonios reales todavía). El componente
+// vive en components/sections/Testimonios.tsx — reactivar el import cuando
+// haya quotes confirmados por el cliente.
 import { FAQ } from "@/components/sections/FAQ";
 import { CTAFinal } from "@/components/sections/CTAFinal";
 import { Contacto } from "@/components/sections/Contacto";
@@ -24,7 +26,7 @@ export default function Home() {
         <Especialidades />
         <Proyectos />
         <Metodologia />
-        <Testimonios />
+        {/* Testimonios oculto para la demo — reactivar cuando haya quotes reales */}
         <FAQ />
         <CTAFinal />
         <Contacto />
