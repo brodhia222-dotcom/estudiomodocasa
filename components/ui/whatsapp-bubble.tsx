@@ -48,18 +48,18 @@ export function WhatsAppBubble({
           : "opacity-0 translate-y-3 pointer-events-none"
       }`}
     >
-      {/* Anillos de pulso */}
+      {/* Anillos de pulso en verde WhatsApp */}
       <span
         aria-hidden="true"
-        className="absolute inset-0 rounded-full bg-[var(--color-ink)]/30 animate-wa-pulse"
+        className="absolute inset-0 rounded-full bg-[#25D366]/40 animate-wa-pulse"
       />
       <span
         aria-hidden="true"
-        className="absolute inset-0 rounded-full bg-[var(--color-ink)]/20 animate-wa-pulse-2"
+        className="absolute inset-0 rounded-full bg-[#25D366]/30 animate-wa-pulse-2"
       />
 
-      {/* Botón principal */}
-      <span className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-[var(--color-ink)] text-[var(--color-paper)] shadow-lg transition-transform duration-500 ease-out hover:scale-110">
+      {/* Botón principal: verde oficial de WhatsApp + ícono blanco */}
+      <span className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] text-white shadow-lg transition-transform duration-500 ease-out hover:scale-110">
         <svg
           width="26"
           height="26"
