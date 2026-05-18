@@ -171,7 +171,7 @@ export function Contacto() {
                     <button
                       type="submit"
                       disabled={state === "sending"}
-                      className="self-start inline-flex items-center gap-3 px-7 py-4 text-[14px] tracking-[0.06em] uppercase font-medium bg-[var(--color-paper)] text-[var(--color-ink)] border border-[var(--color-paper)] hover:bg-transparent hover:text-[var(--color-paper)] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="self-start inline-flex items-center gap-3 px-7 py-4 text-[14px] tracking-[0.06em] uppercase font-medium bg-[var(--color-paper)] text-[var(--color-ink)] border border-[var(--color-paper)] hover:bg-transparent hover:text-[var(--color-paper)] transition-colors duration-500 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {state === "sending" ? copy.contacto.form.sending : copy.contacto.form.submit}
                       <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">

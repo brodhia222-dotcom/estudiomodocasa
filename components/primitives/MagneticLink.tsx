@@ -61,7 +61,7 @@ export function MagneticLink({
       onMouseLeave={onLeave}
       aria-label={ariaLabel}
       style={{ x: springX, y: springY }}
-      className={`group relative inline-flex items-center gap-3 px-7 py-4 transition-colors duration-300 ease-out text-[14px] tracking-[0.06em] uppercase font-medium ${variants[variant]} ${className}`}
+      className={`group relative inline-flex items-center gap-3 px-7 py-4 transition-colors duration-500 ease-out text-[14px] tracking-[0.06em] uppercase font-medium ${variants[variant]} ${className}`}
     >
       <span className="relative inline-block">{children}</span>
       <svg
@@ -69,7 +69,7 @@ export function MagneticLink({
         height="10"
         viewBox="0 0 14 10"
         fill="none"
-        className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+        className="transition-transform duration-500 ease-out group-hover:translate-x-1.5"
         aria-hidden="true"
       >
         <path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.2" />

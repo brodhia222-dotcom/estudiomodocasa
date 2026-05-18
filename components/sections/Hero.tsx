@@ -30,28 +30,28 @@ export function Hero() {
       id="top"
       className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)]"
     >
-      {/* ─── Capa 1: fotografía/video de fondo (placeholder) ─── */}
+      {/* ─── Capa 1: fotografía/video de fondo (placeholder limpio sin label
+         para no chocar con el navbar; el placeholder se entiende por contexto). */}
       <MediaSlot
         mode="placeholder"
-        placeholderLabel={copy.hero.image.placeholderLabel}
         alt={copy.hero.image.alt}
         className="z-0"
       />
 
       {/* ─── Capa 2: shader animado B&N como overlay ───
-         mix-blend-mode: screen suma el shader claro sobre la imagen oscura
-         sin perder la atmósfera del placeholder. */}
-      <div className="absolute inset-0 z-10 mix-blend-screen opacity-80">
+         lighten + opacity 55% mantiene el movimiento del shader pero
+         conserva los negros profundos del fondo (más contraste que screen). */}
+      <div className="absolute inset-0 z-10 mix-blend-lighten opacity-55">
         <ShaderBackground speed={0.9} />
       </div>
 
-      {/* ─── Capa 3: viñeta sutil para legibilidad del texto centrado ─── */}
+      {/* ─── Capa 3: viñeta más fuerte para resaltar el headline centrado ─── */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-20 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(8,9,10,0) 0%, rgba(8,9,10,0.35) 60%, rgba(8,9,10,0.6) 100%)",
+            "radial-gradient(ellipse 90% 60% at center, rgba(8,9,10,0) 0%, rgba(8,9,10,0.4) 55%, rgba(8,9,10,0.75) 100%)",
         }}
       />
 
@@ -63,15 +63,6 @@ export function Hero() {
           animate="visible"
           className="m-auto w-full max-w-[920px] flex flex-col items-center text-center gap-8 py-[calc(var(--nav-height)+48px)]"
         >
-          <span className="inline-flex overflow-hidden">
-            <motion.span
-              variants={wipeUp}
-              className="eyebrow text-[var(--color-paper)]/80"
-            >
-              {copy.hero.eyebrow}
-            </motion.span>
-          </span>
-
           <h1 className="display-xl">
             <Words text={copy.hero.headlinePre} />{" "}
             <Word text={copy.hero.headlineItalic} italic />{" "}

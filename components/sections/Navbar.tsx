@@ -82,7 +82,7 @@ export function Navbar() {
               >
                 {item.label}
                 <span
-                  className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                  className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"
                   style={{ backgroundColor: "currentColor" }}
                 />
               </a>
@@ -92,15 +92,21 @@ export function Navbar() {
           <div className="hidden md:block">
             <a
               href="#contacto"
-              className="inline-flex items-center gap-3 px-5 py-3 text-[13px] tracking-[0.06em] uppercase font-medium transition-colors duration-300 border"
-              style={{
-                background: isInverted ? paper : ink,
-                color: isInverted ? ink : paper,
-                borderColor: isInverted ? paper : ink,
-              }}
+              className={`group inline-flex items-center gap-3 px-5 py-3 text-[13px] tracking-[0.06em] uppercase font-medium border transition-colors duration-500 ease-out ${
+                isInverted
+                  ? "bg-[var(--color-paper)] text-[var(--color-ink)] border-[var(--color-paper)] hover:bg-transparent hover:text-[var(--color-paper)]"
+                  : "bg-[var(--color-ink)] text-[var(--color-paper)] border-[var(--color-ink)] hover:bg-transparent hover:text-[var(--color-ink)]"
+              }`}
             >
               {copy.nav.cta}
-              <svg width="12" height="9" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+              <svg
+                width="12"
+                height="9"
+                viewBox="0 0 14 10"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-500 ease-out group-hover:translate-x-1"
+              >
                 <path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.2" />
               </svg>
             </a>

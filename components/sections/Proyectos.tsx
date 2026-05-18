@@ -86,12 +86,12 @@ function ProjectCard({
           placeholderLabel={label}
           alt={project.alt}
           aspect="4/3"
-          className="transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+          className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
         />
         {/* Overlay sutil al hover. pointer-events-none para no romper foco. */}
         <span
           aria-hidden="true"
-          className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover:bg-[var(--color-ink)]/5 transition-colors duration-300 pointer-events-none"
+          className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover:bg-[var(--color-ink)]/5 transition-colors duration-500 pointer-events-none"
         />
       </div>
 

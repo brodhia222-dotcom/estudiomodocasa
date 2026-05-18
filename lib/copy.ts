@@ -34,39 +34,47 @@ export const copy = {
     },
   },
 
-  // Value props compactos (Fase 3 del refactor). Reemplazan el bloque triple
-  // gigante anterior. Tres ideas distintas — no repetir "confianza" tres veces.
+  // Value props compactos. Cada card tiene un micro-ícono SVG line-art
+  // que se dibuja al entrar en viewport.
   valueProps: [
     {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
+      icon: "patient" as const,
     },
     {
       number: "02",
       title: "Excelencia médica",
       body: "Cada detalle comunica precisión y profesionalismo. Tu espacio refleja tu estándar.",
+      icon: "precision" as const,
     },
     {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
+      icon: "trust" as const,
     },
   ],
 
-  manifiesto: {
-    eyebrow: "Quiénes somos",
-    body: "Llevamos quince años proyectando interiorismo de alta gama. Trasladamos esa misma exigencia a entornos médicos: consultorios y clínicas que reflejan el estándar de excelencia del profesional, inspiran confianza en el paciente y reducen la ansiedad asociada a la consulta.",
+  // Fusión de Manifiesto (Quiénes somos) + Arquitectura (Filosofía) en una
+  // sola sección visual. Pull quote masivo + contador animado + keywords
+  // como pills sutiles + intro corta. Reduce dos secciones de texto a una.
+  filosofia: {
+    eyebrow: "Quiénes somos · Filosofía",
+    intro:
+      "Quince años proyectando interiorismo de alta gama, trasladados al diseño de espacios médicos. Reconfiguramos consultorios y clínicas con intención.",
     figure: "15",
     figureLabel: "Años de trayectoria en interiorismo de alta gama trasladados al ámbito médico.",
-  },
-
-  arquitectura: {
-    eyebrow: "Filosofía",
-    headline: "Diseño de arquitectura interior.",
-    body: "Reconfiguramos los espacios con intención: optimizamos la planificación y la circulación para crear consultorios y clínicas más funcionales, intuitivos y coherentes con la identidad del profesional.",
     quote: "Cada entorno de salud que proyectamos promueve bienestar, funcionalidad y cuidado.",
-    body2: "Priorizamos espacios cálidos, eficientes y centrados en el paciente, que potencian la productividad del equipo y elevan la experiencia de atención. Confort, privacidad, interacción fluida y sustentabilidad.",
+    keywords: [
+      "Confort",
+      "Privacidad",
+      "Interacción fluida",
+      "Sustentabilidad",
+      "Identidad",
+      "Calidez",
+    ],
   },
 
   especialidades: {

@@ -105,7 +105,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
               {/* Contenido */}
               <article className="absolute inset-0 flex flex-col justify-end gap-3 p-6 md:p-7">
                 {/* Título vertical (rotado 90deg) — solo desktop colapsado */}
-                <h3 className="hidden md:block absolute left-7 bottom-7 origin-bottom-left -rotate-90 translate-y-[-1em] eyebrow text-[var(--color-paper)]/90 whitespace-nowrap opacity-100 transition-opacity duration-300 group-data-[active=true]:opacity-0">
+                <h3 className="hidden md:block absolute left-7 bottom-7 origin-bottom-left -rotate-90 translate-y-[-1em] eyebrow text-[var(--color-paper)]/90 whitespace-nowrap opacity-100 transition-opacity duration-500 group-data-[active=true]:opacity-0">
                   {item.title}
                 </h3>
 
@@ -124,7 +124,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
 
                 {/* En mobile siempre se ve el título cuando la card está colapsada
                    (no hay rotación 90° posible). */}
-                <h3 className="md:hidden eyebrow text-[var(--color-paper)]/90 transition-opacity duration-300 group-data-[active=true]:opacity-0">
+                <h3 className="md:hidden eyebrow text-[var(--color-paper)]/90 transition-opacity duration-500 group-data-[active=true]:opacity-0">
                   {item.title}
                 </h3>
               </article>
