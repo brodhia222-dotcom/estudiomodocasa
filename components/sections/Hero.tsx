@@ -28,7 +28,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)]"
+      className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)]"
     >
       {/* ─── Capa 1: fotografía/video de fondo (placeholder limpio sin label
          para no chocar con el navbar; el placeholder se entiende por contexto). */}
@@ -45,13 +45,15 @@ export function Hero() {
         <ShaderBackground speed={0.9} />
       </div>
 
-      {/* ─── Capa 3: viñeta más fuerte para resaltar el headline centrado ─── */}
+      {/* ─── Capa 3: capa clara central para resaltar el texto negro centrado.
+         Inversa de la viñeta anterior: el centro va con un toque más blanco
+         para que el headline en --color-ink tenga máximo contraste. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-20 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 90% 60% at center, rgba(8,9,10,0) 0%, rgba(8,9,10,0.4) 55%, rgba(8,9,10,0.75) 100%)",
+            "radial-gradient(ellipse 80% 55% at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 60%, rgba(255,255,255,0) 100%)",
         }}
       />
 
@@ -71,7 +73,7 @@ export function Hero() {
 
           <motion.p
             variants={fadeUp}
-            className="body-l max-w-[560px] text-[var(--color-paper)]/80"
+            className="body-l max-w-[560px] text-[var(--color-ink)]/80"
           >
             {copy.hero.lead}
           </motion.p>
@@ -80,10 +82,10 @@ export function Hero() {
             variants={fadeUp}
             className="flex flex-col items-center gap-3 pt-2"
           >
-            <MagneticLink href="#contacto" variant="inverted">
+            <MagneticLink href="#contacto" variant="primary">
               {copy.hero.primaryCta}
             </MagneticLink>
-            <p className="text-[13px] text-[var(--color-paper)]/60 tracking-[0.01em]">
+            <p className="text-[13px] text-[var(--color-ink)]/60 tracking-[0.01em]">
               {copy.hero.microInfo}
             </p>
           </motion.div>

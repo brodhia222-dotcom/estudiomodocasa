@@ -8,10 +8,9 @@ export const copy = {
 
   nav: {
     items: [
-      { label: "Filosofía", href: "#filosofia" },
       { label: "Especialidades", href: "#especialidades" },
-      { label: "Metodología", href: "#metodologia" },
       { label: "Proyectos", href: "#proyectos" },
+      { label: "Metodología", href: "#metodologia" },
     ],
     cta: "Coordinar reunión",
   },
@@ -120,26 +119,50 @@ export const copy = {
     eyebrow: "Obras seleccionadas",
     headline: "Proyectos destacados.",
     sub: "Una selección curada de espacios donde la arquitectura sostiene la práctica médica.",
-    // 3 proyectos en grid asimétrico 1+2 (Fase 4 del refactor). El primero
-    // ocupa la fila completa (el más reciente, 2024). Aspect uniforme 4:3 según brief.
+    // Fila horizontal de cards que se expanden al hover (vaib215 adaptation).
+    // Texto lorem ipsum hasta que el cliente entregue copy real de cada obra.
     items: [
       {
-        name: "Centro de Estética Almagro",
+        id: "almagro",
+        title: "Centro de Estética Almagro",
         spec: "Estética · CABA · 2024",
-        image: "/images/placeholders/project-aesthetic-almagro.jpg",
-        alt: "Centro de Estética Almagro, fotografía Unsplash usada como placeholder hasta entregar obra real.",
+        label: "01 · OBRA TERMINADA",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
       },
       {
-        name: "Consultorio Odontológico Recoleta",
+        id: "recoleta",
+        title: "Consultorio Odontológico Recoleta",
         spec: "Odontología · CABA · 2023",
-        image: "/images/placeholders/project-dental-recoleta.jpg",
-        alt: "Consultorio Odontológico Recoleta, fotografía Unsplash usada como placeholder.",
+        label: "02 · OBRA TERMINADA",
+        body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.",
       },
       {
-        name: "Clínica Ginecológica Palermo",
+        id: "palermo",
+        title: "Clínica Ginecológica Palermo",
         spec: "Ginecología · CABA · 2023",
-        image: "/images/placeholders/project-ginecology-palermo.jpg",
-        alt: "Clínica Ginecológica Palermo, fotografía Unsplash usada como placeholder.",
+        label: "03 · OBRA TERMINADA",
+        body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
+      },
+      {
+        id: "belgrano",
+        title: "Centro Oftalmológico Belgrano",
+        spec: "Oftalmología · CABA · 2022",
+        label: "04 · OBRA TERMINADA",
+        body: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+      },
+      {
+        id: "nordelta",
+        title: "Espacio Terapéutico Nordelta",
+        spec: "Salud mental · Tigre · 2022",
+        label: "05 · OBRA TERMINADA",
+        body: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
+      },
+      {
+        id: "vicente-lopez",
+        title: "Pediatría Vicente López",
+        spec: "Pediatría · Vicente López · 2021",
+        label: "06 · OBRA TERMINADA",
+        body: "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.",
       },
     ],
   },

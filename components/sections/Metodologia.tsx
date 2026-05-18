@@ -1,7 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  useMotionValue,
+  type Variants,
+  type MotionValue,
+} from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
@@ -10,15 +18,14 @@ import { viewportOnce, easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * Metodología — timeline interactivo vertical.
+ * Metodología — timeline scroll-driven.
  *
- *   - Stepper con línea vertical que se "ilumina" según el progreso del scroll
- *     dentro de la sección (useScroll → scaleY).
- *   - Cada paso tiene un círculo numerado, título y descripción.
- *   - Click/hover en un paso lo marca como activo: el círculo se llena en sólido,
- *     el título se intensifica y la descripción gana presencia (opacity 100).
- *   - Al primer paso le toca activo por default.
- *   - Sección en bg ink (negra), texto paper (blanco).
+ *   - Línea vertical 1px de fondo + línea blanca encima que crece según
+ *     el progreso del scroll (useScroll → scaleY).
+ *   - Cada círculo del stepper se activa cuando el "frente" de la línea
+ *     blanca lo alcanza. Sin hover, sin click — todo escala con el scroll.
+ *   - Texto del paso (número/título/descripción) gana opacidad/color
+ *     suavemente cuando su paso está activo.
  */
 
 const stepVariants: Variants = {
@@ -33,16 +40,18 @@ const listVariants: Variants = {
 
 export function Metodologia() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
 
-  // El track vertical se "llena" según el progreso del scroll dentro de la
-  // sección. Offset elegido para que el llenado empiece cuando el primer paso
-  // entra al viewport y termine cuando el último sale.
+  // El progreso del scroll dentro de la sección. Empieza cuando la sección
+  // entra al viewport (start 80%) y termina cuando casi sale (end 30%).
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 70%", "end 50%"],
+    offset: ["start 80%", "end 30%"],
   });
+
   const trackScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const steps = copy.metodologia.steps;
+  const total = steps.length;
 
   return (
     <Section id="metodologia" bg="ink">
@@ -68,13 +77,14 @@ export function Metodologia() {
           </div>
         </header>
 
-        {/* Timeline */}
+        {/* Timeline scroll-driven */}
         <div ref={sectionRef} className="relative">
-          {/* Track vertical (fondo gris + capa que se "llena" con scroll) */}
+          {/* Track de fondo (gris) */}
           <div
             aria-hidden="true"
             className="absolute left-[18px] md:left-[26px] top-0 bottom-0 w-px bg-[var(--color-paper)]/15"
           />
+          {/* Track blanco que se "llena" con scroll */}
           <motion.div
             aria-hidden="true"
             style={{ scaleY: trackScaleY, transformOrigin: "top" }}
@@ -88,70 +98,106 @@ export function Metodologia() {
             viewport={viewportOnce}
             className="flex flex-col"
           >
-            {copy.metodologia.steps.map((step, i) => {
-              const active = activeIdx === i;
+            {steps.map((step, i) => {
+              // Cada paso se activa cuando el frente de la línea llega a su
+              // posición. Threshold = (i + 0.5) / total (centro del paso).
+              const threshold = (i + 0.5) / total;
               return (
-                <motion.li
+                <ScrollDrivenStep
                   key={step.num}
+                  step={step}
+                  threshold={threshold}
+                  scrollYProgress={scrollYProgress}
                   variants={stepVariants}
-                  onMouseEnter={() => setActiveIdx(i)}
-                  onFocus={() => setActiveIdx(i)}
-                  onClick={() => setActiveIdx(i)}
-                  tabIndex={0}
-                  className="group relative pl-12 md:pl-20 py-[clamp(28px,4vw,56px)] cursor-pointer outline-none border-b border-[var(--color-paper)]/10 last:border-b-0"
-                  data-active={active}
-                >
-                  {/* Círculo numerado del stepper */}
-                  <span
-                    aria-hidden="true"
-                    className={`absolute left-[8px] md:left-[16px] top-[calc(clamp(28px,4vw,56px)+4px)] flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full border transition-all duration-700 ease-out ${
-                      active
-                        ? "bg-[var(--color-paper)] border-[var(--color-paper)] scale-110"
-                        : "bg-[var(--color-ink)] border-[var(--color-paper)]/40 scale-100"
-                    }`}
-                  />
-
-                  <div className="grid grid-cols-12 gap-x-6 gap-y-3 items-baseline">
-                    {/* Número grande */}
-                    <span
-                      className={`col-span-12 md:col-span-2 font-serif-italic leading-none transition-colors duration-700 ${
-                        active
-                          ? "text-[var(--color-paper)]"
-                          : "text-[var(--color-paper)]/45"
-                      }`}
-                      style={{ fontSize: "clamp(32px, 4vw, 56px)" }}
-                    >
-                      {step.num}
-                    </span>
-
-                    {/* Título */}
-                    <h3
-                      className={`col-span-12 md:col-span-4 lg:col-span-4 display-s transition-colors duration-700 ${
-                        active
-                          ? "text-[var(--color-paper)]"
-                          : "text-[var(--color-paper)]/70"
-                      }`}
-                    >
-                      {step.title}
-                    </h3>
-
-                    {/* Descripción — opacity sube cuando está activo */}
-                    <p
-                      className={`col-span-12 md:col-span-6 lg:col-span-6 body-l max-w-[460px] transition-[opacity,color] duration-700 ease-out ${
-                        active
-                          ? "opacity-100 text-[var(--color-paper)]/85"
-                          : "opacity-55 text-[var(--color-paper)]/55"
-                      }`}
-                    >
-                      {step.body}
-                    </p>
-                  </div>
-                </motion.li>
+                />
               );
             })}
           </motion.ol>
         </div>
       </Container>
     </Section>
+  );
+}
+
+type Step = (typeof copy.metodologia.steps)[number];
+
+function ScrollDrivenStep({
+  step,
+  threshold,
+  scrollYProgress,
+  variants,
+}: {
+  step: Step;
+  threshold: number;
+  scrollYProgress: MotionValue<number>;
+  variants: Variants;
+}) {
+  // active = 1 cuando el scroll progress superó el threshold de este paso,
+  // 0 antes. Suavizado con un pequeño ramp para que la transición se sienta.
+  const activeMV = useMotionValue(0);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    activeMV.set(latest >= threshold ? 1 : 0);
+  });
+
+  // Mapear el active 0/1 a estilos visuales del círculo y el texto.
+  // useTransform genera valores en tiempo real basados en activeMV.
+  const circleBg = useTransform(activeMV, [0, 1], [
+    "var(--color-ink)",
+    "var(--color-paper)",
+  ]);
+  const circleBorder = useTransform(activeMV, [0, 1], [
+    "rgba(245, 245, 245, 0.4)",
+    "rgba(245, 245, 245, 1)",
+  ]);
+  const circleScale = useTransform(activeMV, [0, 1], [1, 1.1]);
+
+  const numOpacity = useTransform(activeMV, [0, 1], [0.45, 1]);
+  const titleOpacity = useTransform(activeMV, [0, 1], [0.6, 1]);
+  const bodyOpacity = useTransform(activeMV, [0, 1], [0.45, 0.85]);
+
+  return (
+    <motion.li
+      variants={variants}
+      className="group relative pl-12 md:pl-20 py-[clamp(28px,4vw,56px)] border-b border-[var(--color-paper)]/10 last:border-b-0"
+    >
+      <motion.span
+        aria-hidden="true"
+        className="absolute left-[8px] md:left-[16px] top-[calc(clamp(28px,4vw,56px)+4px)] flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full border"
+        style={{
+          backgroundColor: circleBg,
+          borderColor: circleBorder,
+          scale: circleScale,
+          transition:
+            "background-color 600ms ease-out, border-color 600ms ease-out, scale 600ms ease-out",
+        }}
+      />
+
+      <div className="grid grid-cols-12 gap-x-6 gap-y-3 items-baseline">
+        <motion.span
+          style={{ opacity: numOpacity, transition: "opacity 600ms ease-out" }}
+          className="col-span-12 md:col-span-2 font-serif-italic leading-none text-[var(--color-paper)]"
+          {...{
+            // font-size inline (no animado)
+            // eslint-disable-next-line react/forbid-dom-props
+          }}
+        >
+          <span style={{ fontSize: "clamp(32px, 4vw, 56px)" }}>{step.num}</span>
+        </motion.span>
+
+        <motion.h3
+          style={{ opacity: titleOpacity, transition: "opacity 600ms ease-out" }}
+          className="col-span-12 md:col-span-4 lg:col-span-4 display-s text-[var(--color-paper)]"
+        >
+          {step.title}
+        </motion.h3>
+
+        <motion.p
+          style={{ opacity: bodyOpacity, transition: "opacity 600ms ease-out" }}
+          className="col-span-12 md:col-span-6 lg:col-span-6 body-l max-w-[460px] text-[var(--color-paper)]"
+        >
+          {step.body}
+        </motion.p>
+      </div>
+    </motion.li>
   );
 }
