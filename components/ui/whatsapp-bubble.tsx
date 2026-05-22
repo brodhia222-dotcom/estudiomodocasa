@@ -1,16 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 /**
  * Burbuja flotante de WhatsApp con efecto de pulso.
  *
- * Aparece fija en bottom-right de la página después de un scroll mínimo.
- * Dos anillos concéntricos que se expanden con animación CSS infinita.
- * Mantiene paleta B&N — el ícono de WhatsApp es reconocible sin verde.
+ * Fija en bottom-right de la página, visible desde el primer render.
+ * Verde oficial de WhatsApp (#25D366) + dos anillos concéntricos animados.
  *
- * Para la demo el href apunta a wa.me/0 (no funciona) — cuando el cliente
- * confirme el número, basta con cambiar la prop `phone`.
+ * Cuando el cliente confirme el número definitivo, basta con cambiar la
+ * prop `phone` desde el layout o componente padre.
  */
 
 type Props = {
@@ -24,16 +21,6 @@ export function WhatsAppBubble({
   phone = "",
   message = "Hola, vi la página de consultorios médicos de ModoCasa y me gustaría coordinar una reunión.",
 }: Props) {
-  const [visible, setVisible] = useState(false);
-
-  // Aparece después de un scroll mínimo (no aparece sobre el hero al cargar)
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 200);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -42,11 +29,7 @@ export function WhatsAppBubble({
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escribir por WhatsApp"
-      className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 transition-[opacity,transform] duration-700 ease-out ${
-        visible
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 translate-y-3 pointer-events-none"
-      }`}
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 animate-wa-bubble-in"
     >
       {/* Anillos de pulso en verde WhatsApp */}
       <span

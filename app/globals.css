@@ -139,6 +139,21 @@ hr {
   font-weight: 400;
 }
 
+/* ─── WhatsApp bubble · entrada suave al cargar la página ─── */
+@keyframes wa-bubble-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-wa-bubble-in {
+  animation: wa-bubble-in 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both;
+}
+
 /* ─── WhatsApp bubble pulse ─── */
 @keyframes wa-pulse {
   0% {
@@ -156,6 +171,56 @@ hr {
 .animate-wa-pulse-2 {
   animation: wa-pulse 2.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
   animation-delay: 1.2s;
+}
+
+/* ─── CTA Final · respiración sutil del headline mientras la grilla
+   tiene el hueco central abierto. Pulsa opacity + escala muy fino. */
+@keyframes text-breathe {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.005);
+  }
+}
+.animate-text-breathe {
+  animation: text-breathe 2.2s ease-in-out infinite;
+}
+
+/* ─── Hero carousel · Ken Burns slow zoom-in ─── */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+}
+.animate-kenburns {
+  animation: kenburns 7s ease-out forwards;
+}
+
+/* ─── Hero scroll indicator · tick descendente en loop ─── */
+@keyframes scroll-tick {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300%);
+    opacity: 0;
+  }
+}
+.animate-scroll-tick {
+  animation: scroll-tick 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
 /* ─── Reduced motion ─── */

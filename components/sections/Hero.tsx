@@ -3,11 +3,19 @@
 import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { MagneticLink } from "@/components/primitives/MagneticLink";
-import { MediaSlot } from "@/components/primitives/MediaSlot";
-import { ShaderBackground } from "@/components/ui/shader-background";
+import { HeroCarousel } from "@/components/ui/hero-carousel";
 import { copy } from "@/lib/copy";
 
 const ease = [0.65, 0, 0.35, 1] as const;
+
+const HERO_IMAGES = [
+  "/images/hero/hero-01.png",
+  "/images/hero/hero-02.png",
+  "/images/hero/hero-03.png",
+  "/images/hero/hero-04.png",
+  "/images/hero/hero-05.png",
+  "/images/hero/hero-06.png",
+];
 
 const textColumn: Variants = {
   hidden: {},
@@ -28,32 +36,37 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)]"
+      className="relative h-[88svh] min-h-[580px] overflow-hidden bg-[var(--color-ink)] text-[var(--color-paper)]"
     >
-      {/* ─── Capa 1: fotografía/video de fondo (placeholder limpio sin label
-         para no chocar con el navbar; el placeholder se entiende por contexto). */}
-      <MediaSlot
-        mode="placeholder"
+      {/* ─── Capa 1: carrusel de fotos en color, cross-fade rápido + Ken Burns. */}
+      <HeroCarousel
+        images={HERO_IMAGES}
+        intervalMs={4500}
         alt={copy.hero.image.alt}
         className="z-0"
       />
 
-      {/* ─── Capa 2: shader animado B&N como overlay ───
-         lighten + opacity 55% mantiene el movimiento del shader pero
-         conserva los negros profundos del fondo (más contraste que screen). */}
-      <div className="absolute inset-0 z-10 mix-blend-lighten opacity-55">
-        <ShaderBackground speed={0.9} />
-      </div>
-
-      {/* ─── Capa 3: capa clara central para resaltar el texto negro centrado.
-         Inversa de la viñeta anterior: el centro va con un toque más blanco
-         para que el headline en --color-ink tenga máximo contraste. */}
+      {/* ─── Capa 2: scrim oscuro general para legibilidad del headline.
+         Gradient vertical: más oscuro arriba (bajo el navbar) y abajo
+         (donde está el scroll indicator), un poco más translúcido en el centro
+         para que la foto respire detrás del texto. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-20 pointer-events-none"
+        className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 55% at center, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 60%, rgba(255,255,255,0) 100%)",
+            "linear-gradient(180deg, rgba(8,9,10,0.55) 0%, rgba(8,9,10,0.30) 35%, rgba(8,9,10,0.35) 70%, rgba(8,9,10,0.70) 100%)",
+        }}
+      />
+
+      {/* ─── Capa 3: viñeta radial centrada para reforzar el contraste del
+         headline sin matar la foto en los bordes. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at center, rgba(8,9,10,0.45) 0%, rgba(8,9,10,0) 70%)",
         }}
       />
 
@@ -65,7 +78,7 @@ export function Hero() {
           animate="visible"
           className="m-auto w-full max-w-[920px] flex flex-col items-center text-center gap-8 py-[calc(var(--nav-height)+48px)]"
         >
-          <h1 className="display-xl">
+          <h1 className="display-xl text-[var(--color-paper)] [text-shadow:0_1px_24px_rgba(8,9,10,0.25)]">
             <Words text={copy.hero.headlinePre} />{" "}
             <Word text={copy.hero.headlineItalic} italic />{" "}
             <Words text={copy.hero.headlinePost} />
@@ -73,24 +86,25 @@ export function Hero() {
 
           <motion.p
             variants={fadeUp}
-            className="body-l max-w-[560px] text-[var(--color-ink)]/80"
+            className="body-l max-w-[960px] text-[var(--color-paper)]/85 whitespace-normal md:whitespace-nowrap"
           >
             {copy.hero.lead}
           </motion.p>
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col items-center gap-3 pt-2"
+            className="flex flex-col items-center gap-4 pt-2"
           >
-            <MagneticLink href="#contacto" variant="primary">
+            <MagneticLink href="#contacto" variant="solid-swap">
               {copy.hero.primaryCta}
             </MagneticLink>
-            <p className="text-[13px] text-[var(--color-ink)]/60 tracking-[0.01em]">
+            <span className="inline-flex items-center px-4 py-2 bg-[var(--color-paper)]/12 backdrop-blur-[2px] text-[12.5px] text-[var(--color-paper)]/90 tracking-[0.02em]">
               {copy.hero.microInfo}
-            </p>
+            </span>
           </motion.div>
         </motion.div>
       </Container>
+
     </section>
   );
 }

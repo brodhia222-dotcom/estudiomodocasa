@@ -11,7 +11,7 @@ import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 export function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <Section bg="paper-2">

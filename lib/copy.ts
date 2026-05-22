@@ -8,8 +8,7 @@ export const copy = {
 
   nav: {
     items: [
-      { label: "Especialidades", href: "#especialidades" },
-      { label: "Proyectos", href: "#proyectos" },
+      { label: "Espacios", href: "#espacios" },
       { label: "Metodología", href: "#metodologia" },
     ],
     cta: "Coordinar reunión",
@@ -22,7 +21,7 @@ export const copy = {
     headlinePre: "Diseñamos espacios médicos que",
     headlineItalic: "elevan",
     headlinePost: "tu práctica y la experiencia de tus pacientes.",
-    lead: "Quince años de interiorismo de alta gama, aplicados a consultorios y clínicas privadas en CABA.",
+    lead: "15 años de interiorismo de alta gama, aplicados a consultorios y clínicas privadas en CABA.",
     primaryCta: "Coordinar reunión privada",
     microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
     image: {
@@ -41,18 +40,21 @@ export const copy = {
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
       icon: "patient" as const,
+      imgSrc: "/images/valueprops/01-paciente.png",
     },
     {
       number: "02",
       title: "Excelencia médica",
       body: "Cada detalle comunica precisión y profesionalismo. Tu espacio refleja tu estándar.",
       icon: "precision" as const,
+      imgSrc: "/images/valueprops/02-excelencia.png",
     },
     {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
       icon: "trust" as const,
+      imgSrc: "/images/valueprops/03-confianza.png",
     },
   ],
 
@@ -76,94 +78,51 @@ export const copy = {
     ],
   },
 
-  especialidades: {
-    eyebrow: "Para quién diseñamos",
-    headline: "Especialidades atendidas.",
-    sub: "Trabajamos con profesionales y clínicas privadas que entienden que el espacio es parte del tratamiento.",
-    // 4 cards curadas para ExpandingCards. Cada una representa una dimensión
-    // distinta del trabajo del estudio (técnico / premium / sensible / escala).
-    // Las 8 especialidades anteriores quedan implícitas dentro de estos grupos.
+  // Tipologías de espacio que componen una práctica médica. Reemplaza
+  // a Especialidades + Proyectos hasta que el cliente tenga más obras
+  // médicas reales para mostrar. Las imágenes son obras del estudio
+  // (residencial premium) — el caption `origin` deja claro el origen
+  // sin pretender que son consultorios.
+  espacios: {
+    eyebrow: "Espacios que diseñamos",
+    headline: "El espacio define la experiencia.",
+    sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo.",
     items: [
       {
-        id: "odontologia",
-        title: "Odontología",
+        id: "recepcion",
+        title: "Recepción",
         description:
-          "Quirófano, RX, recepción y áreas estériles. Resolvemos la complejidad técnica del consultorio odontológico sin perder la calidez del espacio.",
-        placeholderLabel: "01 · ODONTOLOGÍA",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        placeholderLabel: "01 · RECEPCIÓN",
+        imgSrc: "/images/spaces/recepcion.png",
+        origin: "Obra de ModoCasa estudio · CABA",
       },
       {
-        id: "estetica",
-        title: "Estética & Dermatología",
+        id: "sala-espera",
+        title: "Sala de espera",
         description:
-          "Cabinas, salas de procedimientos y lounge. Diseñamos espacios premium donde el paciente vive una experiencia de cuidado integral.",
-        placeholderLabel: "02 · ESTÉTICA & DERMATOLOGÍA",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        placeholderLabel: "02 · SALA DE ESPERA",
+        imgSrc: "/images/spaces/sala-espera.png",
+        origin: "Obra de ModoCasa estudio · CABA",
       },
       {
-        id: "salud-mental",
-        title: "Salud mental",
+        id: "privado",
+        title: "Privado",
         description:
-          "Consultorio acústicamente aislado, privacidad visual y atmósfera que reduce la ansiedad. Cada decisión proyectual sostiene el vínculo terapéutico.",
-        placeholderLabel: "03 · SALUD MENTAL",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        placeholderLabel: "03 · PRIVADO",
+        imgSrc: "/images/spaces/privado.png",
+        origin: "Obra de ModoCasa estudio · CABA",
       },
       {
-        id: "clinicas",
-        title: "Clínicas multidisciplinarias",
+        id: "soporte",
+        title: "Reuniones, sanitarios y office",
         description:
-          "Ginecología, oftalmología, pediatría, kinesiología y más bajo un mismo techo. Resolvemos circulaciones, áreas comunes y core técnico a escala.",
-        placeholderLabel: "04 · CLÍNICAS MULTIDISCIPLINARIAS",
-      },
-    ],
-  },
-
-  proyectos: {
-    eyebrow: "Obras seleccionadas",
-    headline: "Proyectos destacados.",
-    sub: "Una selección curada de espacios donde la arquitectura sostiene la práctica médica.",
-    // Fila horizontal de cards que se expanden al hover (vaib215 adaptation).
-    // Texto lorem ipsum hasta que el cliente entregue copy real de cada obra.
-    // Placeholders genéricos hasta revisión con el cliente.
-    items: [
-      {
-        id: "proyecto-1",
-        title: "Título 1",
-        spec: "Especialidad · Ubicación · Año",
-        label: "01 · A REVISAR",
-        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
-      },
-      {
-        id: "proyecto-2",
-        title: "Título 2",
-        spec: "Especialidad · Ubicación · Año",
-        label: "02 · A REVISAR",
-        body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.",
-      },
-      {
-        id: "proyecto-3",
-        title: "Título 3",
-        spec: "Especialidad · Ubicación · Año",
-        label: "03 · A REVISAR",
-        body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
-      },
-      {
-        id: "proyecto-4",
-        title: "Título 4",
-        spec: "Especialidad · Ubicación · Año",
-        label: "04 · A REVISAR",
-        body: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-      },
-      {
-        id: "proyecto-5",
-        title: "Título 5",
-        spec: "Especialidad · Ubicación · Año",
-        label: "05 · A REVISAR",
-        body: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
-      },
-      {
-        id: "proyecto-6",
-        title: "Título 6",
-        spec: "Especialidad · Ubicación · Año",
-        label: "06 · A REVISAR",
-        body: "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        placeholderLabel: "04 · ESPACIOS DE SOPORTE",
+        imgSrc: "/images/spaces/soporte.png",
+        origin: "Obra de ModoCasa estudio · CABA",
       },
     ],
   },

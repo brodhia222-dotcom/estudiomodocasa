@@ -4,139 +4,122 @@ import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
 import { ValuePropIcon } from "@/components/primitives/ValuePropIcon";
-import { viewportOnce, easeEditorial } from "@/lib/motion";
+import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * 3 tarjetas verticales con placeholder editorial de fondo + reveal
- * cinematográfico (mask wipe horizontal + contenido en stagger).
+ * 3 tarjetas con foto del estudio + flip 3D al entrar viewport.
+ *
+ * - Cada card empieza boca abajo (rotateY: 180) mostrando el "dorso"
+ *   (número grande italic sobre fondo ink).
+ * - Al entrar al viewport, gira sobre el eje Y hasta dejar el frente
+ *   visible: foto del estudio + icono + título + descripción.
+ * - Stagger de ~0.18s entre cards para que el flip se sienta secuencial.
+ * - Container con `perspective` para que la rotación tenga profundidad
+ *   y no quede plana.
  */
 
 const grid: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.18, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.18, delayChildren: 0.1 } },
 };
 
-// La tarjeta entera se descubre con un mask que se retira de izquierda
-// a derecha (clip-path), simulando una "cortina" editorial.
-const cardReveal: Variants = {
-  hidden: { clipPath: "inset(0 100% 0 0)" },
+const flip: Variants = {
+  hidden: { rotateY: 180 },
   visible: {
-    clipPath: "inset(0 0% 0 0)",
+    rotateY: 0,
     transition: { duration: 1.1, ease: easeEditorial },
-  },
-};
-
-// El contenido interior aparece con un pequeño delay para que ocurra
-// JUSTO cuando la cortina termina de descubrir la card.
-const contentStagger: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.65 },
-  },
-};
-
-const innerFade: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeEditorial } },
-};
-
-const rule: Variants = {
-  hidden: { scaleX: 0 },
-  visible: {
-    scaleX: 1,
-    transition: { duration: 0.7, ease: easeEditorial, delay: 0.8 },
   },
 };
 
 export function ValueProps() {
   return (
-    <Section bg="paper" py="default">
+    <Section
+      bg="paper"
+      py="default"
+      className="!pt-[clamp(120px,14vw,200px)]"
+    >
       <Container>
         <motion.ul
           variants={grid}
           initial="hidden"
           whileInView="visible"
-          viewport={viewportOnce}
+          viewport={{ once: true, amount: 0.35 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           {copy.valueProps.map((item) => (
-            <motion.li
+            <li
               key={item.number}
-              variants={cardReveal}
-              className="group relative overflow-hidden border border-[var(--color-ink)]/15 min-h-[440px] cursor-default"
+              className="relative min-h-[440px] md:min-h-[520px]"
+              style={{ perspective: 1600 }}
             >
-              {/* ─── Capa 0: placeholder editorial de fondo (grilla 1px más visible) ─── */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-[var(--color-paper-2)]"
-              >
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(8,9,10,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(8,9,10,0.12) 1px, transparent 1px)",
-                    backgroundSize: "36px 36px",
-                  }}
-                />
-                {/* Label de placeholder visible arriba a la izquierda */}
-                <span className="absolute top-7 left-8 eyebrow text-[var(--color-ink)]/45">
-                  Imagen · pendiente
-                </span>
-              </div>
-
-              {/* ─── Capa 1: velo más sutil para que la grilla se vea pero
-                 el texto siga legible. Hover desvanece más el velo. */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-[var(--color-paper)]/82 transition-colors duration-700 ease-out group-hover:bg-[var(--color-paper)]/62"
-              />
-
-              {/* ─── Capa 2: contenido ─── */}
               <motion.div
-                variants={contentStagger}
-                className="relative z-10 flex flex-col gap-7 p-8 md:p-10 h-full"
+                variants={flip}
+                className="relative w-full h-full"
+                style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Número grande italic en esquina superior derecha */}
-                <motion.span
-                  variants={innerFade}
-                  className="absolute top-7 right-8 font-serif-italic leading-none text-[var(--color-ink)]/55 transition-colors duration-700 ease-out group-hover:text-[var(--color-ink)]/80"
-                  style={{ fontSize: "clamp(28px, 2.6vw, 36px)" }}
-                  aria-hidden="true"
+                {/* ─── Cara FRONT: foto + contenido ─── */}
+                <div
+                  className="absolute inset-0 overflow-hidden border border-[var(--color-ink)]/15"
+                  style={{ backfaceVisibility: "hidden" }}
                 >
-                  {item.number}
-                </motion.span>
+                  {/* Foto cover */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.imgSrc}
+                    alt={item.title}
+                    className="absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-[1200ms] ease-out group-hover:scale-100"
+                  />
 
-                {/* Micro-ilustración SVG line-art animada */}
-                <motion.div
-                  variants={innerFade}
-                  className="text-[var(--color-ink)] transition-transform duration-700 ease-out group-hover:-translate-y-1"
-                >
-                  <ValuePropIcon variant={item.icon} size={68} />
-                </motion.div>
+                  {/* Gradient bottom-up para legibilidad del texto blanco */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/65 to-[var(--color-ink)]/20"
+                  />
 
-                {/* Divisor 1px de 40px */}
-                <motion.span
-                  variants={rule}
-                  className="block h-px w-10 bg-[var(--color-ink)] origin-left"
+                  {/* Contenido */}
+                  <div className="relative z-10 flex flex-col h-full p-7 md:p-9 text-[var(--color-paper)]">
+                    {/* Número grande italic en esquina superior derecha */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-6 right-7 font-serif-italic leading-none text-[var(--color-paper)]/75"
+                      style={{ fontSize: "clamp(28px, 2.6vw, 36px)" }}
+                    >
+                      {item.number}
+                    </span>
+
+                    {/* Bloque inferior: icono + divider + título + body */}
+                    <div className="mt-auto flex flex-col gap-5">
+                      <ValuePropIcon
+                        variant={item.icon}
+                        size={52}
+                        className="text-[var(--color-paper)]"
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="block h-px w-10 bg-[var(--color-paper)]/85"
+                      />
+                      <h3 className="text-[22px] md:text-[24px] font-semibold tracking-[-0.01em] leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-paper)]/82 max-w-[34ch]">
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ─── Cara BACK: fondo negro liso, sin contenido ─── */}
+                <div
+                  className="absolute inset-0 bg-[var(--color-ink)]"
+                  style={{
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)",
+                  }}
                   aria-hidden="true"
                 />
-
-                <motion.h3
-                  variants={innerFade}
-                  className="text-[22px] md:text-[24px] font-semibold tracking-[-0.01em] leading-tight"
-                >
-                  {item.title}
-                </motion.h3>
-
-                <motion.p
-                  variants={innerFade}
-                  className="text-[15px] md:text-[16px] leading-[1.55] text-[var(--color-ink)]/70 max-w-[34ch] mt-auto"
-                >
-                  {item.body}
-                </motion.p>
               </motion.div>
-            </motion.li>
+            </li>
           ))}
         </motion.ul>
       </Container>

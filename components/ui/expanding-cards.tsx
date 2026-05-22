@@ -17,7 +17,9 @@ export type ExpandingCardItem = {
   title: string;
   description: string;
   imgSrc?: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  /** Etiqueta editorial debajo de la descripción. Ej.: "Obra residencial · CABA · 2023". */
+  origin?: string;
   /** Etiqueta para el placeholder si no hay imagen. */
   placeholderLabel?: string;
 };
@@ -88,20 +90,22 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                 "outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ink)] focus-visible:ring-offset-2",
               )}
             >
-              {/* Background: imagen real o placeholder editorial */}
+              {/* Background: imagen real o placeholder editorial.
+                 Inactiva: grayscale + scale-105. Activa: color real + scale-100. */}
               {item.imgSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={item.imgSrc}
                   alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.05] scale-105 transition-transform duration-700 ease-out group-data-[active=true]:scale-100"
+                  className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.05] scale-105 transition-[transform,filter] duration-[900ms] ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 group-data-[active=true]:contrast-100"
                 />
               ) : (
                 <PlaceholderBg label={item.placeholderLabel ?? item.title.toUpperCase()} />
               )}
 
-              {/* Overlay oscuro: más fuerte en colapsado, más liviano en activo */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/55 to-[var(--color-ink)]/20 transition-opacity duration-500 ease-out group-data-[active=true]:from-[var(--color-ink)]/85 group-data-[active=true]:via-[var(--color-ink)]/30 group-data-[active=true]:to-transparent" />
+              {/* Overlay oscuro: fuerte en colapsado, casi inexistente en activo
+                 para que la foto color se vea limpia. */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/65 to-[var(--color-ink)]/35 transition-opacity duration-700 ease-out group-data-[active=true]:from-[var(--color-ink)]/70 group-data-[active=true]:via-[var(--color-ink)]/20 group-data-[active=true]:to-transparent" />
 
               {/* Contenido */}
               <article className="absolute inset-0 flex flex-col justify-end gap-3 p-6 md:p-7">
@@ -110,17 +114,24 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                   {item.title}
                 </h3>
 
-                {/* Bloque activo: icono + título + descripción */}
+                {/* Bloque activo: icono (opcional) + título + descripción + origen (opcional) */}
                 <div className="relative opacity-0 translate-y-2 transition-[opacity,transform] duration-500 ease-out group-data-[active=true]:opacity-100 group-data-[active=true]:translate-y-0">
-                  <div className="text-[var(--color-paper)]/85 mb-3">
-                    {item.icon}
-                  </div>
+                  {item.icon && (
+                    <div className="text-[var(--color-paper)]/85 mb-3">
+                      {item.icon}
+                    </div>
+                  )}
                   <h3 className="display-s text-[var(--color-paper)] font-medium mb-2">
                     {item.title}
                   </h3>
                   <p className="text-[14px] leading-[1.55] text-[var(--color-paper)]/75 max-w-[42ch]">
                     {item.description}
                   </p>
+                  {item.origin && (
+                    <p className="mt-5 text-[11px] uppercase tracking-[0.18em] text-[var(--color-paper)]/55">
+                      {item.origin}
+                    </p>
+                  )}
                 </div>
 
                 {/* En mobile siempre se ve el título cuando la card está colapsada

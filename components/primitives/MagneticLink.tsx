@@ -7,7 +7,7 @@ type MagneticLinkProps = {
   children: ReactNode;
   href: string;
   className?: string;
-  variant?: "primary" | "ghost" | "inverted";
+  variant?: "primary" | "ghost" | "inverted" | "solid-swap";
   external?: boolean;
   strength?: number;
   ariaLabel?: string;
@@ -20,6 +20,10 @@ const variants = {
     "bg-transparent text-[var(--color-ink)] border border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)]",
   inverted:
     "bg-transparent text-[var(--color-paper)] border border-[var(--color-paper)] hover:bg-[var(--color-paper)] hover:text-[var(--color-ink)]",
+  // Negro sólido → blanco sólido al hover. Pensado para CTAs sobre foto
+  // oscura, donde el hover translúcido se pierde contra el fondo.
+  "solid-swap":
+    "bg-[var(--color-ink)] text-[var(--color-paper)] border border-[var(--color-ink)] hover:bg-[var(--color-paper)] hover:text-[var(--color-ink)] hover:border-[var(--color-paper)]",
 };
 
 export function MagneticLink({

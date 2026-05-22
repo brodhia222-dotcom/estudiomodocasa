@@ -49,7 +49,10 @@ export function Navbar() {
     };
   }, []);
 
-  const isInverted = overDark && scrolled;
+  // Invertimos a paleta clara cuando el navbar pasa sobre fondo oscuro,
+  // sin esperar el scroll. Así el hero (que arranca dark) ya recibe el
+  // logo + items en blanco desde el primer paint.
+  const isInverted = overDark;
   const ink = "var(--color-ink)";
   const paper = "var(--color-paper)";
 
@@ -88,29 +91,6 @@ export function Navbar() {
               </a>
             ))}
           </nav>
-
-          <div className="hidden md:block">
-            <a
-              href="#contacto"
-              className={`group inline-flex items-center gap-3 px-5 py-3 text-[13px] tracking-[0.06em] uppercase font-medium border transition-colors duration-500 ease-out ${
-                isInverted
-                  ? "bg-[var(--color-paper)] text-[var(--color-ink)] border-[var(--color-paper)] hover:bg-transparent hover:text-[var(--color-paper)]"
-                  : "bg-[var(--color-ink)] text-[var(--color-paper)] border-[var(--color-ink)] hover:bg-transparent hover:text-[var(--color-ink)]"
-              }`}
-            >
-              {copy.nav.cta}
-              <svg
-                width="12"
-                height="9"
-                viewBox="0 0 14 10"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-500 ease-out group-hover:translate-x-1"
-              >
-                <path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
-            </a>
-          </div>
 
           <button
             onClick={() => setOpen(!open)}
