@@ -1,20 +1,27 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 
 /**
  * Carrusel de fondo para el Hero.
  *
  * - Cross-fade entre N fotos cada `intervalMs`.
  * - Cada foto activa corre la animación `kenburns` (zoom 1.0 → 1.08 en 9s)
- *   definida en globals.css. Cuando deja de estar activa, queda congelada
- *   en el estado final por `forwards`; al volver a ser activa, React la
- *   re-monta semánticamente y la animación arranca de cero (gracias a que
- *   la clase se quitó y se vuelve a aplicar).
+ *   definida en globals.css. La clase se aplica al div WRAPPER (no al
+ *   <Image>), así el transform actúa sobre el contenedor sin que Next
+ *   re-renderice la imagen internamente.
  * - `prefers-reduced-motion` deshabilita Ken Burns y deja una imagen fija
  *   (la primera), evitando movimiento para quienes lo prefieren.
  * - SSR-safe: el primer paint muestra la foto en index 0 sin esperar
  *   hidratación.
+ * - Usa <Image> de next/image para optimización automática:
+ *     · La primera imagen tiene `preload` (Next 16 reemplazó priority
+ *       deprecated) → la entrega como AVIF/WebP servida desde el
+ *       Image Optimization API, con preload hint en el <head>.
+ *     · El resto carga lazy.
+ *     · `sizes="100vw"` indica que la imagen ocupa el ancho completo
+ *       del viewport para que Next elija la resolución correcta.
  */
 
 type Props = {
@@ -50,27 +57,33 @@ export function HeroCarousel({
   }, [images.length, intervalMs]);
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className ?? ""}`} aria-hidden="true">
+    <div
+      className={`absolute inset-0 overflow-hidden ${className ?? ""}`}
+      aria-hidden="true"
+    >
       {images.map((src, i) => {
         const active = i === index;
         return (
           <div
             key={src}
-            className="absolute inset-0 transition-opacity ease-out"
+            className={`absolute inset-0 transition-opacity ease-out ${
+              active ? "animate-kenburns" : ""
+            }`}
             style={{
               opacity: active ? 1 : 0,
               transitionDuration: `${fadeMs}ms`,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={src}
               alt={alt}
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding="async"
-              className={`h-full w-full object-cover ${
+              fill
+              preload={i === 0}
+              sizes="100vw"
+              quality={85}
+              className={`object-cover ${
                 grayscale ? "grayscale contrast-[1.05]" : ""
-              } ${active ? "animate-kenburns" : ""}`}
+              }`}
             />
           </div>
         );
