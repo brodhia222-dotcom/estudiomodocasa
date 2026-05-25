@@ -8,27 +8,25 @@ import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * 3 tarjetas con foto del estudio + flip 3D al entrar viewport.
+ * 3 tarjetas con foto del estudio + reveal sutil al entrar viewport.
  *
- * - Cada card empieza boca abajo (rotateY: 180) mostrando el "dorso"
- *   (número grande italic sobre fondo ink).
- * - Al entrar al viewport, gira sobre el eje Y hasta dejar el frente
- *   visible: foto del estudio + icono + título + descripción.
- * - Stagger de ~0.18s entre cards para que el flip se sienta secuencial.
- * - Container con `perspective` para que la rotación tenga profundidad
- *   y no quede plana.
+ * Sin flip 3D ni dobles caras: solo fade-in + slight lift + slight scale.
+ * Stagger entre las cards para que la aparición sea secuencial sin ser
+ * llamativa. El cliente pidió algo más sutil que el flip anterior.
  */
 
 const grid: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.18, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.05 } },
 };
 
-const flip: Variants = {
-  hidden: { rotateY: 180 },
+const card: Variants = {
+  hidden: { opacity: 0, y: 28, scale: 0.985 },
   visible: {
-    rotateY: 0,
-    transition: { duration: 1.1, ease: easeEditorial },
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.85, ease: easeEditorial },
   },
 };
 
@@ -48,78 +46,56 @@ export function ValueProps() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           {copy.valueProps.map((item) => (
-            <li
+            <motion.li
               key={item.number}
-              className="relative min-h-[440px] md:min-h-[520px]"
-              style={{ perspective: 1600 }}
+              variants={card}
+              className="relative min-h-[440px] md:min-h-[520px] overflow-hidden border border-[var(--color-ink)]/15"
             >
-              <motion.div
-                variants={flip}
-                className="relative w-full h-full"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* ─── Cara FRONT: foto + contenido ─── */}
-                <div
-                  className="absolute inset-0 overflow-hidden border border-[var(--color-ink)]/15"
-                  style={{ backfaceVisibility: "hidden" }}
-                >
-                  {/* Foto cover */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.imgSrc}
-                    alt={item.title}
-                    className="absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-[1200ms] ease-out group-hover:scale-100"
-                  />
+              {/* Foto cover */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.imgSrc}
+                alt={item.title}
+                className="absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-[1200ms] ease-out hover:scale-100"
+              />
 
-                  {/* Gradient bottom-up para legibilidad del texto blanco */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/65 to-[var(--color-ink)]/20"
-                  />
+              {/* Gradient bottom-up para legibilidad del texto blanco */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/65 to-[var(--color-ink)]/20"
+              />
 
-                  {/* Contenido */}
-                  <div className="relative z-10 flex flex-col h-full p-7 md:p-9 text-[var(--color-paper)]">
-                    {/* Número grande italic en esquina superior derecha */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-6 right-7 font-serif-italic leading-none text-[var(--color-paper)]/75"
-                      style={{ fontSize: "clamp(28px, 2.6vw, 36px)" }}
-                    >
-                      {item.number}
-                    </span>
-
-                    {/* Bloque inferior: icono + divider + título + body */}
-                    <div className="mt-auto flex flex-col gap-5">
-                      <ValuePropIcon
-                        variant={item.icon}
-                        size={52}
-                        className="text-[var(--color-paper)]"
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="block h-px w-10 bg-[var(--color-paper)]/85"
-                      />
-                      <h3 className="text-[22px] md:text-[24px] font-semibold tracking-[-0.01em] leading-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-paper)]/82 max-w-[34ch]">
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* ─── Cara BACK: fondo negro liso, sin contenido ─── */}
-                <div
-                  className="absolute inset-0 bg-[var(--color-ink)]"
-                  style={{
-                    backfaceVisibility: "hidden",
-                    transform: "rotateY(180deg)",
-                  }}
+              {/* Contenido */}
+              <div className="relative z-10 flex flex-col h-full p-7 md:p-9 text-[var(--color-paper)]">
+                {/* Número grande italic en esquina superior derecha */}
+                <span
                   aria-hidden="true"
-                />
-              </motion.div>
-            </li>
+                  className="absolute top-6 right-7 font-serif-italic leading-none text-[var(--color-paper)]/75"
+                  style={{ fontSize: "clamp(28px, 2.6vw, 36px)" }}
+                >
+                  {item.number}
+                </span>
+
+                {/* Bloque inferior: icono + divider + título + body */}
+                <div className="mt-auto flex flex-col gap-5">
+                  <ValuePropIcon
+                    variant={item.icon}
+                    size={52}
+                    className="text-[var(--color-paper)]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="block h-px w-10 bg-[var(--color-paper)]/85"
+                  />
+                  <h3 className="text-[22px] md:text-[24px] font-semibold tracking-[-0.01em] leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-paper)]/82 max-w-[34ch]">
+                    {item.body}
+                  </p>
+                </div>
+              </div>
+            </motion.li>
           ))}
         </motion.ul>
       </Container>

@@ -7,8 +7,9 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Hairline } from "@/components/primitives/Hairline";
 import { Reveal } from "@/components/primitives/Reveal";
-import { easeEditorial } from "@/lib/motion";
-import { copy } from "@/lib/copy";
+import { MagneticLink } from "@/components/primitives/MagneticLink";
+import { easeEditorial, viewportOnce } from "@/lib/motion";
+import { copy, whatsappLink } from "@/lib/copy";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
@@ -76,6 +77,25 @@ export function FAQ() {
             );
           })}
         </ul>
+
+        {/* Cierre: invitación a coordinar reunión directamente por WhatsApp.
+           Aparece debajo del accordion para empujar al usuario al canal de
+           contacto sin tener que volver al hero. */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.7, ease: easeEditorial }}
+          className="mt-[clamp(48px,7vw,96px)] flex flex-col items-center text-center gap-6"
+        >
+          <p className="body-l text-[var(--color-ink)]/70 max-w-[44ch]">
+            ¿Tu pregunta no está acá? Coordinemos una reunión privada para
+            conversar sobre tu proyecto.
+          </p>
+          <MagneticLink href={whatsappLink} variant="primary" external>
+            Agendar reunión
+          </MagneticLink>
+        </motion.div>
       </Container>
     </Section>
   );
