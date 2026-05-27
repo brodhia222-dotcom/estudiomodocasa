@@ -223,6 +223,22 @@ hr {
   animation: scroll-tick 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
+/* ─── Marquee auto-scroll (Proyecto Chinski gallery) ─── */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-left {
+  animation: marquee-left var(--marquee-speed, 30s) linear infinite;
+}
+.animate-marquee-right {
+  animation: marquee-right var(--marquee-speed, 30s) linear infinite;
+}
+
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,

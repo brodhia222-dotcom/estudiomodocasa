@@ -11,29 +11,6 @@ import { copy } from "@/lib/copy";
 
 const { proyecto } = copy;
 
-const clipReveal: Variants = {
-  hidden: { clipPath: "inset(100% 0 0 0)" },
-  visible: {
-    clipPath: "inset(0% 0 0 0)",
-    transition: { duration: 1.1, ease: easeEditorial },
-  },
-};
-
-const gridStagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const gridItem: Variants = {
-  hidden: { opacity: 0, y: 32, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.9, ease: easeEditorial },
-  },
-};
-
 const statItem: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: {
@@ -45,208 +22,144 @@ const statItem: Variants = {
 
 const statStagger: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
 };
 
-export function ProyectoChinski() {
-  const { hero, grid } = proyecto.images;
+const ROW_1 = [
+  proyecto.images.hero,
+  proyecto.images.grid[1],
+  proyecto.images.grid[3],
+  proyecto.images.grid[4],
+];
 
+const ROW_2 = [
+  proyecto.images.grid[0],
+  proyecto.images.grid[2],
+  proyecto.images.grid[5],
+  proyecto.images.grid[6],
+];
+
+export function ProyectoChinski() {
   return (
     <Section id="proyecto" bg="paper" py="default">
+      {/* ── Header ── */}
       <Container>
-        {/* ── Header ── */}
-        <header className="grid grid-cols-12 gap-x-6 gap-y-8 mb-[clamp(48px,7vw,96px)]">
+        <header className="grid grid-cols-12 gap-x-6 gap-y-6 mb-[clamp(32px,5vw,56px)]">
           <div className="col-span-12 md:col-span-3">
             <Eyebrow>{proyecto.eyebrow}</Eyebrow>
           </div>
-          <div className="col-span-12 md:col-span-9">
-            <Reveal as="h2" className="display-l max-w-[700px]">
-              {proyecto.headline}
-            </Reveal>
-            <Reveal
-              as="p"
-              className="body-l text-[var(--color-mute)] max-w-[560px] mt-5"
-              delay={0.15}
+          <div className="col-span-12 md:col-span-9 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <Reveal as="h2" className="display-l max-w-[700px]">
+                {proyecto.headline}
+              </Reveal>
+              <Reveal
+                as="p"
+                className="body-l text-[var(--color-mute)] max-w-[480px] mt-3"
+                delay={0.1}
+              >
+                {proyecto.sub}
+              </Reveal>
+            </div>
+            <motion.div
+              variants={statStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="flex flex-wrap gap-x-8 gap-y-3 shrink-0"
             >
-              {proyecto.sub}
-            </Reveal>
+              {proyecto.stats.map((stat) => (
+                <motion.div key={stat.label} variants={statItem}>
+                  <span className="eyebrow text-[var(--color-mute)]">
+                    {stat.label}
+                  </span>
+                  <p className="text-[15px] font-medium tracking-[-0.01em] mt-1">
+                    {stat.value}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </header>
-
-        {/* ── Hero image full-width with clip reveal ── */}
-        <motion.div
-          variants={clipReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="relative w-full aspect-[16/9] overflow-hidden"
-        >
-          <Image
-            src={hero.src}
-            alt={hero.alt}
-            fill
-            sizes="100vw"
-            quality={85}
-            className="object-cover"
-          />
-        </motion.div>
-
-        {/* ── Stats bar ── */}
-        <motion.div
-          variants={statStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 border-t border-[var(--color-ink)]/15 mt-6 pt-6 pb-2"
-        >
-          {proyecto.stats.map((stat) => (
-            <motion.div key={stat.label} variants={statItem}>
-              <span className="eyebrow text-[var(--color-mute)]">
-                {stat.label}
-              </span>
-              <p className="text-[17px] font-medium tracking-[-0.01em] mt-2">
-                {stat.value}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* ── Pull quote ── */}
-        <Reveal
-          as="blockquote"
-          className="my-[clamp(40px,6vw,80px)] max-w-[680px] mx-auto text-center"
-          delay={0.1}
-        >
-          <p className="font-serif-italic text-[var(--text-display-m)] leading-[1.2] text-[var(--color-ink)]/80">
-            &ldquo;{proyecto.quote}&rdquo;
-          </p>
-        </Reveal>
-
-        {/* ── Bento grid ── */}
-        <motion.div
-          variants={gridStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4"
-        >
-          {/* Row 1: landscape (2-col) + portrait */}
-          <motion.div
-            variants={gridItem}
-            className="col-span-2 relative aspect-[16/10] overflow-hidden group"
-          >
-            <Image
-              src={grid[1].src}
-              alt={grid[1].alt}
-              fill
-              sizes="(min-width: 768px) 66vw, 100vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[1].label}</GridLabel>
-          </motion.div>
-
-          <motion.div
-            variants={gridItem}
-            className="col-span-1 relative aspect-[3/4] overflow-hidden group"
-          >
-            <Image
-              src={grid[0].src}
-              alt={grid[0].alt}
-              fill
-              sizes="(min-width: 768px) 33vw, 50vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[0].label}</GridLabel>
-          </motion.div>
-
-          {/* Row 2: portrait + landscape (2-col) */}
-          <motion.div
-            variants={gridItem}
-            className="col-span-1 relative aspect-[3/4] overflow-hidden group"
-          >
-            <Image
-              src={grid[2].src}
-              alt={grid[2].alt}
-              fill
-              sizes="(min-width: 768px) 33vw, 50vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[2].label}</GridLabel>
-          </motion.div>
-
-          <motion.div
-            variants={gridItem}
-            className="col-span-2 relative aspect-[16/10] overflow-hidden group"
-          >
-            <Image
-              src={grid[3].src}
-              alt={grid[3].alt}
-              fill
-              sizes="(min-width: 768px) 66vw, 100vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[3].label}</GridLabel>
-          </motion.div>
-
-          {/* Row 3: three equal */}
-          <motion.div
-            variants={gridItem}
-            className="col-span-1 relative aspect-[4/5] overflow-hidden group"
-          >
-            <Image
-              src={grid[4].src}
-              alt={grid[4].alt}
-              fill
-              sizes="(min-width: 768px) 33vw, 50vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[4].label}</GridLabel>
-          </motion.div>
-
-          <motion.div
-            variants={gridItem}
-            className="col-span-1 relative aspect-[4/5] overflow-hidden group"
-          >
-            <Image
-              src={grid[5].src}
-              alt={grid[5].alt}
-              fill
-              sizes="(min-width: 768px) 33vw, 50vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[5].label}</GridLabel>
-          </motion.div>
-
-          <motion.div
-            variants={gridItem}
-            className="col-span-1 relative aspect-[4/5] overflow-hidden group"
-          >
-            <Image
-              src={grid[6].src}
-              alt={grid[6].alt}
-              fill
-              sizes="(min-width: 768px) 33vw, 50vw"
-              quality={80}
-              className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <GridLabel>{grid[6].label}</GridLabel>
-          </motion.div>
-        </motion.div>
       </Container>
+
+      {/* ── Auto-scroll marquee gallery ── */}
+      <div className="flex flex-col gap-3 md:gap-4 overflow-hidden">
+        <MarqueeRow images={ROW_1} direction="left" speed={35} />
+        <MarqueeRow images={ROW_2} direction="right" speed={28} />
+      </div>
     </Section>
   );
 }
 
-function GridLabel({ children }: { children: React.ReactNode }) {
+type MarqueeImage = { src: string; alt: string; label?: string };
+
+function MarqueeRow({
+  images,
+  direction,
+  speed,
+}: {
+  images: MarqueeImage[];
+  direction: "left" | "right";
+  speed: number;
+}) {
+  const doubled = [...images, ...images];
+  const animClass =
+    direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
+
   return (
-    <span className="absolute bottom-0 left-0 right-0 px-4 py-3 text-[12px] font-medium tracking-[0.12em] uppercase text-white/90 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      {children}
-    </span>
+    <div
+      className="flex overflow-hidden group"
+      style={
+        { "--marquee-speed": `${speed}s` } as React.CSSProperties
+      }
+    >
+      <div
+        className={`flex shrink-0 gap-3 md:gap-4 ${animClass} group-hover:[animation-play-state:paused]`}
+      >
+        {doubled.map((img, i) => (
+          <div
+            key={`${img.src}-${i}`}
+            className="relative h-[240px] md:h-[320px] lg:h-[380px] shrink-0 overflow-hidden rounded-sm"
+            style={{ width: "auto", aspectRatio: "3 / 2" }}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              sizes="(min-width: 1024px) 570px, (min-width: 768px) 480px, 360px"
+              quality={80}
+              className="object-cover"
+            />
+            {img.label && (
+              <span className="absolute bottom-0 left-0 right-0 px-4 py-2.5 text-[11px] font-medium tracking-[0.14em] uppercase text-white/90 bg-gradient-to-t from-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                {img.label}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+      <div
+        aria-hidden="true"
+        className={`flex shrink-0 gap-3 md:gap-4 ${animClass} group-hover:[animation-play-state:paused]`}
+      >
+        {doubled.map((img, i) => (
+          <div
+            key={`${img.src}-dup-${i}`}
+            className="relative h-[240px] md:h-[320px] lg:h-[380px] shrink-0 overflow-hidden rounded-sm"
+            style={{ width: "auto", aspectRatio: "3 / 2" }}
+          >
+            <Image
+              src={img.src}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 570px, (min-width: 768px) 480px, 360px"
+              quality={80}
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
