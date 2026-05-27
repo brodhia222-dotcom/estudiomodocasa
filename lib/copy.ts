@@ -131,57 +131,56 @@ export const copy = {
   proyecto: {
     eyebrow: "Nuestro último proyecto",
     headline: "Consultorio Chinski",
-    sub: "Oftalmología de alta complejidad en el corazón de Buenos Aires. Un espacio donde la precisión médica se encuentra con el diseño de interiores de primer nivel.",
-    quote: "Cada decisión proyectual responde a la experiencia del paciente y a la eficiencia del profesional.",
+    sub: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     stats: [
       { label: "Especialidad", value: "Oftalmología" },
       { label: "Ubicación", value: "CABA, Buenos Aires" },
       { label: "Año", value: "2024" },
       { label: "Superficie", value: "180 m²" },
     ],
-    images: {
-      hero: {
-        src: "/images/chinski/chinski-hero.jpg",
-        alt: "Sala de espera del Consultorio Chinski — sofás, poufs y escultura de rostro",
+    filters: ["Todo", "Recepción", "Sala de espera", "Consultorio", "Reuniones"],
+    images: [
+      {
+        src: "/images/chinski/chinski-02.jpg",
+        alt: "Recepción con mostrador de mármol y paneles de madera",
+        category: "Recepción",
       },
-      grid: [
-        {
-          src: "/images/chinski/chinski-02.jpg",
-          alt: "Recepción con mostrador de mármol y paneles de madera",
-          label: "Recepción",
-        },
-        {
-          src: "/images/chinski/chinski-03.jpg",
-          alt: "Vista panorámica de la recepción y sala de espera",
-          label: "Recepción",
-        },
-        {
-          src: "/images/chinski/chinski-04.jpg",
-          alt: "Detalle de la escultura y área de espera",
-          label: "Sala de espera",
-        },
-        {
-          src: "/images/chinski/chinski-05.jpg",
-          alt: "Consultorio con sillón oftalmológico y parasoles de madera",
-          label: "Consultorio",
-        },
-        {
-          src: "/images/chinski/chinski-06.jpg",
-          alt: "Oficina médica con escritorio y equipamiento",
-          label: "Oficina",
-        },
-        {
-          src: "/images/chinski/chinski-07.jpg",
-          alt: "Sala de reuniones con mesa redonda",
-          label: "Reuniones",
-        },
-        {
-          src: "/images/chinski/chinski-08.jpg",
-          alt: "Segundo consultorio con equipamiento oftalmológico",
-          label: "Consultorio",
-        },
-      ],
-    },
+      {
+        src: "/images/chinski/chinski-03.jpg",
+        alt: "Vista panorámica de la recepción y sala de espera",
+        category: "Recepción",
+      },
+      {
+        src: "/images/chinski/chinski-hero.jpg",
+        alt: "Sala de espera con sofás, poufs y escultura de rostro",
+        category: "Sala de espera",
+      },
+      {
+        src: "/images/chinski/chinski-04.jpg",
+        alt: "Detalle de la escultura y área de espera",
+        category: "Sala de espera",
+      },
+      {
+        src: "/images/chinski/chinski-05.jpg",
+        alt: "Consultorio con sillón oftalmológico y parasoles de madera",
+        category: "Consultorio",
+      },
+      {
+        src: "/images/chinski/chinski-08.jpg",
+        alt: "Segundo consultorio con equipamiento oftalmológico",
+        category: "Consultorio",
+      },
+      {
+        src: "/images/chinski/chinski-06.jpg",
+        alt: "Oficina médica con escritorio y equipamiento",
+        category: "Consultorio",
+      },
+      {
+        src: "/images/chinski/chinski-07.jpg",
+        alt: "Sala de reuniones con mesa redonda",
+        category: "Reuniones",
+      },
+    ],
   },
 
   metodologia: {
