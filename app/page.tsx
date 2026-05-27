@@ -2,6 +2,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { ValueProps } from "@/components/sections/ValueProps";
 import { Espacios } from "@/components/sections/Espacios";
+import { ProyectoChinski } from "@/components/sections/ProyectoChinski";
 import { Metodologia } from "@/components/sections/Metodologia";
 // Filosofia.tsx y Testimonios.tsx existen fuera del render — pendientes para
 // cuando haya contenido real. Especialidades/Proyectos quedaron archivados
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <ValueProps />
         <Espacios />
+        <ProyectoChinski />
         <Metodologia />
         <FAQ />
         <LogoFlourish />
