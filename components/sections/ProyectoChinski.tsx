@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
+import { Lightbox } from "@/components/ui/lightbox";
 import { easeEditorial, viewportOnce } from "@/lib/motion";
 import { proyectoData, type ProjectImage } from "@/lib/proyecto-data";
 
@@ -29,19 +30,35 @@ const sizeClasses: Record<ProjectImage["size"], string> = {
   normal: "col-span-1 row-span-1",
 };
 
-const aspectClasses: Record<ProjectImage["size"], string> = {
-  wide: "aspect-[16/9]",
-  tall: "aspect-[3/5]",
-  normal: "aspect-[4/3]",
-};
-
 export function ProyectoChinski() {
   const [active, setActive] = useState("Todo");
+  const [expanded, setExpanded] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const filtered =
     active === "Todo"
       ? proyectoData.images
       : proyectoData.images.filter((img) => img.category === active);
+
+  const isFiltering = active !== "Todo";
+  const visible = isFiltering || expanded
+    ? filtered
+    : filtered.slice(0, proyectoData.initialCount);
+
+  const hasMore = !isFiltering && !expanded && filtered.length > proyectoData.initialCount;
+
+  const openLightbox = useCallback((img: ProjectImage) => {
+    const idx = filtered.findIndex((f) => f.src === img.src);
+    setLightboxIndex(idx);
+  }, [filtered]);
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevImage = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
+  }, [filtered.length]);
+  const nextImage = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i + 1) % filtered.length : null));
+  }, [filtered.length]);
 
   return (
     <Section id="proyecto" bg="paper" py="default">
@@ -92,7 +109,7 @@ export function ProyectoChinski() {
           {proyectoData.filters.map((filter) => (
             <button
               key={filter}
-              onClick={() => setActive(filter)}
+              onClick={() => { setActive(filter); setExpanded(false); }}
               className={`px-4 py-2 text-[13px] font-medium tracking-[0.04em] border transition-all duration-300 ${
                 active === filter
                   ? "bg-[var(--color-ink)] text-[var(--color-paper)] border-[var(--color-ink)]"
@@ -107,11 +124,14 @@ export function ProyectoChinski() {
         {/* ── Bento grid ── */}
         <motion.div
           layout
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 auto-rows-[minmax(160px,1fr)]"
-          style={{ gridAutoFlow: "dense" }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3"
+          style={{
+            gridAutoRows: "clamp(140px, 18vw, 220px)",
+            gridAutoFlow: "dense",
+          }}
         >
           <AnimatePresence mode="popLayout">
-            {filtered.map((img) => (
+            {visible.map((img) => (
               <motion.div
                 key={img.src}
                 layout
@@ -119,30 +139,61 @@ export function ProyectoChinski() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.94 }}
                 transition={{ duration: 0.35, ease: easeEditorial }}
-                className={`relative overflow-hidden group ${sizeClasses[img.size]}`}
+                className={`relative overflow-hidden cursor-pointer group ${sizeClasses[img.size]}`}
+                onClick={() => openLightbox(img)}
               >
-                <div className={`relative w-full h-full ${aspectClasses[img.size]}`}>
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes={
-                      img.size === "wide"
-                        ? "(min-width: 768px) 50vw, 100vw"
-                        : "(min-width: 768px) 25vw, 50vw"
-                    }
-                    quality={75}
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  />
-                  <span className="absolute bottom-0 left-0 right-0 px-3 py-2 text-[11px] font-medium tracking-[0.12em] uppercase text-white/90 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-                    {img.category}
-                  </span>
-                </div>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes={
+                    img.size === "wide"
+                      ? "(min-width: 768px) 66vw, 100vw"
+                      : "(min-width: 768px) 33vw, 50vw"
+                  }
+                  quality={75}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* ── Show more button ── */}
+        {hasMore && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={{ duration: 0.6, ease: easeEditorial }}
+            className="flex justify-center mt-10"
+          >
+            <button
+              onClick={() => setExpanded(true)}
+              className="group relative px-8 py-3.5 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-ink)] overflow-hidden transition-colors duration-500 hover:text-[var(--color-paper)]"
+            >
+              <span className="absolute inset-0 bg-[var(--color-ink)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />
+              <span className="relative z-10">
+                Mostrar más
+              </span>
+            </button>
+          </motion.div>
+        )}
       </Container>
+
+      {/* ── Lightbox ── */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <Lightbox
+            images={filtered}
+            index={lightboxIndex}
+            onClose={closeLightbox}
+            onPrev={prevImage}
+            onNext={nextImage}
+          />
+        )}
+      </AnimatePresence>
     </Section>
   );
 }
