@@ -24,11 +24,15 @@ const statStagger: Variants = {
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
 };
 
-const sizeClasses: Record<ProjectImage["size"], string> = {
-  wide: "col-span-2 row-span-1",
-  tall: "col-span-1 row-span-2",
-  normal: "col-span-1 row-span-1",
-};
+function lastRowSpan(total: number, cols: number, index: number): number {
+  const remainder = total % cols;
+  if (remainder === 0) return 1;
+  const lastRowStart = total - remainder;
+  if (index < lastRowStart) return 1;
+  if (remainder === 1) return cols;
+  if (remainder === 2 && index === total - 1) return cols - 1;
+  return 1;
+}
 
 export function ProyectoChinski() {
   const [active, setActive] = useState("Todo");
@@ -59,6 +63,8 @@ export function ProyectoChinski() {
   const nextImage = useCallback(() => {
     setLightboxIndex((i) => (i !== null ? (i + 1) % filtered.length : null));
   }, [filtered.length]);
+
+  const total = visible.length;
 
   return (
     <Section id="proyecto" bg="paper" py="default">
@@ -110,7 +116,7 @@ export function ProyectoChinski() {
             <button
               key={filter}
               onClick={() => { setActive(filter); setExpanded(false); }}
-              className={`px-4 py-2 text-[13px] font-medium tracking-[0.04em] border transition-all duration-300 ${
+              className={`cursor-pointer px-4 py-2 text-[13px] font-medium tracking-[0.04em] border transition-all duration-300 ${
                 active === filter
                   ? "bg-[var(--color-ink)] text-[var(--color-paper)] border-[var(--color-ink)]"
                   : "bg-transparent text-[var(--color-ink)] border-[var(--color-ink)]/20 hover:border-[var(--color-ink)]/50"
@@ -121,42 +127,54 @@ export function ProyectoChinski() {
           ))}
         </Reveal>
 
-        {/* ── Bento grid ── */}
+        {/* ── Grid ── */}
         <motion.div
           layout
           className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3"
-          style={{
-            gridAutoRows: "clamp(140px, 18vw, 220px)",
-            gridAutoFlow: "dense",
-          }}
+          style={{ gridAutoRows: "clamp(160px, 20vw, 240px)" }}
         >
           <AnimatePresence mode="popLayout">
-            {visible.map((img) => (
-              <motion.div
-                key={img.src}
-                layout
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.35, ease: easeEditorial }}
-                className={`relative overflow-hidden cursor-pointer group ${sizeClasses[img.size]}`}
-                onClick={() => openLightbox(img)}
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes={
-                    img.size === "wide"
-                      ? "(min-width: 768px) 66vw, 100vw"
-                      : "(min-width: 768px) 33vw, 50vw"
-                  }
-                  quality={75}
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-              </motion.div>
-            ))}
+            {visible.map((img, i) => {
+              const spanMd = lastRowSpan(total, 3, i);
+              const span2 = lastRowSpan(total, 2, i);
+              const colClass =
+                span2 === 2 && spanMd === 3
+                  ? "col-span-2 md:col-span-3"
+                  : span2 === 2
+                    ? "col-span-2 md:col-span-1"
+                    : spanMd === 3
+                      ? "md:col-span-3"
+                      : spanMd === 2
+                        ? "md:col-span-2"
+                        : "";
+
+              return (
+                <motion.div
+                  key={img.src}
+                  layout
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.35, ease: easeEditorial }}
+                  className={`relative overflow-hidden cursor-pointer group ${colClass}`}
+                  onClick={() => openLightbox(img)}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes={
+                      spanMd > 1
+                        ? "(min-width: 768px) 66vw, 100vw"
+                        : "(min-width: 768px) 33vw, 50vw"
+                    }
+                    quality={75}
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </motion.div>
 
