@@ -171,11 +171,23 @@ export function ProyectoChinski() {
           >
             <button
               onClick={() => setExpanded(true)}
-              className="group relative px-8 py-3.5 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-ink)] overflow-hidden transition-colors duration-500 hover:text-[var(--color-paper)]"
+              className="group relative cursor-pointer px-10 py-4 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-ink)] overflow-hidden transition-colors duration-500 hover:text-[var(--color-paper)]"
             >
-              <span className="absolute inset-0 bg-[var(--color-ink)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />
-              <span className="relative z-10">
+              <span className="absolute inset-0 bg-[var(--color-ink)] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />
+              <span className="relative z-10 flex items-center gap-3">
                 Mostrar más
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="transition-transform duration-500 group-hover:translate-y-0.5"
+                >
+                  <line x1="7" y1="1" x2="7" y2="13" />
+                  <polyline points="2 8 7 13 12 8" />
+                </svg>
               </span>
             </button>
           </motion.div>

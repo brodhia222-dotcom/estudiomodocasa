@@ -16,24 +16,16 @@ export const proyectoData = {
     { label: "Superficie", value: "Lorem" },
   ],
   filters: ["Todo", "Recepción", "Sala de espera", "Consultorio", "Espacios comunes"],
-  initialCount: 14,
+  initialCount: 6,
   images: [
-    // Shuffled: categories interleaved for visual variety
-    { src: "/images/chinski/chinski-0786b.jpg", alt: "Recepción panorámica con mostrador de mármol", category: "Recepción", size: "wide" },
-    { src: "/images/chinski/chinski-0909b.jpg", alt: "Detalle de escultura y poufs mostaza", category: "Sala de espera", size: "tall" },
+    // First 6: all "normal" for a clean 2×3 grid without gaps
+    { src: "/images/chinski/chinski-0786b.jpg", alt: "Recepción panorámica con mostrador de mármol", category: "Recepción", size: "normal" },
+    { src: "/images/chinski/chinski-0909b.jpg", alt: "Detalle de escultura y poufs mostaza", category: "Sala de espera", size: "normal" },
     { src: "/images/chinski/chinski-0848b.jpg", alt: "Consultorio panorámico con sillón y parasoles", category: "Consultorio", size: "normal" },
     { src: "/images/chinski/chinski-0985.jpg", alt: "Sala de reuniones con mesa redonda", category: "Espacios comunes", size: "normal" },
-    { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera con escultura de rostro y sofás", category: "Sala de espera", size: "wide" },
-    { src: "/images/chinski/chinski-0939.jpg", alt: "Sillón oftalmológico con iluminación cenital", category: "Consultorio", size: "tall" },
-    { src: "/images/chinski/chinski-0754b.jpg", alt: "Recepción con paneles de madera y luminaria", category: "Recepción", size: "normal" },
-    { src: "/images/chinski/chinski-0660.jpg", alt: "Área administrativa con estaciones de trabajo", category: "Espacios comunes", size: "normal" },
-    { src: "/images/chinski/chinski-0774b.jpg", alt: "Recepción frontal con mostrador de mármol", category: "Recepción", size: "tall" },
-    { src: "/images/chinski/chinski-0894b.jpg", alt: "Escultura de rostro en relieve", category: "Sala de espera", size: "normal" },
-    { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", category: "Consultorio", size: "normal" },
-    { src: "/images/chinski/chinski-1018.jpg", alt: "Pasillo con señalética e iluminación lineal", category: "Espacios comunes", size: "tall" },
-    { src: "/images/chinski/chinski-0811b.jpg", alt: "Recepción y espera desde el mostrador", category: "Recepción", size: "normal" },
-    { src: "/images/chinski/chinski-0700.jpg", alt: "Kitchenette con muebles de madera", category: "Espacios comunes", size: "normal" },
-    // ── Hidden behind "Mostrar más" ──
+    { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera con escultura de rostro y sofás", category: "Sala de espera", size: "normal" },
+    { src: "/images/chinski/chinski-0939.jpg", alt: "Sillón oftalmológico con iluminación cenital", category: "Consultorio", size: "normal" },
+    // ── Hidden behind "Mostrar más" — bento variety kicks in ──
     { src: "/images/chinski/chinski-0794b.jpg", alt: "Vista panorámica de espera con poufs", category: "Sala de espera", size: "wide" },
     { src: "/images/chinski/chinski-0831.jpg", alt: "Consultorio con sillón azul y parasoles", category: "Consultorio", size: "normal" },
     { src: "/images/chinski/chinski-0766b.jpg", alt: "Recepción desde ángulo lateral con sofá", category: "Recepción", size: "normal" },

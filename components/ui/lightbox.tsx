@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { easeEditorial } from "@/lib/motion";
+import { useEffect, useCallback, useState } from "react";
+import { motion } from "framer-motion";
 
 type LightboxProps = {
   images: { src: string; alt: string }[];
@@ -15,6 +13,7 @@ type LightboxProps = {
 
 export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps) {
   const img = images[index];
+  const [fading, setFading] = useState(false);
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
@@ -34,27 +33,32 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
     };
   }, [handleKey]);
 
+  useEffect(() => {
+    setFading(true);
+    const t = setTimeout(() => setFading(false), 150);
+    return () => clearTimeout(t);
+  }, [index]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.25 }}
       className="fixed inset-0 z-[100] flex items-center justify-center"
       onClick={onClose}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/92" />
 
       {/* Counter */}
-      <span className="absolute top-6 left-6 text-white/60 text-[13px] font-medium tracking-[0.1em] z-10">
+      <span className="absolute top-6 left-6 text-white/50 text-[13px] font-medium tracking-[0.1em] z-10">
         {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
       </span>
 
       {/* Close */}
       <button
         onClick={onClose}
-        className="absolute top-5 right-6 z-10 w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+        className="absolute top-5 right-6 z-10 w-10 h-10 flex items-center justify-center cursor-pointer text-white/60 hover:text-white transition-colors duration-200"
         aria-label="Cerrar"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -66,10 +70,10 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
       {/* Prev */}
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center cursor-pointer text-white/50 hover:text-white transition-colors duration-200"
         aria-label="Anterior"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
@@ -77,35 +81,28 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
       {/* Next */}
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center cursor-pointer text-white/50 hover:text-white transition-colors duration-200"
         aria-label="Siguiente"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
 
-      {/* Image */}
-      <AnimatePresence mode="wait">
-        <motion.div
+      {/* Image — native img for instant display (already cached from grid) */}
+      <div
+        className="relative z-10 flex items-center justify-center w-[90vw] h-[80vh] md:w-[82vw] md:h-[86vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           key={img.src}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.96 }}
-          transition={{ duration: 0.3, ease: easeEditorial }}
-          className="relative z-10 w-[90vw] h-[80vh] md:w-[80vw] md:h-[85vh]"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
-            sizes="90vw"
-            quality={90}
-            className="object-contain"
-          />
-        </motion.div>
-      </AnimatePresence>
+          src={img.src}
+          alt={img.alt}
+          className="max-w-full max-h-full object-contain transition-opacity duration-150"
+          style={{ opacity: fading ? 0 : 1 }}
+        />
+      </div>
     </motion.div>
   );
 }
