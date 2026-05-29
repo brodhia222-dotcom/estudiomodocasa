@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { type ReactNode, type ElementType } from "react";
+import { useMemo, type ReactNode, type ElementType } from "react";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
 
 type RevealProps = {
@@ -21,7 +21,11 @@ export function Reveal({
   y = 28,
   duration = 0.8,
 }: RevealProps) {
-  const MotionTag = motion.create(as);
+  // Memoizado: si se llama motion.create(as) en cada render, se crea un
+  // componente nuevo cada vez → React remonta el elemento → la animación de
+  // entrada se vuelve a disparar (p. ej. al hacer hover en Espacios, que
+  // re-renderiza el padre). Memoizarlo evita el remount.
+  const MotionTag = useMemo(() => motion.create(as), [as]);
   const variants: Variants = {
     hidden: { opacity: 0, y },
     visible: {

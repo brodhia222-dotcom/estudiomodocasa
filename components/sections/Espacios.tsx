@@ -24,6 +24,14 @@ export function Espacios() {
   const [active, setActive] = useState<number | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [lightbox, setLightbox] = useState<{ cat: number; idx: number } | null>(null);
+  // Las miniaturas de cada bloque sólo se montan (y descargan) cuando el
+  // bloque se activa por primera vez. Evita ~16 descargas en la carga inicial.
+  const [revealed, setRevealed] = useState<Set<number>>(() => new Set());
+
+  const reveal = useCallback((i: number) => {
+    setActive(i);
+    setRevealed((prev) => (prev.has(i) ? prev : new Set(prev).add(i)));
+  }, []);
 
   const lbGallery = lightbox !== null ? categories[lightbox.cat].gallery : [];
   const closeLb = useCallback(() => setLightbox(null), []);
@@ -86,8 +94,8 @@ export function Espacios() {
               <li
                 key={cat.id}
                 data-active={isActive}
-                onMouseEnter={() => isDesktop && setActive(i)}
-                onClick={() => setActive((cur) => (cur === i ? null : i))}
+                onMouseEnter={() => isDesktop && reveal(i)}
+                onClick={() => (active === i ? setActive(null) : reveal(i))}
                 className="group relative cursor-pointer overflow-hidden border border-[var(--color-ink)]/15 min-h-[132px] md:min-h-0 md:min-w-[64px]"
               >
                 {/* Cover (visible colapsado) */}
@@ -133,17 +141,19 @@ export function Espacios() {
                           e.stopPropagation();
                           setLightbox({ cat: i, idx: gi });
                         }}
-                        className="group/img relative overflow-hidden cursor-pointer"
+                        className="group/img relative overflow-hidden cursor-pointer bg-[var(--color-ink)]"
                         aria-label={`Ampliar ${g.alt}`}
                       >
-                        <Image
-                          src={g.src}
-                          alt={g.alt}
-                          fill
-                          sizes="(min-width: 768px) 28vw, 50vw"
-                          quality={62}
-                          className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
-                        />
+                        {revealed.has(i) && (
+                          <Image
+                            src={g.src}
+                            alt={g.alt}
+                            fill
+                            sizes="(min-width: 768px) 28vw, 50vw"
+                            quality={62}
+                            className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
+                          />
+                        )}
                         <div className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover/img:bg-[var(--color-ink)]/15 transition-colors duration-300" />
                       </button>
                     );

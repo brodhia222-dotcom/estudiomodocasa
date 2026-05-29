@@ -1,9 +1,18 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
+import { motion, useInView, type Variants } from "framer-motion";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
 import { copy, whatsappLink } from "@/lib/copy";
+
+// tsparticles es pesado y esta sección está al final de la página: lo
+// cargamos como chunk separado y sólo cuando la sección entra en viewport,
+// así no pesa en el bundle ni en la carga inicial.
+const SparklesCore = dynamic(
+  () => import("@/components/ui/sparkles").then((m) => m.SparklesCore),
+  { ssr: false },
+);
 
 /**
  * Bookend final antes del formulario. Reemplaza a la sección de FAQ: arriba
@@ -44,23 +53,29 @@ const hairlineGrow: Variants = {
 };
 
 export function LogoFlourish() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "200px" });
+
   return (
     <section
+      ref={sectionRef}
       aria-label="ModoCasa estudio"
       className="relative w-full bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden py-[clamp(56px,8vw,104px)]"
     >
-      {/* ─── Capa 0: sparkles a pantalla completa ─── */}
+      {/* ─── Capa 0: sparkles (carga diferida al entrar en viewport) ─── */}
       <div className="absolute inset-0">
-        <SparklesCore
-          id="modocasa-sparkles"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={90}
-          particleColor="#FFFFFF"
-          speed={1}
-          className="w-full h-full"
-        />
+        {inView && (
+          <SparklesCore
+            id="modocasa-sparkles"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.4}
+            particleDensity={90}
+            particleColor="#FFFFFF"
+            speed={1}
+            className="w-full h-full"
+          />
+        )}
       </div>
 
       {/* ─── Capa 1: viñeta radial sutil ─── */}
