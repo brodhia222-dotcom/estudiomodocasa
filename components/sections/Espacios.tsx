@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useMemo, type CSSProperties } from "react";
+import { useState, useEffect, useMemo, useCallback, type CSSProperties } from "react";
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
+import { Lightbox } from "@/components/ui/lightbox";
 import { copy } from "@/lib/copy";
 
 const DESKTOP_HEIGHT = 480;
@@ -21,6 +23,20 @@ export function Espacios() {
   const { categories } = copy.espacios;
   const [active, setActive] = useState<number | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [lightbox, setLightbox] = useState<{ cat: number; idx: number } | null>(null);
+
+  const lbGallery = lightbox !== null ? categories[lightbox.cat].gallery : [];
+  const closeLb = useCallback(() => setLightbox(null), []);
+  const prevLb = useCallback(() => {
+    setLightbox((s) =>
+      s ? { ...s, idx: (s.idx - 1 + categories[s.cat].gallery.length) % categories[s.cat].gallery.length } : null,
+    );
+  }, [categories]);
+  const nextLb = useCallback(() => {
+    setLightbox((s) =>
+      s ? { ...s, idx: (s.idx + 1) % categories[s.cat].gallery.length } : null,
+    );
+  }, [categories]);
 
   useEffect(() => {
     const onResize = () => setIsDesktop(window.innerWidth >= 768);
@@ -92,17 +108,26 @@ export function Espacios() {
                     isActive ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  {cat.gallery.slice(0, 4).map((g) => (
-                    <div key={g.src} className="relative overflow-hidden">
+                  {cat.gallery.slice(0, 4).map((g, gi) => (
+                    <button
+                      key={g.src}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightbox({ cat: i, idx: gi });
+                      }}
+                      className="group/img relative overflow-hidden cursor-pointer"
+                      aria-label={`Ampliar ${g.alt}`}
+                    >
                       <Image
                         src={g.src}
                         alt={g.alt}
                         fill
                         sizes="(min-width: 768px) 28vw, 50vw"
                         quality={62}
-                        className="object-cover"
+                        className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
                       />
-                    </div>
+                      <div className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover/img:bg-[var(--color-ink)]/15 transition-colors duration-300" />
+                    </button>
                   ))}
                 </div>
 
@@ -158,6 +183,18 @@ export function Espacios() {
           })}
         </ul>
       </Container>
+
+      <AnimatePresence>
+        {lightbox !== null && (
+          <Lightbox
+            images={lbGallery}
+            index={lightbox.idx}
+            onClose={closeLb}
+            onPrev={prevLb}
+            onNext={nextLb}
+          />
+        )}
+      </AnimatePresence>
     </Section>
   );
 }
