@@ -72,15 +72,6 @@ export function ValueProps() {
 
               {/* Contenido */}
               <div className="relative z-10 flex flex-col h-full p-7 md:p-9 text-[var(--color-paper)]">
-                {/* Número grande italic en esquina superior derecha */}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-6 right-7 font-serif-italic leading-none text-[var(--color-paper)]/75"
-                  style={{ fontSize: "clamp(28px, 2.6vw, 36px)" }}
-                >
-                  {item.number}
-                </span>
-
                 {/* Bloque inferior alineado: divider + título + body */}
                 <div className="mt-auto flex flex-col gap-4">
                   <span
