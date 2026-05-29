@@ -108,27 +108,46 @@ export function Espacios() {
                     isActive ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  {cat.gallery.slice(0, 4).map((g, gi) => (
-                    <button
-                      key={g.src}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setLightbox({ cat: i, idx: gi });
-                      }}
-                      className="group/img relative overflow-hidden cursor-pointer"
-                      aria-label={`Ampliar ${g.alt}`}
-                    >
-                      <Image
-                        src={g.src}
-                        alt={g.alt}
-                        fill
-                        sizes="(min-width: 768px) 28vw, 50vw"
-                        quality={62}
-                        className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover/img:bg-[var(--color-ink)]/15 transition-colors duration-300" />
-                    </button>
-                  ))}
+                  {Array.from({ length: 4 }).map((_, gi) => {
+                    const g = cat.gallery[gi];
+                    if (!g) {
+                      return (
+                        <div
+                          key={`ph-${gi}`}
+                          className="relative overflow-hidden bg-[var(--color-ink)] flex items-center justify-center"
+                        >
+                          <div
+                            aria-hidden="true"
+                            className="absolute inset-3 border border-dashed border-[var(--color-paper)]/15"
+                          />
+                          <span className="eyebrow text-[var(--color-paper)]/35">
+                            Próximamente
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <button
+                        key={g.src}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLightbox({ cat: i, idx: gi });
+                        }}
+                        className="group/img relative overflow-hidden cursor-pointer"
+                        aria-label={`Ampliar ${g.alt}`}
+                      >
+                        <Image
+                          src={g.src}
+                          alt={g.alt}
+                          fill
+                          sizes="(min-width: 768px) 28vw, 50vw"
+                          quality={62}
+                          className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-[var(--color-ink)]/0 group-hover/img:bg-[var(--color-ink)]/15 transition-colors duration-300" />
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {/* Scrim superior para legibilidad del título */}
