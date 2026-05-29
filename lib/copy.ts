@@ -17,9 +17,6 @@ export const copy = {
 
   hero: {
     eyebrow: "Estudio de arquitectura · Buenos Aires",
-    // Línea superior del hero, en un solo renglón (desktop). Jerarquiza los
-    // 15 años bien arriba, como pidió la agencia.
-    topline: "15 años de experiencia en interiorismo de alta gama",
     // El headline se renderiza en 3 segmentos. El segmento `italic` se setea
     // en Times Now Italic (Instrument Serif como fallback) sin cambiar de tamaño.
     headlinePre: "Diseñamos espacios médicos que",
@@ -35,6 +32,9 @@ export const copy = {
       placeholderLabel: "VIDEO O FOTOGRAFÍA · ATMÓSFERA",
     },
   },
+
+  // Título de una sola línea arriba de las 3 tarjetas (jerarquiza los 15 años).
+  valuePropsTitle: "15 años de experiencia en interiorismo de alta gama",
 
   // 3 bloques tipográficos con foto de fondo. La tarjeta 02 se reformuló:
   // la agencia pidió no afirmar "excelencia médica" (no la garantiza el
@@ -89,7 +89,7 @@ export const copy = {
   espacios: {
     eyebrow: "Espacios que diseñamos",
     headline: "El espacio define la experiencia.",
-    sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo. Hacé clic en cada espacio para ver la galería.",
+    sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo. Pasá el cursor sobre cada espacio para ver la galería.",
     categories: [
       {
         id: "recepcion",
@@ -99,6 +99,7 @@ export const copy = {
           { src: "/images/chinski/chinski-0786b.jpg", alt: "Recepción panorámica con mostrador de mármol" },
           { src: "/images/chinski/chinski-0774b.jpg", alt: "Recepción frontal con mostrador de mármol" },
           { src: "/images/chinski/chinski-0754b.jpg", alt: "Recepción con paneles de madera y luminaria" },
+          { src: "/images/chinski/chinski-0811b.jpg", alt: "Recepción y espera desde el mostrador" },
         ],
       },
       {
@@ -108,6 +109,7 @@ export const copy = {
         gallery: [
           { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera con escultura y sofás" },
           { src: "/images/chinski/chinski-0909b.jpg", alt: "Detalle de escultura y poufs" },
+          { src: "/images/chinski/chinski-0894b.jpg", alt: "Escultura de rostro en relieve" },
           { src: "/images/chinski/chinski-0738b.jpg", alt: "Estación de café y paneles iluminados" },
         ],
       },
@@ -119,6 +121,7 @@ export const copy = {
           { src: "/images/spaces/sala-espera.png", alt: "Espacio wellness — render de referencia" },
           { src: "/images/spaces/recepcion.png", alt: "Espacio wellness — render de referencia" },
           { src: "/images/spaces/soporte.png", alt: "Espacio wellness — render de referencia" },
+          { src: "/images/spaces/privado.png", alt: "Espacio wellness — render de referencia" },
         ],
       },
       {
@@ -197,7 +200,7 @@ export const copy = {
   // CTA de cierre que reemplaza a la sección de FAQ (eliminada). Se ubica
   // sobre el bookend del logo, enganchando con el formulario de contacto.
   cierre: {
-    text: "¿Tenés alguna duda? Coordinemos una reunión privada para conversar sobre tu proyecto.",
+    text: "¿Tenés alguna duda?",
     cta: "Agendar reunión",
   },
 

@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
-import { copy } from "@/lib/copy";
+import { copy, whatsappLink } from "@/lib/copy";
 
 /**
  * Bookend final antes del formulario. Reemplaza a la sección de FAQ: arriba
@@ -81,17 +81,19 @@ export function LogoFlourish() {
         viewport={viewportOnce}
         className="relative z-10 flex flex-col items-center justify-center px-6 gap-7 text-center"
       >
-        {/* CTA de cierre (reemplaza a FAQ) */}
-        <motion.p
+        {/* CTA de cierre: pregunta en grande + botón directo a WhatsApp */}
+        <motion.h2
           variants={fadeUp}
-          className="text-[clamp(17px,2vw,23px)] font-medium leading-snug max-w-[52ch] text-[var(--color-paper)]"
+          className="font-medium leading-tight tracking-[-0.02em] text-[clamp(34px,6vw,68px)] text-[var(--color-paper)]"
         >
           {copy.cierre.text}
-        </motion.p>
+        </motion.h2>
 
         <motion.a
           variants={fadeUp}
-          href="#contacto"
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative inline-flex items-center px-10 py-4 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-paper)] overflow-hidden text-[var(--color-paper)] transition-colors duration-500 hover:text-[var(--color-ink)]"
         >
           <span className="absolute inset-0 bg-[var(--color-paper)] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />

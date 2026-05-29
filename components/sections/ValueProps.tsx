@@ -3,11 +3,12 @@
 import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
+import { Reveal } from "@/components/primitives/Reveal";
 import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * 3 tarjetas con foto y reveal sutil al entrar viewport.
+ * Título de una línea (15 años) + 3 tarjetas con foto y reveal sutil.
  *
  * Sin íconos: divider hairline + título + body. Los títulos quedan sobre
  * la misma línea base gracias al min-height del párrafo.
@@ -32,6 +33,13 @@ export function ValueProps() {
   return (
     <Section bg="paper" py="default" className="!pt-[clamp(120px,14vw,200px)]">
       <Container>
+        <Reveal
+          as="h2"
+          className="font-medium tracking-[-0.02em] leading-tight text-[clamp(20px,3vw,38px)] md:whitespace-nowrap mb-[clamp(40px,6vw,72px)]"
+        >
+          {copy.valuePropsTitle}
+        </Reveal>
+
         <motion.ul
           variants={grid}
           initial="hidden"
