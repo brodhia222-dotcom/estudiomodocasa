@@ -44,7 +44,7 @@ export const copy = {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
-      imgSrc: "/images/valueprops/01-paciente.jpg",
+      imgSrc: "/images/espacios/sala-espera-01.jpg",
     },
     {
       number: "02",
@@ -56,7 +56,7 @@ export const copy = {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
-      imgSrc: "/images/valueprops/03-confianza.jpg",
+      imgSrc: "/images/chinski/chinski-0786b.jpg",
     },
   ],
 
@@ -82,10 +82,8 @@ export const copy = {
 
   // Tipologías de espacio que componen una práctica médica. Categorías
   // definidas con la agencia: Recepción, Sala de Espera, Wellness, Áreas
-  // Privadas. Cada tarjeta despliega una galería al hacer clic.
-  // Las imágenes son placeholders (fotos reales de Chinski + obras del
-  // estudio) hasta que Florentina envíe la selección de renders por
-  // categoría. Reemplazar los arrays `gallery` cuando lleguen.
+  // Privadas. Al pasar el cursor cada tarjeta despliega una galería 2×2;
+  // clic en una foto abre el lightbox. Imágenes reales por carpeta.
   espacios: {
     eyebrow: "Espacios que diseñamos",
     headline: "El espacio define la experiencia.",
@@ -94,17 +92,19 @@ export const copy = {
       {
         id: "recepcion",
         title: "Recepción",
-        blurb: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        blurb: "El primer contacto del paciente: un acceso que comunica orden, calidez y jerarquía profesional.",
         cover: "/images/espacios/recepcion-01.jpg",
-        // 1 foto real; las otras 3 celdas quedan como placeholder.
         gallery: [
           { src: "/images/espacios/recepcion-01.jpg", alt: "Hall de acceso con luminaria escultórica" },
+          { src: "/images/espacios/recepcion-02.jpg", alt: "Lobby de doble altura con araña de cobre" },
+          { src: "/images/espacios/recepcion-03.jpg", alt: "Área de estar del hall con banco curvo" },
+          { src: "/images/espacios/recepcion-04.jpg", alt: "Mostrador de recepción con estantería" },
         ],
       },
       {
         id: "sala-espera",
         title: "Sala de Espera",
-        blurb: "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
+        blurb: "Espera diseñada para bajar la ansiedad: confort, privacidad y luz cálida en cada detalle.",
         cover: "/images/espacios/sala-espera-01.jpg",
         gallery: [
           { src: "/images/espacios/sala-espera-01.jpg", alt: "Sala de espera con sofá curvo y parasoles de madera" },
@@ -116,19 +116,19 @@ export const copy = {
       {
         id: "wellness",
         title: "Wellness",
-        blurb: "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+        blurb: "Áreas de bienestar y recuperación integradas al recorrido de cuidado del paciente.",
         cover: "/images/espacios/wellness-01.jpg",
-        // 3 fotos reales; la 4ta celda queda como placeholder.
         gallery: [
           { src: "/images/espacios/wellness-01.jpg", alt: "Gimnasio con equipamiento y espejos" },
           { src: "/images/espacios/wellness-02.jpg", alt: "Sala de masajes con camillas" },
           { src: "/images/espacios/wellness-03.jpg", alt: "Kitchenette con muebles de madera" },
+          { src: "/images/espacios/wellness-04.jpg", alt: "Sala de estar con mesa de juego" },
         ],
       },
       {
         id: "areas-privadas",
         title: "Áreas Privadas",
-        blurb: "Duis aute irure dolor in reprehenderit in voluptate velit.",
+        blurb: "Consultorios, oficinas y salas de reunión resueltos para la eficiencia del equipo profesional.",
         cover: "/images/espacios/areas-01.jpg",
         gallery: [
           { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café" },
