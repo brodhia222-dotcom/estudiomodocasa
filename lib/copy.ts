@@ -44,7 +44,7 @@ export const copy = {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
-      imgSrc: "/images/valueprops/01-paciente.png",
+      imgSrc: "/images/valueprops/01-paciente.jpg",
     },
     {
       number: "02",
@@ -56,7 +56,7 @@ export const copy = {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
-      imgSrc: "/images/valueprops/03-confianza.png",
+      imgSrc: "/images/valueprops/03-confianza.jpg",
     },
   ],
 
@@ -94,41 +94,41 @@ export const copy = {
       {
         id: "recepcion",
         title: "Recepción",
-        cover: "/images/espacios/recepcion-01.png",
+        cover: "/images/espacios/recepcion-01.jpg",
         // 1 foto real; las otras 3 celdas quedan como placeholder.
         gallery: [
-          { src: "/images/espacios/recepcion-01.png", alt: "Hall de acceso con luminaria escultórica" },
+          { src: "/images/espacios/recepcion-01.jpg", alt: "Hall de acceso con luminaria escultórica" },
         ],
       },
       {
         id: "sala-espera",
         title: "Sala de Espera",
-        cover: "/images/espacios/sala-espera-01.png",
+        cover: "/images/espacios/sala-espera-01.jpg",
         gallery: [
-          { src: "/images/espacios/sala-espera-01.png", alt: "Sala de espera con sofá curvo y parasoles de madera" },
-          { src: "/images/espacios/sala-espera-02.png", alt: "Sala de espera con vegetación y sofá curvo" },
+          { src: "/images/espacios/sala-espera-01.jpg", alt: "Sala de espera con sofá curvo y parasoles de madera" },
+          { src: "/images/espacios/sala-espera-02.jpg", alt: "Sala de espera con vegetación y sofá curvo" },
           { src: "/images/espacios/sala-espera-03.jpg", alt: "Sala de espera con sofá blanco y poufs" },
-          { src: "/images/espacios/sala-espera-04.png", alt: "Cabinas privadas con divisorios vidriados" },
+          { src: "/images/espacios/sala-espera-04.jpg", alt: "Cabinas privadas con divisorios vidriados" },
         ],
       },
       {
         id: "wellness",
         title: "Wellness",
-        cover: "/images/espacios/wellness-01.png",
+        cover: "/images/espacios/wellness-01.jpg",
         // 3 fotos reales; la 4ta celda queda como placeholder.
         gallery: [
-          { src: "/images/espacios/wellness-01.png", alt: "Gimnasio con equipamiento y espejos" },
-          { src: "/images/espacios/wellness-02.png", alt: "Sala de masajes con camillas" },
-          { src: "/images/espacios/wellness-03.png", alt: "Kitchenette con muebles de madera" },
+          { src: "/images/espacios/wellness-01.jpg", alt: "Gimnasio con equipamiento y espejos" },
+          { src: "/images/espacios/wellness-02.jpg", alt: "Sala de masajes con camillas" },
+          { src: "/images/espacios/wellness-03.jpg", alt: "Kitchenette con muebles de madera" },
         ],
       },
       {
         id: "areas-privadas",
         title: "Áreas Privadas",
-        cover: "/images/espacios/areas-01.png",
+        cover: "/images/espacios/areas-01.jpg",
         gallery: [
-          { src: "/images/espacios/areas-01.png", alt: "Sala de reuniones con mesa y estación de café" },
-          { src: "/images/espacios/areas-02.png", alt: "Oficina privada con mesa de trabajo" },
+          { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café" },
+          { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo" },
           { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles" },
           { src: "/images/espacios/areas-04.jpg", alt: "Sala de reuniones con mesa redonda" },
         ],

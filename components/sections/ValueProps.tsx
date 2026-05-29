@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
@@ -54,11 +55,13 @@ export function ValueProps() {
               className="relative min-h-[440px] md:min-h-[520px] overflow-hidden border border-[var(--color-ink)]/15"
             >
               {/* Foto cover */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={item.imgSrc}
                 alt={item.title}
-                className="absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-[1200ms] ease-out hover:scale-100"
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                quality={75}
+                className="object-cover scale-105 transition-transform duration-[1200ms] ease-out hover:scale-100"
               />
 
               {/* Gradient bottom-up para legibilidad del texto blanco */}
