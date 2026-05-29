@@ -4,7 +4,7 @@ import { useEffect, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 
 type LightboxProps = {
-  images: { src: string; alt: string }[];
+  images: readonly { src: string; alt: string }[];
   index: number;
   onClose: () => void;
   onPrev: () => void;

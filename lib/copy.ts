@@ -24,7 +24,7 @@ export const copy = {
     headlinePost: "tu práctica y la experiencia de tus pacientes.",
     lead: "15 años de interiorismo de alta gama, aplicados a consultorios y clínicas privadas en CABA.",
     primaryCta: "Coordinar reunión privada",
-    microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
+    microInfo: "30 min · Sin compromiso · Reunión privada",
     image: {
       src: "/images/placeholders/hero-clinic.jpg",
       alt: "Consultorio médico minimalista en blanco y negro, fotografía o video que va detrás del shader.",
@@ -33,28 +33,33 @@ export const copy = {
     },
   },
 
-  // Value props compactos. Cada card tiene un micro-ícono SVG line-art
-  // que se dibuja al entrar en viewport.
+  // Título destacado arriba de las 3 tarjetas. Jerarquiza los "15 años"
+  // como pidió la agencia (clave para anuncios de Meta + SEO).
+  valuePropsHeader: {
+    title: "15 años de experiencia en interiorismo de alta gama",
+    sub: "Aplicados a consultorios y clínicas privadas que reflejan el estándar del profesional, inspiran confianza y reducen la ansiedad del paciente.",
+  },
+
+  // 3 bloques tipográficos con foto de fondo. La tarjeta 02 se reformuló:
+  // la agencia pidió no afirmar "excelencia médica" (no la garantiza el
+  // estudio) y hablar de la experiencia del equipo y la circulación.
   valueProps: [
     {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
-      icon: "patient" as const,
       imgSrc: "/images/valueprops/01-paciente.png",
     },
     {
       number: "02",
-      title: "Excelencia médica",
-      body: "Cada detalle comunica precisión y profesionalismo. Tu espacio refleja tu estándar.",
-      icon: "precision" as const,
-      imgSrc: "/images/valueprops/02-excelencia.png",
+      title: "Precisión y profesionalismo",
+      body: "Organizamos circulaciones y recorridos entre profesionales y pacientes. Cada decisión proyectual refleja el estándar de tu práctica.",
+      imgSrc: "/images/chinski/chinski-0997.jpg",
     },
     {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
-      icon: "trust" as const,
       imgSrc: "/images/valueprops/03-confianza.png",
     },
   ],
@@ -79,51 +84,57 @@ export const copy = {
     ],
   },
 
-  // Tipologías de espacio que componen una práctica médica. Reemplaza
-  // a Especialidades + Proyectos hasta que el cliente tenga más obras
-  // médicas reales para mostrar. Las imágenes son obras del estudio
-  // (residencial premium) — el caption `origin` deja claro el origen
-  // sin pretender que son consultorios.
+  // Tipologías de espacio que componen una práctica médica. Categorías
+  // definidas con la agencia: Recepción, Sala de Espera, Wellness, Áreas
+  // Privadas. Cada tarjeta despliega una galería al hacer clic.
+  // Las imágenes son placeholders (fotos reales de Chinski + obras del
+  // estudio) hasta que Florentina envíe la selección de renders por
+  // categoría. Reemplazar los arrays `gallery` cuando lleguen.
   espacios: {
     eyebrow: "Espacios que diseñamos",
     headline: "El espacio define la experiencia.",
-    sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo.",
-    items: [
+    sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo. Hacé clic en cada espacio para ver la galería.",
+    categories: [
       {
         id: "recepcion",
         title: "Recepción",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        placeholderLabel: "01 · RECEPCIÓN",
-        imgSrc: "/images/spaces/recepcion.png",
-        origin: "Obra de ModoCasa estudio · CABA",
+        cover: "/images/chinski/chinski-0786b.jpg",
+        gallery: [
+          { src: "/images/chinski/chinski-0786b.jpg", alt: "Recepción panorámica con mostrador de mármol" },
+          { src: "/images/chinski/chinski-0774b.jpg", alt: "Recepción frontal con mostrador de mármol" },
+          { src: "/images/chinski/chinski-0754b.jpg", alt: "Recepción con paneles de madera y luminaria" },
+        ],
       },
       {
         id: "sala-espera",
-        title: "Sala de espera",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        placeholderLabel: "02 · SALA DE ESPERA",
-        imgSrc: "/images/spaces/sala-espera.png",
-        origin: "Obra de ModoCasa estudio · CABA",
+        title: "Sala de Espera",
+        cover: "/images/chinski/chinski-0862b.jpg",
+        gallery: [
+          { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera con escultura y sofás" },
+          { src: "/images/chinski/chinski-0909b.jpg", alt: "Detalle de escultura y poufs" },
+          { src: "/images/chinski/chinski-0738b.jpg", alt: "Estación de café y paneles iluminados" },
+        ],
       },
       {
-        id: "privado",
-        title: "Privado",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        placeholderLabel: "03 · PRIVADO",
-        imgSrc: "/images/spaces/privado.png",
-        origin: "Obra de ModoCasa estudio · CABA",
+        id: "wellness",
+        title: "Wellness",
+        cover: "/images/spaces/sala-espera.png",
+        gallery: [
+          { src: "/images/spaces/sala-espera.png", alt: "Espacio wellness — render de referencia" },
+          { src: "/images/spaces/recepcion.png", alt: "Espacio wellness — render de referencia" },
+          { src: "/images/spaces/soporte.png", alt: "Espacio wellness — render de referencia" },
+        ],
       },
       {
-        id: "soporte",
-        title: "Reuniones, sanitarios y office",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        placeholderLabel: "04 · ESPACIOS DE SOPORTE",
-        imgSrc: "/images/spaces/soporte.png",
-        origin: "Obra de ModoCasa estudio · CABA",
+        id: "areas-privadas",
+        title: "Áreas Privadas",
+        cover: "/images/chinski/chinski-0848b.jpg",
+        gallery: [
+          { src: "/images/chinski/chinski-0848b.jpg", alt: "Consultorio panorámico con sillón y parasoles" },
+          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón" },
+          { src: "/images/chinski/chinski-0985.jpg", alt: "Sala de reuniones con mesa redonda" },
+          { src: "/images/chinski/chinski-1018.jpg", alt: "Pasillo con señalética e iluminación" },
+        ],
       },
     ],
   },
@@ -187,45 +198,11 @@ export const copy = {
     ],
   },
 
-  faq: {
-    eyebrow: "Preguntas frecuentes",
-    headline: "Antes de coordinar la reunión.",
-    // Placeholders genéricos hasta revisión con el cliente.
-    items: [
-      {
-        q: "Pregunta 1",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      },
-      {
-        q: "Pregunta 2",
-        a: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      },
-      {
-        q: "Pregunta 3",
-        a: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-      },
-      {
-        q: "Pregunta 4",
-        a: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-      },
-      {
-        q: "Pregunta 5",
-        a: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
-      },
-      {
-        q: "Pregunta 6",
-        a: "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.",
-      },
-    ],
-  },
-
-  // Bookend del Hero antes del form de Contacto. El brief lo pidió como
-  // "banner-transición" — calmo, centrado, mismo CTA del hero pero más aire.
-  ctaFinal: {
-    headline: "Tus espacios definen la percepción del paciente.",
-    sub: "Conversemos sobre tu proyecto.",
-    primaryCta: "Coordinar reunión privada",
-    microInfo: "30 min · Sin compromiso · Respuesta en 24hs",
+  // CTA de cierre que reemplaza a la sección de FAQ (eliminada). Se ubica
+  // sobre el bookend del logo, enganchando con el formulario de contacto.
+  cierre: {
+    text: "¿Tenés alguna duda? Coordinemos una reunión privada para conversar sobre tu proyecto.",
+    cta: "Agendar reunión",
   },
 
   contacto: {
@@ -238,7 +215,7 @@ export const copy = {
       message: "Contanos brevemente sobre tu proyecto",
       submit: "Enviar",
       sending: "Enviando…",
-      success: "Recibimos tu mensaje. Te respondemos dentro de las próximas 24 horas hábiles.",
+      success: "Recibimos tu mensaje. Te contactamos a la brevedad para coordinar la reunión.",
       error: "No pudimos enviar el mensaje. Probá de nuevo o escribinos por WhatsApp.",
     },
     whatsapp: {

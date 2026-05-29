@@ -3,27 +3,27 @@
 import { motion, type Variants } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
+import { copy } from "@/lib/copy";
 
 /**
- * Bookend final antes del formulario: logo de ModoCasa estudio
- * sobre un fondo de partículas parpadeantes.
+ * Bookend final antes del formulario. Reemplaza a la sección de FAQ: arriba
+ * un CTA de cierre (engancha con el formulario de contacto que está debajo)
+ * y debajo el logo de ModoCasa estudio sobre partículas parpadeantes.
  *
- * Animaciones de entrada en cascada al entrar al viewport:
- *   1. Sparkles fade-in (controlado internamente por el componente).
- *   2. Logo aparece con wipe-up por palabra (cada palabra surge desde
- *      abajo de un container con overflow:hidden, simulando un
- *      "telón" editorial).
- *   3. Hairline se dibuja de izquierda a derecha (scaleX 0 → 1).
- *
- * Todo arranca cuando la sección entra al viewport (no antes), así el
- * usuario ve el reveal en el momento exacto.
+ * Reveals en cascada al entrar al viewport: CTA fade-up → logo wipe-up por
+ * palabra → hairline. Las sparkles aparecen de fondo.
  */
 
 const container: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.16, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.14, delayChildren: 0.1 },
   },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeEditorial } },
 };
 
 const wipeUp: Variants = {
@@ -43,20 +43,11 @@ const hairlineGrow: Variants = {
   },
 };
 
-const eyebrowFade: Variants = {
-  hidden: { opacity: 0, y: 6 },
-  visible: {
-    opacity: 0.55,
-    y: 0,
-    transition: { duration: 0.7, ease: easeEditorial },
-  },
-};
-
 export function LogoFlourish() {
   return (
     <section
       aria-label="ModoCasa estudio"
-      className="relative w-full bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden h-[clamp(280px,40vh,420px)]"
+      className="relative w-full bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden py-[clamp(72px,11vw,140px)]"
     >
       {/* ─── Capa 0: sparkles a pantalla completa ─── */}
       <div className="absolute inset-0">
@@ -82,18 +73,43 @@ export function LogoFlourish() {
         }}
       />
 
-      {/* ─── Capa 2: logo centrado con reveals editoriales ─── */}
+      {/* ─── Capa 2: CTA de cierre + logo con reveals editoriales ─── */}
       <motion.div
         variants={container}
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-6 gap-7"
+        className="relative z-10 flex flex-col items-center justify-center px-6 gap-7 text-center"
       >
+        {/* CTA de cierre (reemplaza a FAQ) */}
+        <motion.p
+          variants={fadeUp}
+          className="display-s font-medium max-w-[22ch] text-[var(--color-paper)]"
+        >
+          {copy.cierre.text}
+        </motion.p>
+
+        <motion.a
+          variants={fadeUp}
+          href="#contacto"
+          className="group relative inline-flex items-center px-10 py-4 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-paper)] overflow-hidden text-[var(--color-paper)] transition-colors duration-500 hover:text-[var(--color-ink)]"
+        >
+          <span className="absolute inset-0 bg-[var(--color-paper)] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />
+          <span className="relative z-10 flex items-center gap-3">
+            {copy.cierre.cta}
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1.2" className="transition-transform duration-500 group-hover:translate-x-1">
+              <path d="M1 5h12M13 5L9 1M13 5L9 9" />
+            </svg>
+          </span>
+        </motion.a>
+
+        {/* Aire entre CTA y logo */}
+        <div className="h-[clamp(24px,4vw,56px)]" aria-hidden="true" />
+
         {/* Eyebrow chico arriba del logo */}
         <motion.span
-          variants={eyebrowFade}
-          className="eyebrow text-[var(--color-paper)] tracking-[0.32em]"
+          variants={fadeUp}
+          className="eyebrow text-[var(--color-paper)]/55 tracking-[0.32em]"
         >
           Estudio · Buenos Aires
         </motion.span>
@@ -101,14 +117,14 @@ export function LogoFlourish() {
         {/* Logo gigante: wipe-up por palabra */}
         <h2
           className="inline-flex items-baseline gap-[0.18em] leading-none text-center"
-          style={{ fontSize: "clamp(44px, 8vw, 120px)" }}
+          style={{ fontSize: "clamp(40px, 7vw, 104px)" }}
           aria-label="ModoCasa estudio"
         >
           <Word text="ModoCasa" />
           <Word text="estudio" italic />
         </h2>
 
-        {/* Hairline que se dibuja de centro a los costados */}
+        {/* Hairline */}
         <motion.span
           variants={hairlineGrow}
           className="block h-px w-32 bg-[var(--color-paper)]/50 origin-center"

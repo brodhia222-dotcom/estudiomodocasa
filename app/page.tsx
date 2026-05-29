@@ -8,7 +8,6 @@ import { Metodologia } from "@/components/sections/Metodologia";
 // cuando haya contenido real. Especialidades/Proyectos quedaron archivados
 // en components/sections/_archived hasta que el cliente tenga más obras
 // médicas para mostrar; se reactivan importando desde ahí.
-import { FAQ } from "@/components/sections/FAQ";
 import { LogoFlourish } from "@/components/sections/LogoFlourish";
 import { Contacto } from "@/components/sections/Contacto";
 import { Footer } from "@/components/sections/Footer";
@@ -23,7 +22,6 @@ export default function Home() {
         <Espacios />
         <ProyectoChinski />
         <Metodologia />
-        <FAQ />
         <LogoFlourish />
         <Contacto />
       </main>

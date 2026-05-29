@@ -3,16 +3,16 @@
 import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
-import { ValuePropIcon } from "@/components/primitives/ValuePropIcon";
+import { Reveal } from "@/components/primitives/Reveal";
 import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * 3 tarjetas con foto del estudio + reveal sutil al entrar viewport.
+ * Encabezado con el dato de "15 años" jerarquizado (clave para anuncios)
+ * + 3 tarjetas con foto y reveal sutil al entrar viewport.
  *
- * Sin flip 3D ni dobles caras: solo fade-in + slight lift + slight scale.
- * Stagger entre las cards para que la aparición sea secuencial sin ser
- * llamativa. El cliente pidió algo más sutil que el flip anterior.
+ * Sin íconos: divider hairline + título + body. Los títulos quedan sobre
+ * la misma línea base gracias al min-height del párrafo.
  */
 
 const grid: Variants = {
@@ -32,12 +32,22 @@ const card: Variants = {
 
 export function ValueProps() {
   return (
-    <Section
-      bg="paper"
-      py="default"
-      className="!pt-[clamp(120px,14vw,200px)]"
-    >
+    <Section bg="paper" py="default" className="!pt-[clamp(120px,14vw,200px)]">
       <Container>
+        {/* Encabezado: 15 años jerarquizado */}
+        <header className="max-w-[760px] mb-[clamp(48px,7vw,88px)]">
+          <Reveal as="h2" className="display-l">
+            {copy.valuePropsHeader.title}
+          </Reveal>
+          <Reveal
+            as="p"
+            className="body-l text-[var(--color-mute)] mt-5 max-w-[620px]"
+            delay={0.12}
+          >
+            {copy.valuePropsHeader.sub}
+          </Reveal>
+        </header>
+
         <motion.ul
           variants={grid}
           initial="hidden"
@@ -76,13 +86,8 @@ export function ValueProps() {
                   {item.number}
                 </span>
 
-                {/* Bloque inferior: icono + divider + título + body */}
-                <div className="mt-auto flex flex-col gap-5">
-                  <ValuePropIcon
-                    variant={item.icon}
-                    size={52}
-                    className="text-[var(--color-paper)]"
-                  />
+                {/* Bloque inferior alineado: divider + título + body */}
+                <div className="mt-auto flex flex-col gap-4">
                   <span
                     aria-hidden="true"
                     className="block h-px w-10 bg-[var(--color-paper)]/85"
@@ -90,7 +95,7 @@ export function ValueProps() {
                   <h3 className="text-[22px] md:text-[24px] font-semibold tracking-[-0.01em] leading-tight">
                     {item.title}
                   </h3>
-                  <p className="text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-paper)]/82 max-w-[34ch]">
+                  <p className="text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-paper)]/82 max-w-[34ch] min-h-[4.8em]">
                     {item.body}
                   </p>
                 </div>

@@ -8,13 +8,16 @@ import { copy } from "@/lib/copy";
 
 const ease = [0.65, 0, 0.35, 1] as const;
 
+// Fotos reales de Chinski (horizontales, que muestran espacialidad), como
+// pidió la agencia para el hero. Reemplazables por la selección de renders
+// de Florentina cuando llegue.
 const HERO_IMAGES = [
-  "/images/hero/hero-01.png",
-  "/images/hero/hero-02.png",
-  "/images/hero/hero-03.png",
-  "/images/hero/hero-04.png",
-  "/images/hero/hero-05.png",
-  "/images/hero/hero-06.png",
+  "/images/chinski/chinski-0786b.jpg",
+  "/images/chinski/chinski-0862b.jpg",
+  "/images/chinski/chinski-0794b.jpg",
+  "/images/chinski/chinski-0952b.jpg",
+  "/images/chinski/chinski-0985.jpg",
+  "/images/chinski/chinski-0660.jpg",
 ];
 
 const textColumn: Variants = {
