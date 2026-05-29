@@ -47,7 +47,7 @@ export function LogoFlourish() {
   return (
     <section
       aria-label="ModoCasa estudio"
-      className="relative w-full bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden py-[clamp(72px,11vw,140px)]"
+      className="relative w-full bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden py-[clamp(56px,8vw,104px)]"
     >
       {/* ─── Capa 0: sparkles a pantalla completa ─── */}
       <div className="absolute inset-0">
@@ -84,7 +84,7 @@ export function LogoFlourish() {
         {/* CTA de cierre (reemplaza a FAQ) */}
         <motion.p
           variants={fadeUp}
-          className="display-s font-medium max-w-[22ch] text-[var(--color-paper)]"
+          className="text-[clamp(17px,2vw,23px)] font-medium leading-snug max-w-[52ch] text-[var(--color-paper)]"
         >
           {copy.cierre.text}
         </motion.p>
@@ -104,7 +104,7 @@ export function LogoFlourish() {
         </motion.a>
 
         {/* Aire entre CTA y logo */}
-        <div className="h-[clamp(24px,4vw,56px)]" aria-hidden="true" />
+        <div className="h-[clamp(16px,3vw,40px)]" aria-hidden="true" />
 
         {/* Eyebrow chico arriba del logo */}
         <motion.span

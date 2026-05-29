@@ -3,13 +3,11 @@
 import { motion, type Variants } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
-import { Reveal } from "@/components/primitives/Reveal";
 import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
 /**
- * Encabezado con el dato de "15 años" jerarquizado (clave para anuncios)
- * + 3 tarjetas con foto y reveal sutil al entrar viewport.
+ * 3 tarjetas con foto y reveal sutil al entrar viewport.
  *
  * Sin íconos: divider hairline + título + body. Los títulos quedan sobre
  * la misma línea base gracias al min-height del párrafo.
@@ -34,20 +32,6 @@ export function ValueProps() {
   return (
     <Section bg="paper" py="default" className="!pt-[clamp(120px,14vw,200px)]">
       <Container>
-        {/* Encabezado: 15 años jerarquizado */}
-        <header className="max-w-[760px] mb-[clamp(48px,7vw,88px)]">
-          <Reveal as="h2" className="display-l">
-            {copy.valuePropsHeader.title}
-          </Reveal>
-          <Reveal
-            as="p"
-            className="body-l text-[var(--color-mute)] mt-5 max-w-[620px]"
-            delay={0.12}
-          >
-            {copy.valuePropsHeader.sub}
-          </Reveal>
-        </header>
-
         <motion.ul
           variants={grid}
           initial="hidden"

@@ -17,12 +17,15 @@ export const copy = {
 
   hero: {
     eyebrow: "Estudio de arquitectura · Buenos Aires",
+    // Línea superior del hero, en un solo renglón (desktop). Jerarquiza los
+    // 15 años bien arriba, como pidió la agencia.
+    topline: "15 años de experiencia en interiorismo de alta gama",
     // El headline se renderiza en 3 segmentos. El segmento `italic` se setea
     // en Times Now Italic (Instrument Serif como fallback) sin cambiar de tamaño.
     headlinePre: "Diseñamos espacios médicos que",
     headlineItalic: "elevan",
     headlinePost: "tu práctica y la experiencia de tus pacientes.",
-    lead: "15 años de interiorismo de alta gama, aplicados a consultorios y clínicas privadas en CABA.",
+    lead: "Trasladamos ese estándar al diseño de consultorios y clínicas privadas en CABA.",
     primaryCta: "Coordinar reunión privada",
     microInfo: "30 min · Sin compromiso · Reunión privada",
     image: {
@@ -31,13 +34,6 @@ export const copy = {
       // Label superpuesto al placeholder mientras no haya media real.
       placeholderLabel: "VIDEO O FOTOGRAFÍA · ATMÓSFERA",
     },
-  },
-
-  // Título destacado arriba de las 3 tarjetas. Jerarquiza los "15 años"
-  // como pidió la agencia (clave para anuncios de Meta + SEO).
-  valuePropsHeader: {
-    title: "15 años de experiencia en interiorismo de alta gama",
-    sub: "Aplicados a consultorios y clínicas privadas que reflejan el estándar del profesional, inspiran confianza y reducen la ansiedad del paciente.",
   },
 
   // 3 bloques tipográficos con foto de fondo. La tarjeta 02 se reformuló:

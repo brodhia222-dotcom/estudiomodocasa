@@ -73,13 +73,23 @@ export function Hero() {
         }}
       />
 
-      {/* ─── Capa 4: texto centrado ─── */}
-      <Container className="relative z-30 h-full flex">
+      {/* ─── Capa 4: topline arriba + texto centrado ─── */}
+      <Container className="relative z-30 h-full flex flex-col">
+        {/* Línea superior: 15 años, en un renglón, bien arriba */}
+        <motion.p
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.1 }}
+          className="mx-auto text-center pt-[calc(var(--nav-height)+24px)] text-[clamp(12px,1.5vw,17px)] font-medium tracking-[0.04em] text-[var(--color-paper)]/85 md:whitespace-nowrap"
+        >
+          {copy.hero.topline}
+        </motion.p>
+
         <motion.div
           variants={textColumn}
           initial="hidden"
           animate="visible"
-          className="m-auto w-full max-w-[920px] flex flex-col items-center text-center gap-8 py-[calc(var(--nav-height)+48px)]"
+          className="m-auto w-full max-w-[920px] flex flex-col items-center text-center gap-8 pb-[calc(var(--nav-height)+24px)]"
         >
           <h1 className="display-xl text-[var(--color-paper)] [text-shadow:0_1px_24px_rgba(8,9,10,0.25)]">
             <Words text={copy.hero.headlinePre} />{" "}

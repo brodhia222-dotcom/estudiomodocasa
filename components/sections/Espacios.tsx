@@ -1,47 +1,58 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useState, useEffect, useCallback, useMemo, type CSSProperties } from "react";
+import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Lightbox } from "@/components/ui/lightbox";
-import { easeEditorial } from "@/lib/motion";
 import { copy } from "@/lib/copy";
 
-const gridStagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-};
+const DESKTOP_HEIGHT = 480;
 
-const cardVariant: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: easeEditorial },
-  },
-};
-
+/**
+ * Fila de 4 bloques de tipología. En desktop, al pasar el cursor sobre un
+ * bloque éste se expande y despliega una sub-galería de miniaturas (hover,
+ * no click). En mobile, tap abre el lightbox de esa categoría.
+ * Las imágenes usan next/image para que carguen optimizadas (las fotos
+ * originales pesan varios MB).
+ */
 export function Espacios() {
   const { categories } = copy.espacios;
-  const [openCat, setOpenCat] = useState<number | null>(null);
-  const [imgIndex, setImgIndex] = useState(0);
+  const [active, setActive] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [lightbox, setLightbox] = useState<{ cat: number; idx: number } | null>(null);
 
-  const gallery = openCat !== null ? categories[openCat].gallery : [];
-
-  const openCategory = useCallback((i: number) => {
-    setOpenCat(i);
-    setImgIndex(0);
+  useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
-  const close = useCallback(() => setOpenCat(null), []);
-  const prev = useCallback(() => {
-    setImgIndex((i) => (i - 1 + gallery.length) % gallery.length);
-  }, [gallery.length]);
-  const next = useCallback(() => {
-    setImgIndex((i) => (i + 1) % gallery.length);
-  }, [gallery.length]);
+
+  const gridStyle = useMemo<CSSProperties>(() => {
+    const tracks = categories
+      .map((_, i) => (active === null ? "1fr" : i === active ? "4fr" : "1fr"))
+      .join(" ");
+    return isDesktop
+      ? { gridTemplateColumns: tracks, gridTemplateRows: "1fr", height: DESKTOP_HEIGHT }
+      : { gridTemplateColumns: "1fr", gridAutoRows: "minmax(132px, 1fr)" };
+  }, [active, categories, isDesktop]);
+
+  const gallery = lightbox !== null ? categories[lightbox.cat].gallery : [];
+  const closeLb = useCallback(() => setLightbox(null), []);
+  const prevLb = useCallback(() => {
+    setLightbox((s) =>
+      s ? { ...s, idx: (s.idx - 1 + categories[s.cat].gallery.length) % categories[s.cat].gallery.length } : null,
+    );
+  }, [categories]);
+  const nextLb = useCallback(() => {
+    setLightbox((s) =>
+      s ? { ...s, idx: (s.idx + 1) % categories[s.cat].gallery.length } : null,
+    );
+  }, [categories]);
 
   return (
     <Section id="espacios" bg="paper">
@@ -64,28 +75,44 @@ export function Espacios() {
           </div>
         </header>
 
-        <motion.ul
-          variants={gridStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
+        <ul
+          onMouseLeave={() => setActive(null)}
+          className="grid w-full gap-2 transition-[grid-template-columns] duration-[600ms] ease-out"
+          style={gridStyle}
         >
-          {categories.map((cat, i) => (
-            <motion.li key={cat.id} variants={cardVariant}>
-              <button
-                onClick={() => openCategory(i)}
-                className="group relative block w-full aspect-[3/4] overflow-hidden cursor-pointer text-left"
-                aria-label={`Ver galería de ${cat.title}`}
+          {categories.map((cat, i) => {
+            const isActive = active === i;
+            return (
+              <li
+                key={cat.id}
+                data-active={isActive}
+                onMouseEnter={() => isDesktop && setActive(i)}
+                onClick={() => setLightbox({ cat: i, idx: 0 })}
+                className="group relative cursor-pointer overflow-hidden border border-[var(--color-ink)]/15 min-h-[132px] md:min-h-0 md:min-w-[64px]"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={cat.cover}
                   alt={cat.title}
-                  className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.05] scale-105 transition-[transform,filter] duration-[900ms] ease-out group-hover:grayscale-0 group-hover:contrast-100 group-hover:scale-100"
+                  fill
+                  sizes="(min-width: 768px) 45vw, 100vw"
+                  quality={72}
+                  className={`object-cover transition-[transform,filter] duration-[800ms] ease-out ${
+                    isActive
+                      ? "grayscale-0 contrast-100 scale-100"
+                      : "grayscale contrast-[1.05] scale-105"
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/45 to-[var(--color-ink)]/10 transition-opacity duration-500 group-hover:via-[var(--color-ink)]/25" />
 
+                {/* Overlay: fuerte colapsado, suave activo */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] transition-opacity duration-500 ${
+                    isActive
+                      ? "via-[var(--color-ink)]/25 to-transparent"
+                      : "via-[var(--color-ink)]/55 to-[var(--color-ink)]/25"
+                  }`}
+                />
+
+                {/* Número */}
                 <span
                   aria-hidden="true"
                   className="absolute top-5 left-5 eyebrow text-[var(--color-paper)]/70"
@@ -93,31 +120,63 @@ export function Espacios() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-[var(--color-paper)]">
-                  <h3 className="display-s font-medium leading-tight">
-                    {cat.title}
-                  </h3>
-                  <span className="mt-2 inline-flex items-center gap-2 text-[12px] tracking-[0.06em] text-[var(--color-paper)]/75">
-                    Ver galería · {cat.gallery.length}
-                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1.2" className="transition-transform duration-500 group-hover:translate-x-1">
-                      <path d="M1 5h12M13 5L9 1M13 5L9 9" />
-                    </svg>
-                  </span>
+                {/* Título colapsado: rotado en desktop */}
+                <h3
+                  className={`hidden md:block absolute left-6 bottom-6 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 ${
+                    isActive ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  {cat.title}
+                </h3>
+
+                {/* Contenido activo (desktop): título + sub-galería */}
+                <div
+                  className={`absolute inset-x-0 bottom-0 p-5 md:p-6 text-[var(--color-paper)] transition-[opacity,transform] duration-500 ${
+                    isActive
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-3 pointer-events-none"
+                  }`}
+                >
+                  <h3 className="display-s font-medium mb-3 leading-tight">{cat.title}</h3>
+                  <div className="flex gap-2">
+                    {cat.gallery.map((g, gi) => (
+                      <button
+                        key={g.src}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLightbox({ cat: i, idx: gi });
+                        }}
+                        className="relative h-16 w-16 md:h-20 md:w-20 shrink-0 overflow-hidden border border-[var(--color-paper)]/25 hover:border-[var(--color-paper)]/70 transition-colors"
+                        aria-label={`Ver ${g.alt}`}
+                      >
+                        <Image src={g.src} alt={g.alt} fill sizes="80px" quality={50} className="object-cover" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </button>
-            </motion.li>
-          ))}
-        </motion.ul>
+
+                {/* Título mobile (colapsado) */}
+                <h3
+                  className={`md:hidden absolute bottom-5 left-5 eyebrow text-[var(--color-paper)]/90 transition-opacity duration-300 ${
+                    isActive ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  {cat.title}
+                </h3>
+              </li>
+            );
+          })}
+        </ul>
       </Container>
 
       <AnimatePresence>
-        {openCat !== null && (
+        {lightbox !== null && (
           <Lightbox
             images={gallery}
-            index={imgIndex}
-            onClose={close}
-            onPrev={prev}
-            onNext={next}
+            index={lightbox.idx}
+            onClose={closeLb}
+            onPrev={prevLb}
+            onNext={nextLb}
           />
         )}
       </AnimatePresence>
