@@ -90,6 +90,11 @@ export function Espacios() {
         >
           {categories.map((cat, i) => {
             const isActive = active === i;
+            // En desktop, cuando otro bloque está activo, éste queda angosto:
+            // ahí mostramos el título rotado (sin lorem). En reposo (o mobile)
+            // mostramos título + lorem horizontal.
+            const isShrunkDesktop = isDesktop && active !== null && !isActive;
+            const showHorizontal = !isActive && !isShrunkDesktop;
             return (
               <li
                 key={cat.id}
@@ -173,36 +178,33 @@ export function Espacios() {
                   }`}
                 />
 
-                {/* Número */}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-5 left-5 z-10 eyebrow text-[var(--color-paper)]/70"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-
                 {/* Título activo: arriba a la izquierda */}
                 <h3
-                  className={`absolute top-12 left-5 z-10 display-s font-medium text-[var(--color-paper)] transition-opacity duration-300 ${
+                  className={`absolute top-6 left-5 md:left-6 z-10 display-s font-medium text-[var(--color-paper)] transition-opacity duration-300 ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {cat.title}
                 </h3>
 
-                {/* Título colapsado: rotado en desktop */}
-                <h3
-                  className={`hidden md:block absolute left-6 bottom-6 z-10 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 ${
-                    isActive ? "opacity-0" : "opacity-100"
+                {/* Colapsado en reposo / mobile: título + lorem */}
+                <div
+                  className={`absolute inset-x-0 bottom-0 p-5 md:p-6 z-10 transition-opacity duration-300 ${
+                    showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  {cat.title}
-                </h3>
+                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight">
+                    {cat.title}
+                  </h3>
+                  <p className="mt-2 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch]">
+                    {cat.blurb}
+                  </p>
+                </div>
 
-                {/* Título colapsado mobile */}
+                {/* Colapsado angosto (otro activo): título rotado */}
                 <h3
-                  className={`md:hidden absolute bottom-5 left-5 z-10 eyebrow text-[var(--color-paper)]/90 transition-opacity duration-300 ${
-                    isActive ? "opacity-0" : "opacity-100"
+                  className={`hidden md:block absolute left-6 bottom-6 z-10 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 ${
+                    isShrunkDesktop ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {cat.title}

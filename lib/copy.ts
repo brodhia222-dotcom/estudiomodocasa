@@ -94,6 +94,7 @@ export const copy = {
       {
         id: "recepcion",
         title: "Recepción",
+        blurb: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         cover: "/images/espacios/recepcion-01.jpg",
         // 1 foto real; las otras 3 celdas quedan como placeholder.
         gallery: [
@@ -103,6 +104,7 @@ export const copy = {
       {
         id: "sala-espera",
         title: "Sala de Espera",
+        blurb: "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
         cover: "/images/espacios/sala-espera-01.jpg",
         gallery: [
           { src: "/images/espacios/sala-espera-01.jpg", alt: "Sala de espera con sofá curvo y parasoles de madera" },
@@ -114,6 +116,7 @@ export const copy = {
       {
         id: "wellness",
         title: "Wellness",
+        blurb: "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
         cover: "/images/espacios/wellness-01.jpg",
         // 3 fotos reales; la 4ta celda queda como placeholder.
         gallery: [
@@ -125,6 +128,7 @@ export const copy = {
       {
         id: "areas-privadas",
         title: "Áreas Privadas",
+        blurb: "Duis aute irure dolor in reprehenderit in voluptate velit.",
         cover: "/images/espacios/areas-01.jpg",
         gallery: [
           { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café" },
