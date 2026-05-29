@@ -22,7 +22,7 @@ export const copy = {
     headlinePre: "Diseñamos espacios médicos que",
     headlineItalic: "elevan",
     headlinePost: "tu práctica y la experiencia de tus pacientes.",
-    lead: "Trasladamos ese estándar al diseño de consultorios y clínicas privadas en CABA.",
+    lead: "Trasladamos ese estándar al diseño de consultorios y clínicas privadas.",
     primaryCta: "Coordinar reunión privada",
     microInfo: "30 min · Sin compromiso · Reunión privada",
     image: {
