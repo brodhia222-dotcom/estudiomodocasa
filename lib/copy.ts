@@ -120,14 +120,17 @@ export const copy = {
         id: "areas-privadas",
         title: "Áreas Privadas",
         blurb: "Consultorios, oficinas y salas de reunión resueltos para la eficiencia del equipo profesional.",
-        // Cover = consultorio (distinguible de la card 3 que usa COWORK 1).
+        // Cover = consultorio portrait (entra bien en la tarjeta vertical y
+        // se diferencia visualmente de la card 3 que usa COWORK 1).
         cover: "/images/chinski/chinski-0952b.jpg",
+        // Galería: para que la primera celda (ancha) entre bien, va el
+        // consultorio landscape (chinski-0848b). El portrait (chinski-0952b)
+        // va al final con encuadre hacia el sillón.
         gallery: [
-          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", objectPosition: "center" },
+          { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles", objectPosition: "25% center" },
           { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café", objectPosition: "center" },
           { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo", objectPosition: "center" },
-          // El sillón está a la izquierda — encuadre hacia ese lado.
-          { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles", objectPosition: "25% center" },
+          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", objectPosition: "center 65%" },
         ],
       },
     ],

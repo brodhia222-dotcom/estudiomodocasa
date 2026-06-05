@@ -169,6 +169,7 @@ export function ProyectoChinski() {
                         : "(min-width: 768px) 33vw, 50vw"
                     }
                     quality={75}
+                    style={{ objectPosition: img.objectPosition }}
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />

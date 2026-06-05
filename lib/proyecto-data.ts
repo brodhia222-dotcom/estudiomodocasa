@@ -2,6 +2,9 @@ export type ProjectImage = {
   src: string;
   alt: string;
   category: string;
+  /** Reencuadre opcional (CSS object-position). Útil para fotos portrait
+   * que en una celda 4:3 quedan con el sujeto fuera del recorte. */
+  objectPosition?: string;
 };
 
 // NOTA: el nombre real del cliente ("Chinski") se quitó por pedido de la
@@ -30,7 +33,7 @@ export const proyectoData = {
     { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera con escultura de rostro y sofás", category: "Sala de espera" },
     { src: "/images/chinski/chinski-0794b.jpg", alt: "Vista panorámica de espera con poufs", category: "Sala de espera" },
     // ── Consultorio ──
-    { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", category: "Consultorio" },
+    { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", category: "Consultorio", objectPosition: "center 65%" },
     { src: "/images/chinski/chinski-0959.jpg", alt: "Consultorio con escritorio y equipamiento", category: "Consultorio" },
     { src: "/images/chinski/chinski-0997.jpg", alt: "Oficina médica con escritorio y sillas", category: "Consultorio" },
     { src: "/images/chinski/chinski-0831.jpg", alt: "Consultorio con sillón y parasoles de madera", category: "Consultorio" },
