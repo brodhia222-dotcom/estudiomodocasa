@@ -59,7 +59,7 @@ export const copy = {
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
       imgSrc: "/images/espacios/areas-01.jpg",
       // Las personas y la mesa están al centro-izquierda.
-      objectPosition: "32% center",
+      objectPosition: "22% center",
     },
   ],
 
@@ -120,14 +120,14 @@ export const copy = {
         id: "areas-privadas",
         title: "Áreas Privadas",
         blurb: "Consultorios, oficinas y salas de reunión resueltos para la eficiencia del equipo profesional.",
-        cover: "/images/espacios/areas-01.jpg",
+        // Cover = consultorio (distinguible de la card 3 que usa COWORK 1).
+        cover: "/images/chinski/chinski-0952b.jpg",
         gallery: [
+          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", objectPosition: "center" },
           { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café", objectPosition: "center" },
           { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo", objectPosition: "center" },
           // El sillón está a la izquierda — encuadre hacia ese lado.
           { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles", objectPosition: "25% center" },
-          // El sillón está a la derecha — encuadre hacia ese lado.
-          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", objectPosition: "75% center" },
         ],
       },
     ],
