@@ -156,6 +156,10 @@ export function Espacios() {
                             fill
                             sizes="(min-width: 768px) 28vw, 50vw"
                             quality={62}
+                            style={{
+                              objectPosition:
+                                (g as { objectPosition?: string }).objectPosition,
+                            }}
                             className="object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
                           />
                         )}

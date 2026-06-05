@@ -61,6 +61,7 @@ export function ValueProps() {
                 fill
                 sizes="(min-width: 768px) 33vw, 100vw"
                 quality={75}
+                style={{ objectPosition: item.objectPosition }}
                 className="object-cover scale-105 transition-transform duration-[1200ms] ease-out hover:scale-100"
               />
 

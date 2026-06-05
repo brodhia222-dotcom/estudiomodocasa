@@ -43,18 +43,23 @@ export const copy = {
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
       imgSrc: "/images/espacios/recepcion-03.jpg",
+      // El sofá y la mujer están a la izquierda; recortamos enfocando esa zona.
+      objectPosition: "20% center",
     },
     {
       number: "02",
       title: "Precisión y profesionalismo",
       body: "Organizamos circulaciones y recorridos entre profesionales y pacientes. Cada decisión proyectual refleja el estándar de tu práctica.",
       imgSrc: "/images/chinski/chinski-0997.jpg",
+      objectPosition: "center",
     },
     {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
       imgSrc: "/images/espacios/areas-01.jpg",
+      // Las personas y la mesa están al centro-izquierda.
+      objectPosition: "32% center",
     },
   ],
 
@@ -117,10 +122,12 @@ export const copy = {
         blurb: "Consultorios, oficinas y salas de reunión resueltos para la eficiencia del equipo profesional.",
         cover: "/images/espacios/areas-01.jpg",
         gallery: [
-          { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café" },
-          { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo" },
-          { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles" },
-          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón" },
+          { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café", objectPosition: "center" },
+          { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo", objectPosition: "center" },
+          // El sillón está a la izquierda — encuadre hacia ese lado.
+          { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles", objectPosition: "25% center" },
+          // El sillón está a la derecha — encuadre hacia ese lado.
+          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón", objectPosition: "75% center" },
         ],
       },
     ],
