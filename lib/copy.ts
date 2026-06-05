@@ -109,11 +109,11 @@ export const copy = {
         title: "Wellness",
         blurb: "Áreas de bienestar y recuperación integradas al recorrido de cuidado del paciente.",
         cover: "/images/espacios/wellness-01.jpg",
-        // 2 fotos reales; las otras 2 celdas quedan como placeholder hasta
-        // que lleguen más renders (camillas/gym/consultorio).
         gallery: [
           { src: "/images/espacios/wellness-01.jpg", alt: "Gimnasio con equipamiento y espejos" },
           { src: "/images/espacios/wellness-02.jpg", alt: "Sala de masajes con camillas" },
+          { src: "/images/espacios/wellness-03.jpg", alt: "Estudio de pilates con reformers y vegetación" },
+          { src: "/images/espacios/wellness-04.jpg", alt: "Gimnasio con cardio y vista a la ciudad" },
         ],
       },
       {
