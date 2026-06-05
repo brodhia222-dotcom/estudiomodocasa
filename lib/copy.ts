@@ -42,7 +42,7 @@ export const copy = {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
-      imgSrc: "/images/chinski/chinski-0862b.jpg",
+      imgSrc: "/images/espacios/recepcion-03.jpg",
     },
     {
       number: "02",
@@ -54,7 +54,7 @@ export const copy = {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
-      imgSrc: "/images/chinski/chinski-0786b.jpg",
+      imgSrc: "/images/espacios/areas-01.jpg",
     },
   ],
 

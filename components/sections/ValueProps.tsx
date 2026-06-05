@@ -64,10 +64,11 @@ export function ValueProps() {
                 className="object-cover scale-105 transition-transform duration-[1200ms] ease-out hover:scale-100"
               />
 
-              {/* Gradient bottom-up para legibilidad del texto blanco */}
+              {/* Gradient bottom-up: solo lo necesario para legibilidad del
+                 texto. Bajo en el medio y arriba para que la foto se note. */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/65 to-[var(--color-ink)]/20"
+                className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/35 to-transparent"
               />
 
               {/* Contenido */}
