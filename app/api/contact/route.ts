@@ -4,8 +4,9 @@ import { Resend } from "resend";
 
 const schema = z.object({
   name: z.string().min(2, "Ingresá tu nombre completo."),
+  phone: z.string().min(6, "Ingresá un teléfono válido."),
   email: z.string().email("Email inválido."),
-  message: z.string().min(10, "Contanos un poco más sobre tu proyecto."),
+  location: z.string().min(2, "Ingresá tu ubicación."),
   website: z.string().max(0).optional().or(z.literal("")),
 });
 
@@ -57,13 +58,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    const { name, email, message } = parsed.data;
+    const { name, phone, email, location } = parsed.data;
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO_EMAIL;
     const from = process.env.CONTACT_FROM_EMAIL || "ModoCasa Landing <onboarding@resend.dev>";
 
     if (!apiKey || !to) {
-      console.warn("[contact] Resend no configurado. Mensaje recibido:", { name, email, message });
+      console.warn("[contact] Resend no configurado. Datos recibidos:", { name, phone, email, location });
       // En demo sin API key, devolvemos éxito para no romper la UX
       return NextResponse.json({ ok: true, devMode: true });
     }
@@ -78,13 +79,13 @@ export async function POST(req: Request) {
         <div style="font-family: -apple-system, sans-serif; max-width: 560px; padding: 24px; color: #08090a;">
           <h2 style="margin: 0 0 16px; font-weight: 500;">Nueva consulta desde la landing de consultorios médicos</h2>
           <hr style="border: 0; border-top: 1px solid #08090a; margin: 16px 0;" />
-          <p style="margin: 0 0 8px;"><strong>Nombre:</strong> ${escapeHtml(name)}</p>
+          <p style="margin: 0 0 8px;"><strong>Nombre y Apellido:</strong> ${escapeHtml(name)}</p>
+          <p style="margin: 0 0 8px;"><strong>Teléfono:</strong> <a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a></p>
           <p style="margin: 0 0 8px;"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-          <p style="margin: 16px 0 8px;"><strong>Mensaje:</strong></p>
-          <p style="margin: 0; white-space: pre-wrap; line-height: 1.5;">${escapeHtml(message)}</p>
+          <p style="margin: 0 0 8px;"><strong>Ubicación:</strong> ${escapeHtml(location)}</p>
         </div>
       `,
-      text: `Nueva consulta — ${name}\n\nEmail: ${email}\n\nMensaje:\n${message}`,
+      text: `Nueva consulta — ${name}\n\nTeléfono: ${phone}\nEmail: ${email}\nUbicación: ${location}`,
     });
 
     if (error) {

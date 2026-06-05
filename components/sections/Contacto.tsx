@@ -25,8 +25,9 @@ export function Contacto() {
     const formData = new FormData(form);
     const payload = {
       name: String(formData.get("name") || ""),
+      phone: String(formData.get("phone") || ""),
       email: String(formData.get("email") || ""),
-      message: String(formData.get("message") || ""),
+      location: String(formData.get("location") || ""),
       website: String(formData.get("website") || ""),
     };
 
@@ -152,6 +153,14 @@ export function Contacto() {
                     error={errors.name}
                   />
                   <Field
+                    name="phone"
+                    label={copy.contacto.form.phone}
+                    type="tel"
+                    autoComplete="tel"
+                    required
+                    error={errors.phone}
+                  />
+                  <Field
                     name="email"
                     label={copy.contacto.form.email}
                     type="email"
@@ -160,11 +169,12 @@ export function Contacto() {
                     error={errors.email}
                   />
                   <Field
-                    name="message"
-                    label={copy.contacto.form.message}
-                    type="textarea"
+                    name="location"
+                    label={copy.contacto.form.location}
+                    type="text"
+                    autoComplete="address-level2"
                     required
-                    error={errors.message}
+                    error={errors.location}
                   />
 
                   <div className="flex flex-col gap-6 pt-12">
@@ -204,7 +214,7 @@ function Field({
 }: {
   name: string;
   label: string;
-  type: "text" | "email" | "textarea";
+  type: "text" | "email" | "tel" | "textarea";
   autoComplete?: string;
   required?: boolean;
   error?: string;

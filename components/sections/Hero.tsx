@@ -87,23 +87,13 @@ export function Hero() {
             <Words text={copy.hero.headlinePost} />
           </h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="body-l max-w-[960px] text-[var(--color-paper)]/85 whitespace-normal md:whitespace-nowrap"
-          >
-            {copy.hero.lead}
-          </motion.p>
-
           <motion.div
             variants={fadeUp}
-            className="flex flex-col items-center gap-4 pt-2"
+            className="flex flex-col items-center pt-2"
           >
             <MagneticLink href="#contacto" variant="solid-swap">
               {copy.hero.primaryCta}
             </MagneticLink>
-            <span className="inline-flex items-center px-4 py-2 bg-[var(--color-paper)]/12 backdrop-blur-[2px] text-[12.5px] text-[var(--color-paper)]/90 tracking-[0.02em]">
-              {copy.hero.microInfo}
-            </span>
           </motion.div>
         </motion.div>
       </Container>

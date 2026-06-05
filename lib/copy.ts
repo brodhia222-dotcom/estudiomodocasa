@@ -22,9 +22,7 @@ export const copy = {
     headlinePre: "Diseñamos espacios médicos que",
     headlineItalic: "elevan",
     headlinePost: "tu práctica y la experiencia de tus pacientes.",
-    lead: "Trasladamos ese estándar al diseño de consultorios y clínicas privadas.",
     primaryCta: "Coordinar reunión privada",
-    microInfo: "30 min · Sin compromiso · Reunión privada",
     image: {
       src: "/images/placeholders/hero-clinic.jpg",
       alt: "Consultorio médico minimalista en blanco y negro, fotografía o video que va detrás del shader.",
@@ -44,7 +42,7 @@ export const copy = {
       number: "01",
       title: "Centrado en el paciente",
       body: "Espacios pensados desde la experiencia del paciente: confort, privacidad y bienestar en cada decisión proyectual.",
-      imgSrc: "/images/espacios/recepcion-03.jpg",
+      imgSrc: "/images/chinski/chinski-0862b.jpg",
     },
     {
       number: "02",
@@ -56,7 +54,7 @@ export const copy = {
       number: "03",
       title: "Confianza inmediata",
       body: "Ambientes que transmiten cuidado desde la primera consulta, antes del diagnóstico.",
-      imgSrc: "/images/espacios/areas-01.jpg",
+      imgSrc: "/images/chinski/chinski-0786b.jpg",
     },
   ],
 
@@ -90,26 +88,14 @@ export const copy = {
     sub: "Cada tipología que compone la práctica médica privada está pensada en función del paciente, del profesional y del equipo. Pasá el cursor sobre cada espacio para ver la galería.",
     categories: [
       {
-        id: "recepcion",
-        title: "Recepción",
-        blurb: "El primer contacto del paciente: un acceso que comunica orden, calidez y jerarquía profesional.",
-        cover: "/images/espacios/recepcion-01.jpg",
-        gallery: [
-          { src: "/images/espacios/recepcion-01.jpg", alt: "Hall de acceso con luminaria escultórica" },
-          { src: "/images/espacios/recepcion-02.jpg", alt: "Lobby de doble altura con araña de cobre" },
-          { src: "/images/espacios/recepcion-03.jpg", alt: "Área de estar del hall con banco curvo" },
-          { src: "/images/espacios/recepcion-04.jpg", alt: "Mostrador de recepción con estantería" },
-        ],
-      },
-      {
         id: "sala-espera",
         title: "Sala de Espera",
         blurb: "Espera diseñada para bajar la ansiedad: confort, privacidad y luz cálida en cada detalle.",
-        cover: "/images/espacios/sala-espera-01.jpg",
+        cover: "/images/chinski/chinski-0862b.jpg",
         gallery: [
+          { src: "/images/chinski/chinski-0862b.jpg", alt: "Sala de espera del consultorio con escultura de rostro" },
+          { src: "/images/espacios/recepcion-03.jpg", alt: "Área de espera con mujer sentada en banco curvo" },
           { src: "/images/espacios/sala-espera-01.jpg", alt: "Sala de espera con sofá curvo y parasoles de madera" },
-          { src: "/images/espacios/sala-espera-02.jpg", alt: "Sala de espera con vegetación y sofá curvo" },
-          { src: "/images/espacios/sala-espera-03.jpg", alt: "Sala de espera con sofá blanco y poufs" },
           { src: "/images/espacios/sala-espera-04.jpg", alt: "Cabinas privadas con divisorios vidriados" },
         ],
       },
@@ -118,11 +104,11 @@ export const copy = {
         title: "Wellness",
         blurb: "Áreas de bienestar y recuperación integradas al recorrido de cuidado del paciente.",
         cover: "/images/espacios/wellness-01.jpg",
+        // 2 fotos reales; las otras 2 celdas quedan como placeholder hasta
+        // que lleguen más renders (camillas/gym/consultorio).
         gallery: [
           { src: "/images/espacios/wellness-01.jpg", alt: "Gimnasio con equipamiento y espejos" },
           { src: "/images/espacios/wellness-02.jpg", alt: "Sala de masajes con camillas" },
-          { src: "/images/espacios/wellness-03.jpg", alt: "Kitchenette con muebles de madera" },
-          { src: "/images/espacios/wellness-04.jpg", alt: "Sala de estar con mesa de juego" },
         ],
       },
       {
@@ -134,7 +120,7 @@ export const copy = {
           { src: "/images/espacios/areas-01.jpg", alt: "Sala de reuniones con mesa y estación de café" },
           { src: "/images/espacios/areas-02.jpg", alt: "Oficina privada con mesa de trabajo" },
           { src: "/images/espacios/areas-03.jpg", alt: "Consultorio panorámico con sillón y parasoles" },
-          { src: "/images/espacios/areas-04.jpg", alt: "Sala de reuniones con mesa redonda" },
+          { src: "/images/chinski/chinski-0952b.jpg", alt: "Consultorio con escritorio y sillón" },
         ],
       },
     ],
@@ -211,12 +197,13 @@ export const copy = {
     headline: "Tu espacio define la percepción del paciente.",
     sub: "Conversemos sobre tu proyecto. La primera reunión es privada, sin costo y sin compromiso.",
     form: {
-      name: "Nombre",
+      name: "Nombre y Apellido",
+      phone: "Teléfono",
       email: "Email",
-      message: "Contanos brevemente sobre tu proyecto",
+      location: "Ubicación",
       submit: "Enviar",
       sending: "Enviando…",
-      success: "Recibimos tu mensaje. Te contactamos a la brevedad para coordinar la reunión.",
+      success: "Recibimos tus datos. Te contactamos a la brevedad para coordinar la reunión.",
       error: "No pudimos enviar el mensaje. Probá de nuevo o escribinos por WhatsApp.",
     },
     whatsapp: {

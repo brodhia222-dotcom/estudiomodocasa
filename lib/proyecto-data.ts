@@ -11,12 +11,12 @@ export type ProjectImage = {
 export const proyectoData = {
   headline: "Nuestro último proyecto",
   name: "Consultorio de cirugía plástica",
-  sub: "Reconfiguramos tres unidades independientes en un único consultorio coherente, integrando recepción, áreas de atención y espacios privados con una circulación fluida y materialidad de alta gama.",
+  sub: "El desafío consistió en integrar tres unidades independientes en un único espacio de atención. La propuesta optimiza la circulación de pacientes y profesionales, generando recorridos fluidos, funcionales y planificados, acompañados por una materialidad contemporánea y detalles de alta calidad.",
   stats: [
     { label: "Especialidad", value: "Cirugía plástica" },
-    { label: "Ubicación", value: "CABA, Buenos Aires" },
-    { label: "Año", value: "2024" },
-    { label: "Superficie", value: "A confirmar" },
+    { label: "Ubicación", value: "CABA, Palermo" },
+    { label: "Año", value: "2026" },
+    { label: "Superficie", value: "140 m²" },
   ],
   filters: ["Todo", "Recepción", "Sala de espera", "Consultorio", "Áreas privadas"],
   initialCount: 6,
