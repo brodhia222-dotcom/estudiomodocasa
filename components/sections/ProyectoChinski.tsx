@@ -70,20 +70,20 @@ export function ProyectoChinski() {
     <Section id="proyecto" bg="paper" py="default">
       <Container>
         {/* ── Header ── */}
-        <div className="mb-[clamp(32px,5vw,56px)]">
-          <Reveal as="h2" className="display-l max-w-[700px]">
+        <div className="mb-[clamp(40px,6vw,72px)]">
+          <Reveal as="h2" className="display-l">
             {proyectoData.headline}
           </Reveal>
           <Reveal
             as="p"
-            className="font-serif-italic text-[var(--text-display-s)] text-[var(--color-ink)]/70 mt-3"
+            className="font-serif-italic text-[var(--text-display-s)] text-[var(--color-ink)]/70 mt-4"
             delay={0.08}
           >
             {proyectoData.name}
           </Reveal>
           <Reveal
             as="p"
-            className="body-l text-[var(--color-mute)] max-w-[520px] mt-3"
+            className="body-l text-[var(--color-mute)] max-w-[760px] mt-5"
             delay={0.14}
           >
             {proyectoData.sub}
