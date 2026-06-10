@@ -83,7 +83,7 @@ export function ProyectoChinski() {
           </Reveal>
           <Reveal
             as="p"
-            className="body-l text-[var(--color-mute)] max-w-[760px] mt-5"
+            className="body-l text-[var(--color-mute)] max-w-[760px] mt-5 text-pretty"
             delay={0.14}
           >
             {proyectoData.sub}
