@@ -34,20 +34,29 @@ export function ValueProps() {
   return (
     <Section bg="paper" py="default" className="!pt-[clamp(120px,14vw,200px)]">
       <Container>
-        <div className="max-w-[820px] mb-[clamp(48px,7vw,88px)]">
+        <div className="mb-[clamp(48px,7vw,88px)]">
           <Reveal
             as="h2"
-            className="font-medium tracking-[-0.02em] leading-tight text-[clamp(22px,2.6vw,34px)]"
+            className="font-medium tracking-[-0.02em] leading-tight text-[clamp(20px,2.4vw,32px)] md:whitespace-nowrap"
           >
             {copy.valuePropsHeader.title}
           </Reveal>
-          <Reveal
-            as="p"
-            className="body-l text-[var(--color-mute)] mt-5 max-w-[640px]"
-            delay={0.12}
-          >
-            {copy.valuePropsHeader.sub}
-          </Reveal>
+          <div className="max-w-[680px] mt-5 flex flex-col gap-3">
+            <Reveal
+              as="p"
+              className="body-l text-[var(--color-mute)]"
+              delay={0.1}
+            >
+              {copy.valuePropsHeader.sub1}
+            </Reveal>
+            <Reveal
+              as="p"
+              className="body-l text-[var(--color-mute)]"
+              delay={0.18}
+            >
+              {copy.valuePropsHeader.sub2}
+            </Reveal>
+          </div>
         </div>
 
         <motion.ul

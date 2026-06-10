@@ -34,7 +34,10 @@ export const copy = {
   // Título de una sola línea arriba de las 3 tarjetas (jerarquiza los 15 años).
   valuePropsHeader: {
     title: "Con más de 15 años de trayectoria en interiorismo de alta gama",
-    sub: "En Estudio Modo Casa trasladamos nuestra visión a entornos médicos. Elevamos la experiencia del paciente mediante espacios que fusionan una estética minimalista y sensorial con una funcionalidad técnica impecable, consolidando la autoridad profesional y generando una atmósfera de confianza absoluta.",
+    // Dividido en 2 párrafos para que la primera frase quede en su propio
+    // bloque y la segunda fluya cómoda, sin cortes raros tipo "Elevamos la".
+    sub1: "En Estudio Modo Casa trasladamos nuestra visión a entornos médicos.",
+    sub2: "Elevamos la experiencia del paciente mediante espacios que fusionan una estética minimalista y sensorial con una funcionalidad técnica impecable, consolidando la autoridad profesional y generando una atmósfera de confianza absoluta.",
   },
 
   // 3 bloques tipográficos con foto de fondo. La tarjeta 02 se reformuló:
