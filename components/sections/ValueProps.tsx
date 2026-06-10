@@ -34,12 +34,21 @@ export function ValueProps() {
   return (
     <Section bg="paper" py="default" className="!pt-[clamp(120px,14vw,200px)]">
       <Container>
-        <Reveal
-          as="h2"
-          className="font-medium tracking-[-0.02em] leading-tight text-[clamp(20px,3vw,38px)] md:whitespace-nowrap mb-[clamp(40px,6vw,72px)]"
-        >
-          {copy.valuePropsTitle}
-        </Reveal>
+        <div className="max-w-[820px] mb-[clamp(48px,7vw,88px)]">
+          <Reveal
+            as="h2"
+            className="font-medium tracking-[-0.02em] leading-tight text-[clamp(22px,2.6vw,34px)]"
+          >
+            {copy.valuePropsHeader.title}
+          </Reveal>
+          <Reveal
+            as="p"
+            className="body-l text-[var(--color-mute)] mt-5 max-w-[640px]"
+            delay={0.12}
+          >
+            {copy.valuePropsHeader.sub}
+          </Reveal>
+        </div>
 
         <motion.ul
           variants={grid}
