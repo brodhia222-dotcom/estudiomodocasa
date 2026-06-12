@@ -193,10 +193,12 @@ export function Espacios() {
                     showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight">
+                  {/* min-heights para que título y blurb alineen entre tarjetas
+                     aunque tengan distinta cantidad de líneas. */}
+                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight min-h-[2.4em]">
                     {cat.title}
                   </h3>
-                  <p className="mt-2 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch]">
+                  <p className="mt-2 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
                     {cat.blurb}
                   </p>
                 </div>

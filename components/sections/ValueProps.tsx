@@ -41,22 +41,13 @@ export function ValueProps() {
           >
             {copy.valuePropsHeader.title}
           </Reveal>
-          <div className="max-w-[680px] mt-5 flex flex-col gap-3">
-            <Reveal
-              as="p"
-              className="body-l text-[var(--color-mute)]"
-              delay={0.1}
-            >
-              {copy.valuePropsHeader.sub1}
-            </Reveal>
-            <Reveal
-              as="p"
-              className="body-l text-[var(--color-mute)]"
-              delay={0.18}
-            >
-              {copy.valuePropsHeader.sub2}
-            </Reveal>
-          </div>
+          <Reveal
+            as="p"
+            className="body-l text-[var(--color-mute)] max-w-[820px] mt-5 text-pretty"
+            delay={0.1}
+          >
+            {copy.valuePropsHeader.sub}
+          </Reveal>
         </div>
 
         <motion.ul
