@@ -193,9 +193,11 @@ export function Espacios() {
                     showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  {/* min-heights para que título y blurb alineen entre tarjetas
-                     aunque tengan distinta cantidad de líneas. */}
-                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight min-h-[2.4em]">
+                  {/* min-h cubre 2 lineas a leading-tight (1.25 * 2 = 2.5em).
+                     `flex items-end` ancla el texto al fondo del bloque del
+                     titulo, asi el blurb arranca a la misma altura en las 3
+                     tarjetas aunque el titulo del medio sea de 2 lineas. */}
+                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight min-h-[2.5em] flex items-end">
                     {cat.title}
                   </h3>
                   <p className="mt-2 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
