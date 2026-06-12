@@ -196,7 +196,16 @@ export function Espacios() {
                     showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  <h3 className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[88px] md:bottom-[96px] display-s font-medium text-[var(--color-paper)] leading-tight">
+                  {/* Wellness tiene el titulo más largo: le bajamos el size
+                     para que también quede en 1 línea como los otros 2 y
+                     todo quede perfectamente alineado entre tarjetas. */}
+                  <h3
+                    className={`absolute left-5 right-5 md:left-6 md:right-6 bottom-[88px] md:bottom-[96px] font-medium tracking-[-0.01em] leading-tight text-[var(--color-paper)] ${
+                      cat.id === "wellness"
+                        ? "[font-size:clamp(15px,1.3vw,19px)]"
+                        : "[font-size:clamp(20px,2vw,28px)]"
+                    }`}
+                  >
                     {cat.title}
                   </h3>
                   <p className="absolute left-5 right-5 md:left-6 md:right-6 bottom-5 md:bottom-6 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
