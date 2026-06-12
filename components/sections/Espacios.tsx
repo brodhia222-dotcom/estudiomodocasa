@@ -199,10 +199,13 @@ export function Espacios() {
                   {/* Los 3 títulos en 2 líneas (el del medio wrapea natural,
                      a los cortos los partimos con \n en el copy). Base
                      alineada en las 3 tarjetas. */}
-                  <h3 className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[88px] md:bottom-[96px] display-s font-medium text-[var(--color-paper)] leading-tight whitespace-pre-line">
+                  <h3 className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[70px] md:bottom-[76px] display-s font-medium text-[var(--color-paper)] leading-tight whitespace-pre-line">
                     {cat.title}
                   </h3>
-                  <p className="absolute left-5 right-5 md:left-6 md:right-6 bottom-5 md:bottom-6 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
+                  {/* Blurb a 2 líneas: max-w más amplio para evitar wrap a
+                     3, min-h fija 2 líneas exactas para que las 3 tarjetas
+                     tengan el blurb a la misma altura. */}
+                  <p className="absolute left-5 right-5 md:left-6 md:right-6 bottom-5 md:bottom-6 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[50ch] min-h-[3em]">
                     {cat.blurb}
                   </p>
                 </div>
