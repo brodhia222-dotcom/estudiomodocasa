@@ -56,16 +56,12 @@ export const metadata: Metadata = {
     description:
       "Diseño de consultorios médicos y clínicas privadas en CABA. Interiorismo de alta gama, +15 años de trayectoria.",
   },
+  // Temporal: noindex hasta tener la URL definitiva del subdominio.
+  // Flip a true (y restaurar el bloque googleBot) cuando se actualice
+  // SITE_URL al subdominio real (layout.tsx, robots.ts, sitemap.ts).
   robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
+    index: false,
+    follow: false,
   },
   formatDetection: {
     telephone: true,
