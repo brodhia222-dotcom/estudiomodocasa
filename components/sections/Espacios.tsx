@@ -187,20 +187,19 @@ export function Espacios() {
                   {cat.title}
                 </h3>
 
-                {/* Colapsado en reposo / mobile: título + lorem */}
+                {/* Colapsado en reposo / mobile: título + blurb con
+                   posicionamiento absoluto para que la base del título y
+                   todo el blurb queden a la MISMA altura en las 3 tarjetas
+                   aunque el título del medio sea de 2 líneas. */}
                 <div
-                  className={`absolute inset-x-0 bottom-0 p-5 md:p-6 z-10 transition-opacity duration-300 ${
+                  className={`absolute inset-0 z-10 transition-opacity duration-300 ${
                     showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  {/* min-h cubre 2 lineas a leading-tight (1.25 * 2 = 2.5em).
-                     `flex items-end` ancla el texto al fondo del bloque del
-                     titulo, asi el blurb arranca a la misma altura en las 3
-                     tarjetas aunque el titulo del medio sea de 2 lineas. */}
-                  <h3 className="display-s font-medium text-[var(--color-paper)] leading-tight min-h-[2.5em] flex items-end">
+                  <h3 className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[88px] md:bottom-[96px] display-s font-medium text-[var(--color-paper)] leading-tight">
                     {cat.title}
                   </h3>
-                  <p className="mt-2 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
+                  <p className="absolute left-5 right-5 md:left-6 md:right-6 bottom-5 md:bottom-6 text-[12.5px] leading-[1.5] text-[var(--color-paper)]/65 max-w-[34ch] min-h-[4.5em]">
                     {cat.blurb}
                   </p>
                 </div>
