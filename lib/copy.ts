@@ -97,7 +97,7 @@ export const copy = {
     categories: [
       {
         id: "sala-espera",
-        title: "Sala de Espera",
+        title: "Sala de\nEspera",
         blurb: "Espera diseñada para bajar la ansiedad: confort, privacidad y luz cálida en cada detalle.",
         cover: "/images/chinski/chinski-0862b.jpg",
         gallery: [
@@ -121,7 +121,7 @@ export const copy = {
       },
       {
         id: "areas-privadas",
-        title: "Áreas Privadas",
+        title: "Áreas\nPrivadas",
         blurb: "Consultorios, oficinas y salas de reunión resueltos para la eficiencia del equipo profesional.",
         // Cover = consultorio portrait (entra bien en la tarjeta vertical y
         // se diferencia visualmente de la card 3 que usa COWORK 1).
