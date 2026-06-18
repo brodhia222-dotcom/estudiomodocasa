@@ -96,6 +96,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false }, { status: 500 });
     }
 
+    // Best-effort: persistir el lead en la Google Sheet vía Apps Script.
+    // Si Sheets falla (timeout, error, etc.) el mail ya se mandó — no
+    // rompemos la respuesta al usuario.
+    const sheetWebhook = process.env.SHEET_WEBHOOK_URL;
+    if (sheetWebhook) {
+      try {
+        await fetch(sheetWebhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone, email, location }),
+          signal: AbortSignal.timeout(8000),
+        });
+      } catch (sheetErr) {
+        console.error("[contact] Sheet webhook error:", sheetErr);
+      }
+    }
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[contact] Unexpected:", err);
