@@ -72,7 +72,16 @@ export function Navbar() {
     >
       <div className="w-full px-[var(--container-pad-x)]">
         <div className="flex items-center justify-between h-[var(--nav-height)]">
-          <a href="#top" className="relative z-10" aria-label="Inicio">
+          <a
+  href="https://estudiomodocasa.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="relative z-10"
+  aria-label="Ir al sitio principal de ModoCasa estudio"
+>
+  <Logo size="m" inverted={isInverted} />
+</a>
+
             <Logo size="m" inverted={isInverted} />
           </a>
 
