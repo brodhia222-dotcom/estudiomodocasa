@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { interTight, instrumentSerif } from "@/lib/fonts";
 import { LenisProvider } from "@/components/LenisProvider";
 import { WhatsAppBubble } from "@/components/ui/whatsapp-bubble";
 import "./globals.css";
 
 const SITE_URL = "https://salud.estudiomodocasa.com";
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -156,6 +158,7 @@ export default function RootLayout({
       className={`${interTight.variable} ${instrumentSerif.variable}`}
       data-scroll-behavior="smooth"
     >
+      {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
       <body>
         <script
           type="application/ld+json"

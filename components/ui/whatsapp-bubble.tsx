@@ -1,5 +1,7 @@
 "use client";
 
+import { sendGTMEvent } from "@next/third-parties/google";
+
 /**
  * Burbuja flotante de WhatsApp con efecto de pulso.
  *
@@ -28,6 +30,7 @@ export function WhatsAppBubble({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => sendGTMEvent({ event: "whatsapp_click", source: "bubble" })}
       aria-label="Escribir por WhatsApp"
       className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 animate-wa-bubble-in"
     >

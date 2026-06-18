@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, useInView, type Variants } from "framer-motion";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { viewportOnce, easeEditorial } from "@/lib/motion";
 import { copy, whatsappLink } from "@/lib/copy";
 
@@ -109,6 +110,7 @@ export function LogoFlourish() {
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => sendGTMEvent({ event: "whatsapp_click", source: "logo_flourish" })}
           className="group relative inline-flex items-center px-10 py-4 text-[13px] font-medium tracking-[0.08em] uppercase border border-[var(--color-paper)] overflow-hidden text-[var(--color-paper)] transition-colors duration-500 hover:text-[var(--color-ink)]"
         >
           <span className="absolute inset-0 bg-[var(--color-paper)] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" />

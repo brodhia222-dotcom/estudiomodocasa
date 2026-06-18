@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
@@ -44,6 +45,7 @@ export function Contacto() {
         return;
       }
       setState("success");
+      sendGTMEvent({ event: "form_submit", form_id: "contacto" });
       form.reset();
     } catch {
       setState("error");
@@ -72,6 +74,7 @@ export function Contacto() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => sendGTMEvent({ event: "whatsapp_click", source: "contact_section" })}
                 className="group inline-flex items-center justify-between gap-4 text-[var(--color-paper)] hover:opacity-70 transition-opacity"
               >
                 <span className="flex items-center gap-3">
