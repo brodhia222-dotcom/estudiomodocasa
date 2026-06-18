@@ -72,18 +72,15 @@ export function Navbar() {
     >
       <div className="w-full px-[var(--container-pad-x)]">
         <div className="flex items-center justify-between h-[var(--nav-height)]">
-                 <a
-  href="https://estudiomodocasa.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="relative z-10"
-  aria-label="Ir al sitio principal de ModoCasa estudio"
->
-  <Logo size="m" inverted={isInverted} />
-</a>
-                                                    ← (línea vacía OK)
-          <nav className="hidden md:flex items-center gap-10" aria-label="Principal">
-
+          <a
+            href="https://estudiomodocasa.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative z-10"
+            aria-label="Ir al sitio principal de ModoCasa estudio"
+          >
+            <Logo size="m" inverted={isInverted} />
+          </a>
 
           <nav className="hidden md:flex items-center gap-10" aria-label="Principal">
             {copy.nav.items.map((item) => (
