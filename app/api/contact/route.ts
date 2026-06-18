@@ -70,9 +70,12 @@ export async function POST(req: Request) {
     }
 
     const resend = new Resend(apiKey);
+    // CONTACT_TO_EMAIL admite lista separada por comas — el mismo lead
+    // llega en paralelo a las casillas configuradas.
+    const toList = to.split(",").map((s) => s.trim()).filter(Boolean);
     const { error } = await resend.emails.send({
       from,
-      to: [to],
+      to: toList,
       replyTo: email,
       subject: `Nueva consulta — ${name}`,
       html: `

@@ -4,7 +4,7 @@ import { LenisProvider } from "@/components/LenisProvider";
 import { WhatsAppBubble } from "@/components/ui/whatsapp-bubble";
 import "./globals.css";
 
-const SITE_URL = "https://modocasa-medicos.vercel.app";
+const SITE_URL = "https://salud.estudiomodocasa.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -56,12 +56,16 @@ export const metadata: Metadata = {
     description:
       "Diseño de consultorios médicos y clínicas privadas en CABA. Interiorismo de alta gama, +15 años de trayectoria.",
   },
-  // Temporal: noindex hasta tener la URL definitiva del subdominio.
-  // Flip a true (y restaurar el bloque googleBot) cuando se actualice
-  // SITE_URL al subdominio real (layout.tsx, robots.ts, sitemap.ts).
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
   formatDetection: {
     telephone: true,

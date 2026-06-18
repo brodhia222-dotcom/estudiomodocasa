@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://modocasa-medicos.vercel.app";
+const SITE_URL = "https://salud.estudiomodocasa.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
