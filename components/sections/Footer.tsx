@@ -10,7 +10,16 @@ export function Footer() {
       <Container>
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 items-end">
           <div className="col-span-12 md:col-span-4">
-            <Logo size="m" />
+            <a
+  href="https://estudiomodocasa.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Ir al sitio principal de ModoCasa estudio"
+  className="inline-block hover:opacity-70 transition-opacity"
+>
+  <Logo size="m" />
+</a>
+
             <p className="mt-4 text-[13px] opacity-55 max-w-[280px]">
               {copy.brand.tagline}. {copy.footer.address}.
             </p>
