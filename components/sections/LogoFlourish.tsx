@@ -133,15 +133,23 @@ export function LogoFlourish() {
           Estudio · Buenos Aires
         </motion.span>
 
-        {/* Logo gigante: wipe-up por palabra */}
-        <h2
-          className="inline-flex items-baseline gap-[0.18em] leading-none text-center"
-          style={{ fontSize: "clamp(40px, 7vw, 104px)" }}
-          aria-label="ModoCasa estudio"
+        {/* Logo gigante: wipe-up por palabra. Linkeado al sitio principal. */}
+        <a
+          href="https://estudiomodocasa.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ir al sitio principal de ModoCasa estudio"
+          className="inline-block transition-opacity duration-300 hover:opacity-80"
         >
-          <Word text="ModoCasa" />
-          <Word text="estudio" italic />
-        </h2>
+          <h2
+            className="inline-flex items-baseline gap-[0.18em] leading-none text-center"
+            style={{ fontSize: "clamp(40px, 7vw, 104px)" }}
+            aria-label="ModoCasa estudio"
+          >
+            <Word text="ModoCasa" />
+            <Word text="estudio" italic />
+          </h2>
+        </a>
 
         {/* Hairline */}
         <motion.span

@@ -77,8 +77,18 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       // Cierra el menú mobile si está abierto (los <a> ya tienen onClick
       // que setea open=false, pero preventDefault corta el flow). El
       // foco vuelve naturalmente porque scrollTo no roba focus.
+      //
+      // Si el destino es una <section> con padding-top, descontamos el
+      // padding del offset para que el contenido (eyebrow + título) quede
+      // justo debajo del navbar, en vez de quedar a 80px abajo del navbar
+      // por el padding interno. Mantiene paridad con scroll-margin-top
+      // de section[id] en globals.css para anchors nativos.
+      const padTop = parseInt(getComputedStyle(dest).paddingTop, 10) || 0;
+      const navOffset = getNavHeight() + 8;
+      const offset = padTop - navOffset;
+
       lenis.scrollTo(dest, {
-        offset: -(getNavHeight() + 8),
+        offset,
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });

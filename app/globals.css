@@ -67,6 +67,13 @@ body {
   scroll-margin-top: calc(var(--nav-height) + 8px);
 }
 
+/* Secciones con anchor: descontar el padding-top vertical de la propia
+   sección para que el contenido (eyebrow + título) quede justo debajo del
+   navbar al hacer click en el nav, en vez de quedar a 80px-100px abajo. */
+section[id] {
+  scroll-margin-top: calc(var(--nav-height) + 8px - var(--section-pad-y));
+}
+
 /* ─── Selección ─── */
 ::selection {
   background: var(--color-ink);
