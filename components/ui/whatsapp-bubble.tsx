@@ -1,6 +1,7 @@
 "use client";
 
 import { sendGTMEvent } from "@next/third-parties/google";
+import { copy, whatsappLink } from "@/lib/copy";
 
 /**
  * Burbuja flotante de WhatsApp con efecto de pulso.
@@ -8,22 +9,27 @@ import { sendGTMEvent } from "@next/third-parties/google";
  * Fija en bottom-right de la página, visible desde el primer render.
  * Verde oficial de WhatsApp (#25D366) + dos anillos concéntricos animados.
  *
- * Cuando el cliente confirme el número definitivo, basta con cambiar la
- * prop `phone` desde el layout o componente padre.
+ * El número y el mensaje salen de lib/copy.ts (misma fuente que el botón
+ * "Escribir por WhatsApp" del formulario). Los props solo se usan si se
+ * quiere overridear puntualmente.
  */
 
 type Props = {
-  /** Número en formato internacional sin "+" ni espacios. Default vacío. */
+  /** Número en formato internacional sin "+" ni espacios. */
   phone?: string;
   /** Mensaje pre-cargado en WhatsApp. */
   message?: string;
 };
 
-export function WhatsAppBubble({
-  phone = "",
-  message = "Hola, vi la página de consultorios médicos de ModoCasa y me gustaría coordinar una reunión.",
-}: Props) {
-  const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+export function WhatsAppBubble({ phone, message }: Props) {
+  // Sin overrides usamos el link canónico de lib/copy — el mismo que el
+  // resto de los CTAs de WhatsApp del sitio.
+  const href =
+    phone || message
+      ? `https://wa.me/${phone ?? copy.contacto.whatsapp.number}?text=${encodeURIComponent(
+          message ?? copy.contacto.whatsapp.message,
+        )}`
+      : whatsappLink;
 
   return (
     <a
