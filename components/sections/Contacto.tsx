@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { Container } from "@/components/primitives/Container";
@@ -14,6 +15,7 @@ import { copy, whatsappLink } from "@/lib/copy";
 type State = "idle" | "sending" | "success" | "error";
 
 export function Contacto() {
+  const router = useRouter();
   const [state, setState] = useState<State>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -44,9 +46,13 @@ export function Contacto() {
         setState("error");
         return;
       }
+      // Envío confirmado por el backend. Navegamos a /gracias, que es
+      // donde se dispara la conversión (Meta Lead + GA4) por vista de
+      // página. El estado "success" queda como fallback visual por si
+      // la navegación se demorara.
       setState("success");
-      sendGTMEvent({ event: "form_submit", form_id: "contacto" });
       form.reset();
+      router.push("/gracias");
     } catch {
       setState("error");
     }
