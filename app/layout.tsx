@@ -74,8 +74,10 @@ export const metadata: Metadata = {
     address: true,
     email: true,
   },
-  // Cuando esté el token de Search Console:
-  // verification: { google: "TOKEN" },
+  // Search Console: pegar el código de la etiqueta HTML en la variable GOOGLE_SITE_VERIFICATION de Vercel.
+  ...(process.env.GOOGLE_SITE_VERIFICATION && {
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
+  }),
 };
 
 export const viewport: Viewport = {
@@ -93,8 +95,20 @@ const organizationJsonLd = {
   description:
     "Estudio de arquitectura e interiorismo especializado en diseño de consultorios médicos y clínicas privadas en Buenos Aires.",
   url: SITE_URL,
-  telephone: "+54 11 2241-9804",
-  image: `${SITE_URL}/opengraph-image`,
+  // Mismo estudio que el sitio principal y sus redes: le dice a Google que es una sola entidad.
+  sameAs: [
+    "https://estudiomodocasa.com",
+    "https://www.instagram.com/estudiomodocasa/",
+    "https://www.facebook.com/estudiomodocasa7",
+  ],
+  email: "info@estudiomodocasa.com",
+  telephone: "+54 9 11 2241-9804",
+  image: [
+    `${SITE_URL}/opengraph-image`,
+    `${SITE_URL}/images/chinski/chinski-0786b.jpg`,
+    `${SITE_URL}/images/chinski/chinski-0862b.jpg`,
+    `${SITE_URL}/images/chinski/chinski-0952b.jpg`,
+  ],
   logo: `${SITE_URL}/opengraph-image`,
   priceRange: "$$$",
   address: {
@@ -130,7 +144,7 @@ const organizationJsonLd = {
   foundingDate: "2010",
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+54-11-2241-9804",
+    telephone: "+54-9-11-2241-9804",
     contactType: "Customer Service",
     areaServed: "AR",
     availableLanguage: ["Spanish"],
