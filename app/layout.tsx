@@ -11,12 +11,11 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "ModoCasa Estudio · Arquitectura para consultorios médicos en Buenos Aires",
+    default: "ModoCasa Estudio · Consultorios médicos en Buenos Aires",
     template: "%s · ModoCasa Estudio",
   },
   description:
-    "Estudio de arquitectura con +15 años en interiorismo de alta gama. Diseñamos consultorios médicos y clínicas privadas en CABA que comunican precisión, elevan la experiencia del paciente y consolidan la autoridad profesional.",
+    "Estudio de arquitectura con +15 años en interiorismo de alta gama. Diseñamos consultorios médicos y clínicas privadas en CABA.",
   applicationName: "ModoCasa Estudio",
   category: "architecture",
   keywords: [

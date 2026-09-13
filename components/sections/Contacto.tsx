@@ -64,7 +64,7 @@ export function Contacto() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-16 items-start">
           {/* Left column: copy + WhatsApp */}
           <div className="col-span-12 lg:col-span-5 flex flex-col gap-12">
-            <Eyebrow number="—" inverted>
+            <Eyebrow inverted>
               {copy.contacto.eyebrow}
             </Eyebrow>
             <Reveal as="h2" className="display-l text-[var(--color-paper)]">
@@ -136,6 +136,14 @@ export function Contacto() {
                 <motion.form
                   key="form"
                   onSubmit={onSubmit}
+                  onFocusCapture={(e) => {
+                    // Solo el comienzo: la conversión sigue siendo lead_confirmed en /gracias
+                    // (así está configurado GTM para Meta y GA4).
+                    const f = e.currentTarget;
+                    if (f.dataset.iniciado) return;
+                    f.dataset.iniciado = "1";
+                    sendGTMEvent({ event: "form_start", form_id: "contacto" });
+                  }}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewportOnce}

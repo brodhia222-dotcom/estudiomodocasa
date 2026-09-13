@@ -17,6 +17,8 @@ const DESKTOP_HEIGHT = 480;
  * bloque éste se expande y despliega su galería como 4 imágenes en grilla
  * 2×2 (todas del mismo tamaño, sin una principal y sin necesidad de click
  * ni ventana emergente). En mobile, tap alterna el despliegue.
+ * Con teclado, cada bloque es un botón: al llegar con Tab se expande y
+ * recién ahí sus fotos se pueden alcanzar (cerrado, no reciben el foco).
  * Imágenes con next/image para que carguen optimizadas.
  */
 export function Espacios() {
@@ -66,7 +68,7 @@ export function Espacios() {
     <Section id="espacios" bg="paper">
       <Container>
         <header className="mb-[clamp(48px,7vw,96px)]">
-          <Eyebrow number="—">{copy.espacios.eyebrow}</Eyebrow>
+          <Eyebrow>{copy.espacios.eyebrow}</Eyebrow>
           <Reveal as="h2" className="display-l max-w-[18ch] mt-6">
             {copy.espacios.headline}
           </Reveal>
@@ -81,6 +83,10 @@ export function Espacios() {
 
         <ul
           onMouseLeave={() => setActive(null)}
+          onBlur={(e) => {
+            // Con teclado: al salir del bloque de espacios, todos vuelven a cerrarse.
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setActive(null);
+          }}
           className="grid w-full gap-2 transition-[grid-template-columns] duration-[600ms] ease-out"
           style={gridStyle}
         >
@@ -96,7 +102,6 @@ export function Espacios() {
                 key={cat.id}
                 data-active={isActive}
                 onMouseEnter={() => isDesktop && reveal(i)}
-                onClick={() => (active === i ? setActive(null) : reveal(i))}
                 className="group relative cursor-pointer overflow-hidden border border-[var(--color-ink)]/15 min-h-[132px] md:min-h-0 md:min-w-[64px]"
               >
                 {/* Cover (visible colapsado) */}
@@ -111,7 +116,19 @@ export function Espacios() {
                   }`}
                 />
 
-                {/* Galería 2×2 (visible al hover/activo) — 4 imágenes iguales */}
+                {/* Todo el bloque es un botón: abre y cierra la galería con clic, tap o teclado. */}
+                <button
+                  type="button"
+                  aria-expanded={isActive}
+                  aria-label={`${isActive ? "Cerrar" : "Ver"} galería de ${cat.title}`}
+                  onFocus={(e) => {
+                    if (isDesktop && e.currentTarget.matches(":focus-visible")) reveal(i);
+                  }}
+                  onClick={() => (active === i ? setActive(null) : reveal(i))}
+                  className="absolute inset-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-[var(--color-paper)]"
+                />
+
+                {/* Galería 2×2 (visible al hover/activo): 4 imágenes iguales */}
                 <div
                   className={`absolute inset-0 grid grid-cols-2 grid-rows-2 gap-1 transition-opacity duration-500 ${
                     isActive ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -138,6 +155,8 @@ export function Espacios() {
                     return (
                       <button
                         key={g.src}
+                        type="button"
+                        tabIndex={isActive ? 0 : -1}
                         onClick={(e) => {
                           e.stopPropagation();
                           setLightbox({ cat: i, idx: gi });
@@ -180,7 +199,7 @@ export function Espacios() {
 
                 {/* Título activo: arriba a la izquierda */}
                 <h3
-                  className={`absolute top-6 left-5 md:left-6 z-10 display-s font-medium text-[var(--color-paper)] transition-opacity duration-300 ${
+                  className={`absolute top-6 left-5 md:left-6 z-10 display-s font-medium text-[var(--color-paper)] transition-opacity duration-300 pointer-events-none ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -192,8 +211,8 @@ export function Espacios() {
                    todo el blurb queden a la MISMA altura en las 3 tarjetas
                    aunque el título del medio sea de 2 líneas. */}
                 <div
-                  className={`absolute inset-0 z-10 transition-opacity duration-300 ${
-                    showHorizontal ? "opacity-100" : "opacity-0 pointer-events-none"
+                  className={`absolute inset-0 z-10 transition-opacity duration-300 pointer-events-none ${
+                    showHorizontal ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {/* Los 3 títulos en 2 líneas (el del medio wrapea natural,
@@ -212,7 +231,7 @@ export function Espacios() {
 
                 {/* Colapsado angosto (otro activo): título rotado */}
                 <h3
-                  className={`hidden md:block absolute left-6 bottom-6 z-10 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 ${
+                  className={`hidden md:block absolute left-6 bottom-6 z-10 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 pointer-events-none ${
                     isShrunkDesktop ? "opacity-100" : "opacity-0"
                   }`}
                 >

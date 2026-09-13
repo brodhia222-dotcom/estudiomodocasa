@@ -59,7 +59,7 @@ export default async function OpenGraphImage() {
               opacity: 0.55,
             }}
           >
-            — Sección 01 / Consultorios médicos
+            Consultorios médicos
           </span>
           <div
             style={{

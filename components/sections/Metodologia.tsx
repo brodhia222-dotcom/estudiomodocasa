@@ -59,7 +59,7 @@ export function Metodologia() {
         {/* Header */}
         <header className="grid grid-cols-12 gap-x-6 gap-y-8 mb-[clamp(48px,7vw,96px)]">
           <div className="col-span-12 md:col-span-3">
-            <Eyebrow number="—" inverted>
+            <Eyebrow inverted>
               {copy.metodologia.eyebrow}
             </Eyebrow>
           </div>

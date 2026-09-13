@@ -23,7 +23,7 @@ export function Testimonios() {
     <Section bg="paper">
       <Container>
         <header className="mb-[clamp(64px,9vw,144px)]">
-          <Eyebrow number="—">{copy.testimonios.eyebrow}</Eyebrow>
+          <Eyebrow>{copy.testimonios.eyebrow}</Eyebrow>
         </header>
 
         <div className="flex flex-col">

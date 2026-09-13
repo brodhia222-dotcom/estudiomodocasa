@@ -52,7 +52,7 @@ export function Filosofia() {
         >
           {/* Header */}
           <motion.div variants={fadeUp}>
-            <Eyebrow number="—">{copy.filosofia.eyebrow}</Eyebrow>
+            <Eyebrow>{copy.filosofia.eyebrow}</Eyebrow>
           </motion.div>
 
           {/* Quote masiva en serif italic */}
