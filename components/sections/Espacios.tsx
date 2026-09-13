@@ -218,9 +218,10 @@ export function Espacios() {
                   {/* Los 3 títulos en 2 líneas (el del medio wrapea natural,
                      a los cortos los partimos con \n en el copy). Base
                      alineada en las 3 tarjetas. */}
-                  <h3 className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[70px] md:bottom-[76px] display-s font-medium text-[var(--color-paper)] leading-tight whitespace-pre-line">
+                  {/* El título real (h3) es el de arriba; este y el rotado son copias visuales. */}
+                  <p aria-hidden="true" className="absolute left-5 right-5 md:left-6 md:right-6 bottom-[70px] md:bottom-[76px] display-s font-medium text-[var(--color-paper)] leading-tight whitespace-pre-line">
                     {cat.title}
-                  </h3>
+                  </p>
                   {/* Blurb a 2 líneas: max-w más amplio para evitar wrap a
                      3, min-h fija 2 líneas exactas para que las 3 tarjetas
                      tengan el blurb a la misma altura. */}
@@ -230,13 +231,14 @@ export function Espacios() {
                 </div>
 
                 {/* Colapsado angosto (otro activo): título rotado */}
-                <h3
+                <p
+                  aria-hidden="true"
                   className={`hidden md:block absolute left-6 bottom-6 z-10 origin-bottom-left -rotate-90 eyebrow text-[var(--color-paper)]/90 whitespace-nowrap transition-opacity duration-300 pointer-events-none ${
                     isShrunkDesktop ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {cat.title}
-                </h3>
+                </p>
               </li>
             );
           })}

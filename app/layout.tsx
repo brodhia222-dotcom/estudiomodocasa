@@ -11,7 +11,8 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ModoCasa Estudio · Consultorios médicos en Buenos Aires",
+    // La búsqueda principal primero: Google corta los títulos de más de ~60 caracteres.
+    default: "Arquitectura para consultorios médicos en CABA · ModoCasa Estudio",
     template: "%s · ModoCasa Estudio",
   },
   description:
@@ -98,7 +99,9 @@ const organizationJsonLd = {
   priceRange: "$$$",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Palermo",
+    streetAddress: "Av. Álvarez Thomas 198, 5º piso, Of. A",
+    postalCode: "C1414",
+    addressLocality: "Ciudad Autónoma de Buenos Aires",
     addressRegion: "CABA",
     addressCountry: "AR",
   },
