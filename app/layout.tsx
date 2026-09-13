@@ -11,12 +11,12 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "ModoCasa Estudio · Arquitectura para consultorios médicos en Buenos Aires",
+    // La búsqueda principal primero: Google corta los títulos de más de ~60 caracteres.
+    default: "Arquitectura para consultorios médicos en CABA · ModoCasa Estudio",
     template: "%s · ModoCasa Estudio",
   },
   description:
-    "Estudio de arquitectura con +15 años en interiorismo de alta gama. Diseñamos consultorios médicos y clínicas privadas en CABA que comunican precisión, elevan la experiencia del paciente y consolidan la autoridad profesional.",
+    "Estudio de arquitectura con +15 años en interiorismo de alta gama. Diseñamos consultorios médicos y clínicas privadas en CABA.",
   applicationName: "ModoCasa Estudio",
   category: "architecture",
   keywords: [
@@ -99,7 +99,9 @@ const organizationJsonLd = {
   priceRange: "$$$",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Palermo",
+    streetAddress: "Av. Álvarez Thomas 198, 5º piso, Of. A",
+    postalCode: "C1414",
+    addressLocality: "Ciudad Autónoma de Buenos Aires",
     addressRegion: "CABA",
     addressCountry: "AR",
   },

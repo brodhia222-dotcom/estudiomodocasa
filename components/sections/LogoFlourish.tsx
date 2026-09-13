@@ -141,14 +141,14 @@ export function LogoFlourish() {
           aria-label="Ir al sitio principal de ModoCasa estudio"
           className="inline-block transition-opacity duration-300 hover:opacity-80"
         >
-          <h2
+          {/* Es el logo, no un título de sección: el nombre para lectores de pantalla lo da el link. */}
+          <p
             className="inline-flex items-baseline gap-[0.18em] leading-none text-center"
             style={{ fontSize: "clamp(40px, 7vw, 104px)" }}
-            aria-label="ModoCasa estudio"
           >
             <Word text="ModoCasa" />
             <Word text="estudio" italic />
-          </h2>
+          </p>
         </a>
 
         {/* Hairline */}

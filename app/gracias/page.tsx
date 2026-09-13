@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { GraciasContent } from "./GraciasContent";
 
 export const metadata: Metadata = {
-  title: "Gracias · ModoCasa Estudio",
+  // La marca la agrega el template del layout.
+  title: "Gracias",
   description:
     "Recibimos tus datos. Te contactamos a la brevedad para coordinar la reunión.",
   // Página de confirmación: no queremos que se indexe ni que aparezca
