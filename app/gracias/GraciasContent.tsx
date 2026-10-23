@@ -1,32 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { track } from "@/lib/analytics";
 import { Container } from "@/components/primitives/Container";
 import { easeEditorial } from "@/lib/motion";
 import { copy, whatsappLink } from "@/lib/copy";
 
 /**
- * Página de confirmación a la que se llega SOLO después de enviar el
- * formulario con éxito. Al montarse dispara el evento `lead_confirmed`
- * hacia el dataLayer: en GTM ese evento (o el pageview de /gracias) es
- * lo que dispara la conversión de Meta (Lead) y de GA4.
- *
- * Esto reemplaza el disparo anterior que ocurría antes de confirmar que
- * la persona completara los datos, evitando falsos positivos.
+ * Página de confirmación a la que se llega después de enviar el formulario
+ * con éxito. La conversión no se dispara acá sino en el formulario, apenas
+ * el servidor confirma el envío (consulta_enviada, ver lib/analytics.ts):
+ * así entrar directo a /gracias o recargarla no cuenta como consulta.
  */
 export function GraciasContent() {
-  // Guard para no disparar dos veces por el doble render de React StrictMode.
-  const fired = useRef(false);
-
-  useEffect(() => {
-    if (fired.current) return;
-    fired.current = true;
-    sendGTMEvent({ event: "lead_confirmed", form_id: "contacto" });
-  }, []);
-
   return (
     <main className="min-h-[100svh] bg-[var(--color-ink)] text-[var(--color-paper)] flex items-center">
       <Container>
@@ -79,6 +66,7 @@ export function GraciasContent() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("whatsapp_click", { location: "gracias" })}
               className="inline-flex items-center gap-2 text-[14px] tracking-[0.04em] text-[var(--color-paper)]/70 hover:text-[var(--color-paper)] transition-colors"
             >
               {copy.contacto.whatsapp.label} ↗

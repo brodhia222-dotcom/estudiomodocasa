@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { track, consultaEnviada } from "@/lib/analytics";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Section } from "@/components/primitives/Section";
@@ -46,12 +46,13 @@ export function Contacto() {
         setState("error");
         return;
       }
-      // Envío confirmado por el backend. Navegamos a /gracias, que es
-      // donde se dispara la conversión (Meta Lead + GA4) por vista de
-      // página. El estado "success" queda como fallback visual por si
-      // la navegación se demorara.
+      // Envío confirmado por el backend: recién acá cuenta como conversión
+      // (consulta_enviada para el Tag Manager, Lead para Meta). Después se
+      // navega a /gracias. El estado "success" queda como fallback visual
+      // por si la navegación se demorara.
       setState("success");
       form.reset();
+      consultaEnviada();
       router.push("/gracias");
     } catch {
       setState("error");
@@ -80,7 +81,7 @@ export function Contacto() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => sendGTMEvent({ event: "whatsapp_click", source: "contact_section" })}
+                onClick={() => track("whatsapp_click", { location: "contact_section" })}
                 className="group inline-flex items-center justify-between gap-4 text-[var(--color-paper)] hover:opacity-70 transition-opacity"
               >
                 <span className="flex items-center gap-3">
@@ -137,12 +138,12 @@ export function Contacto() {
                   key="form"
                   onSubmit={onSubmit}
                   onFocusCapture={(e) => {
-                    // Solo el comienzo: la conversión sigue siendo lead_confirmed en /gracias
-                    // (así está configurado GTM para Meta y GA4).
+                    // Solo el comienzo: la conversión es consulta_enviada, cuando el
+                    // servidor confirma el envío.
                     const f = e.currentTarget;
                     if (f.dataset.iniciado) return;
                     f.dataset.iniciado = "1";
-                    sendGTMEvent({ event: "form_start", form_id: "contacto" });
+                    track("form_start", { form: "contacto" });
                   }}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}

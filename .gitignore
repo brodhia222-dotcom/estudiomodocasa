@@ -46,3 +46,6 @@ next-env.d.ts
 .scripts/
 .shot-*.png
 .og-preview.png
+
+# Material de trabajo local (control de calidad, capturas, pruebas): no se sube, el repositorio es público
+brief/
